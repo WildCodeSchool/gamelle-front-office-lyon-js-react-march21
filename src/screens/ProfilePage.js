@@ -1,7 +1,9 @@
+import SignUp from '../components/SignUp';
+
 export default function ProfilePage() {
   return (
     <>
-      <h1>Mon compte</h1>
+      <SignUp />
     </>
   );
 }
