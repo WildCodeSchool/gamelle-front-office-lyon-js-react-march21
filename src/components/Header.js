@@ -1,7 +1,7 @@
 /* eslint-disable */
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import Logo from '../assets/logo.png'
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import Logo from '../assets/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTimes,
@@ -11,23 +11,25 @@ import {
   faHistory,
 } from '@fortawesome/free-solid-svg-icons';
 
-
 export default function Header() {
   const [burger, setBurger] = useState(false);
 
   const handleBurgerToggle = () => {
-    setBurger(!burger)
-  }
+    setBurger(!burger);
+  };
 
   return (
     <header className="flex bg-primary">
       <div className="container px-4 justify-between items-center flex flex-wrap">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-          < NavLink exact path="/" to="home" >
+          <NavLink exact path="/" to="home">
             <img src={Logo} alt="logo" className="w-28" />
-          </NavLink >
+          </NavLink>
           <button type="button" onClick={handleBurgerToggle}>
-            <FontAwesomeIcon className="lg:hidden flex " icon={burger ? faTimes : faBars} />
+            <FontAwesomeIcon
+              className="lg:hidden flex "
+              icon={burger ? faTimes : faBars}
+            />
           </button>
           <div
             className={`lg:flex flex-grow items-center${burger ? ' flex' : ' hidden'
@@ -37,14 +39,22 @@ export default function Header() {
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="nav-item">
                 <span className="ml-2">
-                  <NavLink className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" exact to="/recherche">
+                  <NavLink
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                    exact
+                    to="/recherche"
+                  >
                     <FontAwesomeIcon icon={faSearch} />
                   </NavLink>
                 </span>
               </li>
               <li className="nav-item">
                 <span className="ml-2">
-                  <NavLink className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" exact to="/profil">
+                  <NavLink
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                    exact
+                    to="/profil"
+                  >
                     <FontAwesomeIcon icon={faUserCircle} />
                   </NavLink>
                 </span>
@@ -52,7 +62,7 @@ export default function Header() {
               <li className="nav-item">
                 <a
                   className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#historique"
+                  href="/historique"
                 >
                   <span className="ml-2">
                     <NavLink exact to="/historique">
@@ -68,7 +78,7 @@ export default function Header() {
             </ul>
           </div>
         </div>
-      </div >
-    </header >
+      </div>
+    </header>
   );
 }
