@@ -3,8 +3,8 @@
 import { useForm } from 'react-hook-form';
 
 export default function SignUp() {
-  const { register, handleSubmit } = useForm();
-  console.log(register);
+  const { handleSubmit } = useForm();
+
   // VOIR A QUOI SERT LE REGISTER
 
   const onSubmit = () => {
