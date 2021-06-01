@@ -3,9 +3,7 @@
 import { useForm } from 'react-hook-form';
 
 export default function SignUp() {
-  const { handleSubmit } = useForm();
-
-  // VOIR A QUOI SERT LE REGISTER
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = () => {
     // axios
@@ -32,57 +30,60 @@ export default function SignUp() {
           <div className="mb-3">
             <label htmlFor="brand">
               Marque :
-              <input
-                list="brands"
-                name="brand"
+              <select
+                {...register('brand', { required: true })}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              />
-              <datalist id="brands">
+              >
+                <option value="title" selected disabled>
+                  Sélectionnez une marque
+                </option>
                 <option value="Carrefour">Carrefour</option>
                 <option value="Hill's Prescription Diet">
                   Hill's Prescription Diet
                 </option>
                 <option value="Friskies">Friskies</option>
-              </datalist>
+              </select>
             </label>
           </div>
 
           <div className="mb-3">
             <label htmlFor="brand">
               Type d'aliment :
-              <input
-                list="foodTypes"
-                name="footType"
+              <select
+                {...register('footType', { required: true })}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              />
-              <datalist id="foodTypes">
+              >
+                <option value="title" selected disabled>
+                  Sélectionnez un type d'aliments
+                </option>
                 <option value="Aliments Secs">Aliments Secs</option>
                 <option value="Aliments Humides ">Aliments Humides</option>
                 <option value="Friandises">Friandises</option>
-              </datalist>
+              </select>
             </label>
           </div>
 
           <div className="mb-3">
             <label htmlFor="brand">
               Pour :
-              <input
-                list="animalCategories"
-                name="animalCategorie"
+              <select
+                {...register('animalCategorie', { required: true })}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              />
-              <datalist id="animalCategories">
+              >
+                <option value="title" selected disabled>
+                  Sélectionnez une catégorie
+                </option>
                 <option value="Chaton">Chaton</option>
                 <option value="Chat adulte">Chat adulte</option>
                 <option value="Chat senior">Chat senior</option>
-              </datalist>
+              </select>
             </label>
           </div>
           <div className="mb-3">
             <label htmlFor="foodName">
               Nom :
               <input
-                id="foodName"
+                {...register('foodName')}
                 type="text"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Vous pouvez saisir ici le nom de l'aliment"
