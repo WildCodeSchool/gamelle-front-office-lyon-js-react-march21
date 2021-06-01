@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from "react";
+import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
@@ -53,9 +53,7 @@ export default function SignUp() {
             </div>
           </div>
           <div className="mb-3">
-            <label htmlFor="phoneNumber">
-              Numero de téléphone
-              </label>
+            <label htmlFor="phoneNumber">Numero de téléphone</label>
             <input
               id="phoneNumber"
               type="text"
@@ -65,9 +63,7 @@ export default function SignUp() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="email-address">
-              Adresse Email
-              </label>
+            <label htmlFor="email-address">Adresse Email</label>
             <input
               id="email-address"
               name="email"
@@ -80,9 +76,7 @@ export default function SignUp() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password">
-              Mot de passe
-              </label>
+            <label htmlFor="password">Mot de passe</label>
             <input
               id="password"
               name="password"

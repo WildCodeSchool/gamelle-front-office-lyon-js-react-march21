@@ -32,8 +32,9 @@ export default function Header() {
             />
           </button>
           <div
-            className={`lg:flex flex-grow items-center${burger ? ' flex' : ' hidden'
-              }`}
+            className={`lg:flex flex-grow items-center${
+              burger ? ' flex' : ' hidden'
+            }`}
             id="example-navbar-danger"
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
