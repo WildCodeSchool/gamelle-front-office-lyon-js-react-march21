@@ -13,7 +13,7 @@ module.exports = {
       info: '#0769ea',
       warning: '#f4e404',
       danger: '#e01d1d',
-      white: '#ffffff'
+      white: '#ffffff',
     },
     extend: {},
   },
