@@ -1,5 +1,4 @@
 /* eslint-disable */
-import React from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
@@ -22,7 +21,7 @@ export default function SignUp() {
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-8"
+          className="mt-8 space-y-6"
           action="send"
           method="POST"
         >

@@ -31,53 +31,41 @@ export default function Header() {
               icon={burger ? faTimes : faBars}
             />
           </button>
-          <div
-            className={`lg:flex flex-grow items-center${
-              burger ? ' flex' : ' hidden'
+        </div>
+        <div
+          className={`lg:flex flex-grow items-center${burger ? ' flex' : ' hidden'
             }`}
-            id="example-navbar-danger"
-          >
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              <li className="nav-item">
-                <span className="ml-2">
-                  <NavLink
-                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                    exact
-                    to="/recherche"
-                  >
-                    <FontAwesomeIcon icon={faSearch} />
-                  </NavLink>
-                </span>
-              </li>
-              <li className="nav-item">
-                <span className="ml-2">
-                  <NavLink
-                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                    exact
-                    to="/profil"
-                  >
-                    <FontAwesomeIcon icon={faUserCircle} />
-                  </NavLink>
-                </span>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="/historique"
-                >
-                  <span className="ml-2">
-                    <NavLink exact to="/historique">
-                      {burger ? (
-                        'Historique'
-                      ) : (
-                        <FontAwesomeIcon icon={faHistory} />
-                      )}
-                    </NavLink>
-                  </span>
-                </a>
-              </li>
-            </ul>
-          </div>
+          id="example-navbar-danger"
+        >
+          <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end">
+            <li className="nav-item">
+              <NavLink
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                exact
+                to="/recherche"
+              >
+                <FontAwesomeIcon icon={faSearch} />
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                exact
+                to="/profil"
+              >
+                <FontAwesomeIcon icon={faUserCircle} />
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/historique"
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+              >
+                {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
+              </NavLink>
+            </li>
+          </ul>
         </div>
       </div>
     </header>
