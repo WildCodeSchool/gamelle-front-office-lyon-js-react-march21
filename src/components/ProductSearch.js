@@ -1,16 +1,16 @@
-// import axios from 'axios';
-
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
-export default function SignUp() {
+export default function ProductSearch() {
+  const apiBase = process.env.REACT_APP_API_BASE_URL;
   const { register, handleSubmit } = useForm();
-
-  const onSubmit = () => {
-    // axios
-    //   .post('http://localhost:3001/profil/user', form)
-    //   .then((res) => console.log(res.data))
-    //   .catch((err) => console.log(err));
+  const onSubmit = (form) => {
+    axios
+      .post(`${apiBase}/search`, form)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -28,13 +28,14 @@ export default function SignUp() {
           <input type="hidden" name="remember" defaultValue="true" />
 
           <div className="mb-3">
-            <label htmlFor="brand">
+            <label htmlFor="brandName">
               Marque :
               <select
-                {...register('brand', { required: true })}
+                {...register('brandName', { required: true })}
+                defaultValue="title"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option value="title" selected disabled>
+                <option value="title" disabled>
                   Sélectionnez une marque
                 </option>
                 <option value="Carrefour">Carrefour</option>
@@ -47,13 +48,14 @@ export default function SignUp() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="brand">
+            <label htmlFor="foodTypeName">
               Type d'aliment :
               <select
-                {...register('footType', { required: true })}
+                {...register('foodTypeName', { required: true })}
+                defaultValue="title"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option value="title" selected disabled>
+                <option value="title" disabled>
                   Sélectionnez un type d'aliments
                 </option>
                 <option value="Aliments Secs">Aliments Secs</option>
@@ -64,13 +66,14 @@ export default function SignUp() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="brand">
+            <label htmlFor="animalCategoryName">
               Pour :
               <select
-                {...register('animalCategorie', { required: true })}
+                {...register('animalCategoryName', { required: true })}
+                defaultValue="title"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option value="title" selected disabled>
+                <option value="title" disabled>
                   Sélectionnez une catégorie
                 </option>
                 <option value="Chaton">Chaton</option>
@@ -80,10 +83,10 @@ export default function SignUp() {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="foodName">
+            <label htmlFor="searchedWords">
               Nom :
               <input
-                {...register('foodName')}
+                {...register('searchedWords')}
                 type="text"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Vous pouvez saisir ici le nom de l'aliment"
