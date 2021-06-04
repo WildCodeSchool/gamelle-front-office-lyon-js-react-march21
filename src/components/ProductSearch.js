@@ -6,7 +6,7 @@ export default function ProductSearch() {
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
     axios
-      .post(`${apiBase}/search`, form)
+      .post(`${apiBase}/searches`, form)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   };
