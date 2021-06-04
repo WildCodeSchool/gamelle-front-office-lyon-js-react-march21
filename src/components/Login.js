@@ -1,24 +1,29 @@
 /* eslint-disable */
-import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
+import API from '../APIClient';
 
 export default function Login() {
   const { addToast } = useToasts();
-
-  const apiBase = process.env.REACT_APP_API_BASE_URL;
   const { register, handleSubmit } = useForm();
   const onSubmit = ({ email, password }) => {
-    axios
-      .post(`${apiBase}/auth/login`, { email, password })
-      .then((res) => addToast('Connection réussie !', { appearance: 'success', autoDismiss: true, autoDismissTimeout: 3000 }))
+    API.post('/auth/login', { email, password })
+      .then((res) =>
+        addToast('Connection réussie !', {
+          appearance: 'success',
+          autoDismiss: true,
+          autoDismissTimeout: 3000,
+        })
+      )
       .catch((err) => {
         if (err.response && err.response.status === 401) {
-          addToast('Email ou mot de passe incorrect !', { appearance: 'error' });
+          addToast('Email ou mot de passe incorrect !', {
+            appearance: 'error',
+          });
         } else window.console.error(err);
       });
-  }
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-8 lg:px-8">
       <div className="max-w-md w-full">
@@ -38,7 +43,6 @@ export default function Login() {
           <div className="mb-3">
             <label htmlFor="email-address">Adresse Email</label>
             <input
-
               name="email"
               type="email"
               autoComplete="email"
@@ -51,7 +55,6 @@ export default function Login() {
           <div className="mb-3">
             <label htmlFor="password">Mot de passe</label>
             <input
-
               name="password"
               type="password"
               autoComplete="current-password"
@@ -70,7 +73,7 @@ export default function Login() {
             </button>
           </div>
         </form>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }
