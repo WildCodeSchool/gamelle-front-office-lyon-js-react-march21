@@ -1,15 +1,25 @@
+/* eslint-disable no-console */
 import axios from 'axios';
+// import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function ProductSearch() {
   const apiBase = process.env.REACT_APP_API_BASE_URL;
+  // const [brandList, setBrandList] = useState([]);
+
+  axios
+    .get(`${apiBase}/searches`)
+    .then((res) => {
+      console.log(res.data);
+    })
+
+    .catch((err) => console.log(err));
+
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
     axios
       .post(`${apiBase}/searches`, form)
-      // eslint-disable-next-line no-console
       .then((res) => console.log(res.data))
-      // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
   };
 
