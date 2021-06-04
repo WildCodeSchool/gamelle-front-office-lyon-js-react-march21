@@ -1,10 +1,18 @@
 /* eslint-disable */
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 export default function SignUp() {
   const apiBase = process.env.REACT_APP_API_BASE_URL;
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: 'onSubmit',
+  });
   const onSubmit = (form) => {
     axios
       .post(`${apiBase}/users`, form)
@@ -26,7 +34,6 @@ export default function SignUp() {
           method="POST"
         >
           <input type="hidden" name="remember" defaultValue="true" />
-
           <div className="flex">
             <div className="w-1/2 mr-1 mb-3">
               <label htmlFor="firstname">Prénom</label>
@@ -84,10 +91,19 @@ export default function SignUp() {
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               placeholder="Password"
-              {...register('password')}
+              {...register('password', {
+                required: 'this is a required',
+                minLength: {
+                  value: 8,
+                },
+              })}
             />
           </div>
-
+          {errors.password && (
+            <div className="text-danger mb-2">
+              <FontAwesomeIcon icon={faExclamationTriangle} /> min length is 8
+            </div>
+          )}
           <div>
             <button
               type="submit"
