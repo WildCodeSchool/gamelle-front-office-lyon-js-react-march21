@@ -7,7 +7,9 @@ export default function ProductSearch() {
   const onSubmit = (form) => {
     axios
       .post(`${apiBase}/searches`, form)
+      // eslint-disable-next-line no-console
       .then((res) => console.log(res.data))
+      // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
   };
 
