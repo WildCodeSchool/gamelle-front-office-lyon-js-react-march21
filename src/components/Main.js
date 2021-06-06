@@ -11,7 +11,7 @@ export default function Main() {
         <Route exact path="/recherche" component={SearchPage} />
         <Route exact path="/profil" component={ProfilePage} />
         <Route exact path="/historique" component={HistoryPage} />
-        <Route exact path="/search" component={ResultsPage} />
+        <Route exact path="/resultats" component={ResultsPage} />
       </Switch>
     </main>
   );
