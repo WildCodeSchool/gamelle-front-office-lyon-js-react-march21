@@ -29,7 +29,7 @@ export default function SignIn() {
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold">
           Connectez-vous
-          </h2>
+        </h2>
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -69,7 +69,7 @@ export default function SignIn() {
             className="group relative uppercase w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Connection
-            </button>
+          </button>
         </div>
       </form>
     </div>

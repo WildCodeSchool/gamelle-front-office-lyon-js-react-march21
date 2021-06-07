@@ -8,7 +8,7 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { useState } from 'react';
 
 export default function SignUp() {
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('');
 
   const { addToast } = useToasts();
   const {
@@ -53,7 +53,9 @@ export default function SignUp() {
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="flex">
             <div className="w-1/2 mr-1 mb-3">
-              <label htmlFor="firstname" className="dark:text-white">Prénom</label>
+              <label htmlFor="firstname" className="dark:text-white">
+                Prénom
+              </label>
               <input
                 type="text"
                 required
@@ -63,7 +65,9 @@ export default function SignUp() {
               />
             </div>
             <div className="w-1/2 ml-1">
-              <label htmlFor="lastname" className="dark:text-white">Nom</label>
+              <label htmlFor="lastname" className="dark:text-white">
+                Nom
+              </label>
               <input
                 type="text"
                 required
@@ -74,9 +78,10 @@ export default function SignUp() {
             </div>
           </div>
           <div className="mb-3">
-            <label htmlFor="phoneNumber" className="dark:text-white">Numero de téléphone</label>
+            <label htmlFor="phoneNumber" className="dark:text-white">
+              Numero de téléphone
+            </label>
             <input
-
               type="text"
               className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
               placeholder="0610203040"
@@ -84,7 +89,9 @@ export default function SignUp() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="email-address" className="dark:text-white">Adresse Email</label>
+            <label htmlFor="email-address" className="dark:text-white">
+              Adresse Email
+            </label>
             <input
               name="email"
               type="email"
@@ -96,7 +103,9 @@ export default function SignUp() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="dark:text-white">Mot de passe</label>
+            <label htmlFor="password" className="dark:text-white">
+              Mot de passe
+            </label>
             <input
               className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
               name="password"
@@ -110,14 +119,15 @@ export default function SignUp() {
                   value: 8,
                 },
               })}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div>
             <PasswordStrengthBar password={password} minLength={8} />
             {errors.password && (
               <div className="text-danger mb-2">
-                <FontAwesomeIcon icon={faExclamationTriangle} /> 8 caractères minimums
+                <FontAwesomeIcon icon={faExclamationTriangle} /> 8 caractères
+                minimums
               </div>
             )}
           </div>

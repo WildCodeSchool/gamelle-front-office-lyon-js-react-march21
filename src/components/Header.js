@@ -13,11 +13,9 @@ import {
   faHistory,
 } from '@fortawesome/free-solid-svg-icons';
 import ModalSignIn from './modalSignIn';
-import { useTheme } from "react-hook-tailwind-darkmode";
-
+import { useTheme } from 'react-hook-tailwind-darkmode';
 
 export default function Header() {
-
   const [burger, setBurger] = useState(false);
   const handleBurgerToggle = () => {
     setBurger(!burger);
@@ -39,8 +37,9 @@ export default function Header() {
           </button>
         </div>
         <div
-          className={`lg:flex flex-grow items-center${burger ? ' flex' : ' hidden'
-            }`}
+          className={`lg:flex flex-grow items-center${
+            burger ? ' flex' : ' hidden'
+          }`}
         >
           <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
             <li className="nav-item">
@@ -71,16 +70,18 @@ export default function Header() {
               </NavLink>
             </li>
 
-
-            <NavLink exact to="/SignUp" className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75">
+            <NavLink
+              exact
+              to="/SignUp"
+              className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+            >
               S'inscrire
-                </NavLink>
+            </NavLink>
 
             <ModalSignIn />
           </ul>
-
         </div>
-      </div >
-    </header >
+      </div>
+    </header>
   );
 }

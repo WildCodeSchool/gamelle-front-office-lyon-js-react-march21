@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-import { useState } from "react";
-import SignIn from "./SignIn";
+import { useState } from 'react';
+import SignIn from './SignIn';
 
 export default function ModalSignIn() {
   const [showModal, setShowModal] = useState(false);
@@ -40,8 +40,7 @@ export default function ModalSignIn() {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </div>
-      ) : null
-      }
-    </div >
+      ) : null}
+    </div>
   );
 }
