@@ -5,10 +5,12 @@ import Main from './components/Main';
 
 function App() {
   return (
-    <ToastProvider>
-      <Header />
-      <Main />
-    </ToastProvider>
+    <div className="bg-grey dark:bg-darkblue">
+      <ToastProvider>
+        <Header />
+        <Main />
+      </ToastProvider>
+    </div>
   );
 }
 
