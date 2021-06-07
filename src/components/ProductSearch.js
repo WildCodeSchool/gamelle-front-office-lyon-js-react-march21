@@ -1,13 +1,37 @@
+/* eslint-disable no-console */
+import axios from 'axios';
+import { useHistory } from 'react-router';
+import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import API from '../APIClient';
+import ResultsContext from '../contexts/ResultsContext';
 
 export default function ProductSearch() {
+  const apiBase = process.env.REACT_APP_API_BASE_URL;
+  const history = useHistory();
+  const [brandList, setBrandList] = useState(null);
+  const [foodTypeList, setFoodTypeList] = useState(null);
+  const [animalCategoryList, setAnimalCategoryList] = useState(null);
+  const { setResultsList } = useContext(ResultsContext);
+
+  useEffect(() => {
+    axios
+      .get(`${apiBase}/searches`)
+      .then((res) => {
+        setBrandList(res.data[0]);
+        setFoodTypeList(res.data[1]);
+        setAnimalCategoryList(res.data[2]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
-    API.post('/searches', form)
-      // eslint-disable-next-line no-console
-      .then((res) => console.log(res.data))
-      // eslint-disable-next-line no-console
+    axios
+      .post(`${apiBase}/searches`, form)
+      .then((res) => {
+        setResultsList(res.data);
+        history.push('/resultats');
+      })
       .catch((err) => console.log(err));
   };
 
@@ -31,18 +55,19 @@ export default function ProductSearch() {
             <label htmlFor="brandName">
               Marque :
               <select
-                {...register('brandName', { required: true })}
+                {...register('brand', { required: true })}
                 defaultValue="title"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option value="title" disabled>
+                <option key="title" value="title" disabled>
                   Sélectionnez une marque
                 </option>
-                <option value="Carrefour">Carrefour</option>
-                <option value="Hill's Prescription Diet">
-                  Hill's Prescription Diet
-                </option>
-                <option value="Friskies">Friskies</option>
+                {brandList &&
+                  brandList.map((element) => (
+                    <option key={element.brand} value={element.brand}>
+                      {element.brand}
+                    </option>
+                  ))}{' '}
               </select>
             </label>
           </div>
@@ -55,12 +80,15 @@ export default function ProductSearch() {
                 defaultValue="title"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option value="title" disabled>
+                <option key="title" value="title" disabled>
                   Sélectionnez un type d'aliments
                 </option>
-                <option value="Aliments Secs">Aliments Secs</option>
-                <option value="Aliments Humides ">Aliments Humides</option>
-                <option value="Friandises">Friandises</option>
+                {foodTypeList &&
+                  foodTypeList.map((element) => (
+                    <option key={element.name} value={element.name}>
+                      {element.name}
+                    </option>
+                  ))}
               </select>
             </label>
           </div>
@@ -69,16 +97,19 @@ export default function ProductSearch() {
             <label htmlFor="animalCategoryName">
               Pour :
               <select
-                {...register('animalCategoryName', { required: true })}
+                {...register('animalCategoryName', { required: 'required' })}
                 defaultValue="title"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option value="title" disabled>
+                <option key="title" value="title" disabled>
                   Sélectionnez une catégorie
                 </option>
-                <option value="Chaton">Chaton</option>
-                <option value="Chat adulte">Chat adulte</option>
-                <option value="Chat senior">Chat senior</option>
+                {animalCategoryList &&
+                  animalCategoryList.map((element) => (
+                    <option key={element.name} value={element.name}>
+                      {element.name}
+                    </option>
+                  ))}
               </select>
             </label>
           </div>
