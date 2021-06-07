@@ -3,6 +3,7 @@ import SearchPage from '../screens/SearchPage';
 import ProfilePage from '../screens/ProfilePage';
 import HistoryPage from '../screens/HistoryPage';
 import ResultsPage from '../screens/ResultsPage';
+import SignUp from './SignUp';
 
 export default function Main() {
   return (
@@ -12,6 +13,7 @@ export default function Main() {
         <Route exact path="/profil" component={ProfilePage} />
         <Route exact path="/historique" component={HistoryPage} />
         <Route exact path="/resultats" component={ResultsPage} />
+        <Route exact path="/signUp" component={SignUp} />
       </Switch>
     </main>
   );
