@@ -5,8 +5,8 @@ function Toggle() {
   const { changeTheme } = useTheme();
   return (
     <div>
-      <label for="toogleA" class="flex items-center cursor-pointer">
-        <div class="relative">
+      <label htmlFor="toogleA" class="flex items-center cursor-pointer">
+        <div className="relative">
           <input
             onClick={() => changeTheme()}
             id="toogleA"
