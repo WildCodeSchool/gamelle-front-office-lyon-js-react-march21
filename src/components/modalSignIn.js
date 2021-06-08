@@ -9,17 +9,26 @@ export default function ModalSignIn() {
   return (
     <div>
       <div
-        className=" px-3 py-2 bg-primary text-white font-bold uppercase text-xs cursor-pointer"
+        className=" px-3 py-2 bg-primary text-white font-bold uppercase text-xs cursor-pointer hover:opacity-75"
         onClick={() => setShowModal(true)}
       >
         S'identifier
       </div>
       {showModal ? (
         <div>
-          <div className="bg-transparent justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="w-1/2 h-1/2 relative my-6 ">
+          <div
+            className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            onClick={() => setShowModal(false)}
+          >
+            <div className="w-1/2 h-1/2 relative my-6">
               {/*content*/}
-              <div className=" rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+              <div
+                className=" rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
+                onClick={(e) => {
+                  // do not close modal if anything inside modal content is clicked
+                  e.stopPropagation();
+                }}
+              >
                 {/*header*/}
                 {/*body*/}
                 <div className="relative p-6 flex justify-center align-center">

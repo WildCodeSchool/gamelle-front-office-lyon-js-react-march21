@@ -1,6 +1,6 @@
 /* eslint-disable */
 // --------- basical import --------- //
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../assets/logo.png';
 // --------- css import --------- //
@@ -13,15 +13,17 @@ import {
   faHistory,
 } from '@fortawesome/free-solid-svg-icons';
 import ModalSignIn from './modalSignIn';
-
-import './Header.css';
 import Toggle from './Toggle';
+import Logout from './Logout';
+import ConnectedContext from '../contexts/ConnectedContext';
 
 export default function Header() {
+  const { connected } = useContext(ConnectedContext);
   const [burger, setBurger] = useState(false);
   const handleBurgerToggle = () => {
     setBurger(!burger);
   };
+  console.log(connected);
 
   return (
     <header className="w-full flex bg-primary">
@@ -45,45 +47,47 @@ export default function Header() {
           <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
             <li className="nav-item">
               <NavLink
-                className="px-3 py-2 flex items-center text-s uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/recherche"
               >
-                <FontAwesomeIcon icon={faSearch} />
+                {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 exact
                 to="/historique"
-                className="px-3 py-2 flex items-center text-s uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
               >
                 {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                className="px-3 py-2 flex items-center text-s uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/profil"
               >
-                <FontAwesomeIcon icon={faUserCircle} />
+                {burger ? 'Profil' : <FontAwesomeIcon icon={faUserCircle} />}
               </NavLink>
             </li>
-
-            <NavLink
-              exact
-              to="/SignUp"
-              className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-            >
-              S'inscrire
-            </NavLink>
-
-            <ModalSignIn />
+            {connected ? null : (
+              <li>
+                <NavLink
+                  exact
+                  to="/inscription"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                >
+                  S'inscrire
+                </NavLink>
+              </li>
+            )}
+            <li>{connected ? <Logout /> : <ModalSignIn />}</li>
+            <li className="mb-3">
+              <Toggle />
+            </li>
           </ul>
-        </div>
-        <div>
-          <Toggle />
         </div>
       </div>
     </header>
