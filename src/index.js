@@ -7,9 +7,7 @@ import App from './App';
 
 ReactDOM.render(
   <Router history={history}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <App />
   </Router>,
   document.getElementById('root')
 );

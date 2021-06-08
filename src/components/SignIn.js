@@ -1,33 +1,11 @@
 /* eslint-disable */
-import { useContext, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useToasts } from 'react-toast-notifications';
-import API from '../APIClient';
-import ConnectedContext from '../contexts/ConnectedContext';
-
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form'
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 export default function SignIn() {
-  const { setConnected } = useContext(ConnectedContext);
-  const { addToast } = useToasts();
+  const { login } = useContext(CurrentUserContext);
   const { register, handleSubmit } = useForm();
-  const onSubmit = ({ email, password }) => {
-    API.post('/auth/login', { email, password })
-      .then((res) =>
-        addToast(
-          'Connexion réussie !',
-          {
-            appearance: 'success'
-          },
-          setConnected(true)
-        )
-      )
-      .catch((err) => {
-        if (err.response && err.response.status === 401) {
-          addToast('Email ou mot de passe incorrect !', {
-            appearance: 'error',
-          });
-        } else window.console.error(err);
-      });
-  };
+
   return (
     <div className="max-w-md w-full">
       <div>
@@ -36,7 +14,7 @@ export default function SignIn() {
         </h2>
       </div>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(login)}
         className="mt-6 "
         action="send"
         method="POST"
@@ -70,7 +48,7 @@ export default function SignIn() {
         <div>
           <button
             type="submit"
-            className="group relative uppercase w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="group relative uppercase w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-darkpurple"
           >
             Connexion
           </button>

@@ -1,48 +1,51 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Logout from './Logout';
-import API from '../APIClient';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Profile() {
-  const [isLoading, setIsLoading] = useState(true);
-  const { control, handleSubmit, watch, setValue } = useForm({
+  const { profile, getProfile } = useContext(CurrentUserContext);
+  const [isLoading] = useState(true);
+  const { control, handleSubmit, watch, reset } = useForm({
     defaultValues: {
       firstname: '',
       lastname: '',
       email: '',
+      avatarUrl: '',
     },
   });
 
   const onSubmit = (data) => window.console.log(data);
-  const firstname = watch('firstname');
+  const firstName = watch('firstname');
 
   useEffect(() => {
-    API.get('/currentUser')
-      .then((res) => res.data)
-      .then((profil) => {
-        setValue('firstname', profil.firstname);
-        setValue('lastname', profil.lastname);
-        setValue('email', profil.email);
-      })
-      .catch((err) => {
-        window.console.error(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    getProfile();
   }, []);
+
+  useEffect(() => {
+    if (profile) {
+      const { firstname, lastname, avatarUrl, email } = profile;
+      const valuesToUpdate = {
+        firstname,
+        lastname,
+        email,
+        avatarUrl: avatarUrl || '',
+      };
+      reset(valuesToUpdate);
+    }
+  }, [profile]);
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="bg-gray-200 flex items-center flex-col justify-center h-screen">
+        <div className="flex items-center flex-col justify-center h-screen">
           <div className="titre ">
             <h1 className="mt-6 text-center text-3xl font-extrabold">
-              {`Bienvenue ${firstname} !`}
+              {`Bienvenue ${firstName} !`}
             </h1>
           </div>
           <br />
-          <div className="flex items-center bg-primary rounded shadow shadow-lg p-3">
+          <div className="flex items-center bg-primary rounded shadow shadow-lg p-3 dark:bg-darkpurple">
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW-vlzxatqDVDAQu4jpEfVlxcT_HXgembwISZjeZMdt2mm2fJv"
               alt="imageprofil"
@@ -63,7 +66,6 @@ export default function Profile() {
                         {...field}
                         disabled={isLoading}
                         label="Firstname"
-                        readOnly
                       />
                     )}
                   />
@@ -73,12 +75,7 @@ export default function Profile() {
                     name="lastname"
                     control={control}
                     render={({ field }) => (
-                      <input
-                        {...field}
-                        disabled={isLoading}
-                        label="Lastname"
-                        readOnly
-                      />
+                      <input {...field} disabled={isLoading} label="Lastname" />
                     )}
                   />
                 </li>

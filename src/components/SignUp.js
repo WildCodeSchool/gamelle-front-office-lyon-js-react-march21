@@ -1,38 +1,22 @@
 /* eslint-disable */
 import { useForm } from 'react-hook-form';
-import { useToasts } from 'react-toast-notifications';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import API from '../APIClient';
 import PasswordStrengthBar from 'react-password-strength-bar';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function SignUp() {
+  const { createProfile } = useContext(CurrentUserContext);
   const [password, setPassword] = useState('');
-
-  const { addToast } = useToasts();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    mode: 'onSubmit',
-  });
+  } = useForm();
+
   // --------- Appel a l'api --------- //
-  const onSubmit = (form) => {
-    API.post('/users', form)
-      .then((res) =>
-        addToast('La création de votre compte a été un succès !', {
-          appearance: 'success',
-        })
-      )
-      .catch((err) =>
-        addToast('Il y a eu une erreur lors de la création de votre compte.', {
-          appearance: 'error',
-          autoDismiss: true,
-        })
-      );
-  };
+
   return (
     // --------- Creation du form pour créer un compte --------- //
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-8">
@@ -47,7 +31,7 @@ export default function SignUp() {
           </h3>
         </div>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(createProfile)}
           className="mt-8 space-y-6"
           action="send"
           method="POST"
@@ -144,11 +128,10 @@ export default function SignUp() {
               </div>
             )}
           </div>
-
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-darkpurple"
             >
               Créer
             </button>

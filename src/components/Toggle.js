@@ -6,7 +6,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const muiTheme = createMuiTheme({
   palette: {
     primary: {
-      main: '#9370DB',
+      main: '#dbedf3',
     },
     secondary: {
       main: '#155E5F',
@@ -20,9 +20,8 @@ function Toggle() {
     <MuiThemeProvider theme={muiTheme}>
       <div>
         <Switch
-          color="secondary"
+          color="primary"
           onClick={() => changeTheme()}
-          className="color-danger"
         />
       </div>
     </MuiThemeProvider>

@@ -4,11 +4,10 @@ import './index.css';
 import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContext from './contexts/ResultsContext';
-import ConnectedContext from './contexts/ConnectedContext';
+import CurrentUserContextProvider from './contexts/CurrentUserContext';
 
 function App() {
   const [resultsList, setResultsList] = useState([]);
-  const [connected, setConnected] = useState(false);
   return (
     <div className="bg-grey dark:bg-darkblue">
       <ToastProvider
@@ -16,12 +15,12 @@ function App() {
         autoDismissTimeout={5000}
         placement="bottom-right"
       >
-        <ConnectedContext.Provider value={{ connected, setConnected }}>
+        <CurrentUserContextProvider>
           <ResultsContext.Provider value={{ resultsList, setResultsList }}>
             <Header />
             <Main />
           </ResultsContext.Provider>
-        </ConnectedContext.Provider>
+        </CurrentUserContextProvider>
       </ToastProvider>
     </div>
   );

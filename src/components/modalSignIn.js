@@ -9,7 +9,7 @@ export default function ModalSignIn() {
   return (
     <div>
       <div
-        className=" px-3 py-2 bg-primary text-white font-bold uppercase text-xs cursor-pointer hover:opacity-75"
+        className=" px-3 py-2 bg-primary text-white font-bold uppercase text-xs cursor-pointer hover:opacity-75 dark:bg-darkpurple"
         onClick={() => setShowModal(true)}
       >
         S'identifier
@@ -37,7 +37,7 @@ export default function ModalSignIn() {
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 blueGray-200 rounded-b">
                   <button
-                    className="text-white  font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 bg-primary  border border-transparent hover:bg-secondary rounded-lg"
+                    className="text-white font-bold uppercase px-6 py-2 text-sm outline-none mr-1 mb-1 bg-primary  border border-transparent hover:bg-secondary rounded-lg dark:bg-darkpurple"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >
