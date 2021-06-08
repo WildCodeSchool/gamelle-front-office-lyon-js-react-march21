@@ -15,9 +15,7 @@ export default function SignIn() {
         addToast(
           'Connexion réussie !',
           {
-            appearance: 'success',
-            autoDismiss: true,
-            autoDismissTimeout: 3000,
+            appearance: 'success'
           },
           setConnected(true)
         )

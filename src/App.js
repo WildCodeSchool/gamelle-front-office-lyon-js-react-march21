@@ -10,16 +10,20 @@ function App() {
   const [resultsList, setResultsList] = useState([]);
   const [connected, setConnected] = useState(false);
   return (
-    <ConnectedContext.Provider value={{ connected, setConnected }}>
-      <ResultsContext.Provider value={{ resultsList, setResultsList }}>
-        <div className="bg-grey dark:bg-darkblue">
-          <ToastProvider>
+    <div className="bg-grey dark:bg-darkblue">
+      <ToastProvider
+        autoDismiss
+        autoDismissTimeout={5000}
+        placement="bottom-right"
+      >
+        <ConnectedContext.Provider value={{ connected, setConnected }}>
+          <ResultsContext.Provider value={{ resultsList, setResultsList }}>
             <Header />
             <Main />
-          </ToastProvider>
-        </div>
-      </ResultsContext.Provider>
-    </ConnectedContext.Provider>
+          </ResultsContext.Provider>
+        </ConnectedContext.Provider>
+      </ToastProvider>
+    </div>
   );
 }
 

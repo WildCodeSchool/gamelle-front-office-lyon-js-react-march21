@@ -14,8 +14,6 @@ function Logout() {
         'Vous vous êtes déconnecté !',
         {
           appearance: 'success',
-          autoDismiss: true,
-          autoDismissTimeout: 3000,
         },
         setConnected(false),
         history.push('/inscription')

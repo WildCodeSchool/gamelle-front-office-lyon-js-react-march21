@@ -24,8 +24,6 @@ export default function SignUp() {
       .then((res) =>
         addToast('La création de votre compte a été un succès !', {
           appearance: 'success',
-          autoDismiss: true,
-          autoDismissTimeout: 3000,
         })
       )
       .catch((err) =>
