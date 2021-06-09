@@ -1,7 +1,9 @@
+import ProductSearch from '../components/ProductSearch';
+
 export default function SearchPage() {
   return (
     <>
-      <h1>Recherche par marque</h1>
+      <ProductSearch />
     </>
   );
 }

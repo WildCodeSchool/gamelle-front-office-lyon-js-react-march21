@@ -1,7 +1,7 @@
-/* eslint-disable */
-import React, { useState } from 'react';
+// --------- basical import --------- //
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Logo from '../assets/logo.png';
+// --------- css import --------- //
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTimes,
@@ -10,19 +10,25 @@ import {
   faSearch,
   faHistory,
 } from '@fortawesome/free-solid-svg-icons';
+import Logo from '../assets/logo.png';
+import ModalSignIn from './modalSignIn';
+import Toggle from './Toggle';
+import Logout from './Logout';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Header() {
-  const [burger, setBurger] = useState(false);
+  const { isLoggedIn = true } = useContext(CurrentUserContext);
 
+  const [burger, setBurger] = useState(false);
   const handleBurgerToggle = () => {
     setBurger(!burger);
   };
 
   return (
-    <header className="flex bg-primary">
-      <div className="container px-4 justify-between items-center flex flex-wrap">
-        <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-          <NavLink exact path="/" to="home">
+    <header className="w-full flex bg-primary dark:bg-darkpurple">
+      <div className="container px-4 justify-between items-start align-center flex flex-wrap">
+        <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start xl:justify-start 2xl:justify-start">
+          <NavLink exact path="/" to="/">
             <img src={Logo} alt="logo" className="w-28" />
           </NavLink>
           <button type="button" onClick={handleBurgerToggle}>
@@ -33,28 +39,19 @@ export default function Header() {
           </button>
         </div>
         <div
+          // eslint-disable-next-line prettier/prettier
           className={`lg:flex flex-grow items-center${
             burger ? ' flex' : ' hidden'
           }`}
-          id="example-navbar-danger"
         >
-          <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end">
+          <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
             <li className="nav-item">
               <NavLink
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/recherche"
               >
-                <FontAwesomeIcon icon={faSearch} />
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                exact
-                to="/profil"
-              >
-                <FontAwesomeIcon icon={faUserCircle} />
+                {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
               </NavLink>
             </li>
             <li className="nav-item">
@@ -65,6 +62,39 @@ export default function Header() {
               >
                 {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
               </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                exact
+                to="/profil"
+              >
+                {burger ? 'Profil' : <FontAwesomeIcon icon={faUserCircle} />}
+              </NavLink>
+            </li>
+            {!isLoggedIn && (
+              <>
+                <li>
+                  <NavLink
+                    exact
+                    to="/inscription"
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  >
+                    S'inscrire
+                  </NavLink>
+                </li>
+                <li>
+                  <ModalSignIn />
+                </li>
+              </>
+            )}
+            {isLoggedIn && (
+              <li>
+                <Logout />
+              </li>
+            )}
+            <li className="mb-3">
+              <Toggle />
             </li>
           </ul>
         </div>
