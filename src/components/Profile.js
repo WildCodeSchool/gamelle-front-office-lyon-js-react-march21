@@ -1,8 +1,10 @@
+/* eslint-disable */
 import { useEffect, useContext, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
+import DeleteProfile from './DeleteProfile';
 
 export default function Profile() {
   const avatarUploadRef = useRef();
@@ -40,6 +42,10 @@ export default function Profile() {
     }
   }, [profile]);
 
+  const handleAvatarClick = () => {
+    avatarUploadRef.current.click();
+  };
+
   const handleAvatarFileInputChange = (e) => {
     if (e.target.files[0]) {
       setValue('avatarUrl', URL.createObjectURL(e.target.files[0]));
@@ -56,18 +62,27 @@ export default function Profile() {
           </div>
           <br />
           <div className="flex items-center bg-primary rounded shadow shadow-lg p-3 dark:bg-darkpurple">
-            <input
-              type="file"
-              accept="image/png, image/jpeg, image/jpg"
-              ref={avatarUploadRef}
-              onChange={handleAvatarFileInputChange}
-            />
-            <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
+            <div className="flex justify-center items-center" onClick={handleAvatarClick}>
+              <input
+                type="file"
+                accept="image/png, image/jpeg, image/jpg"
+                ref={avatarUploadRef}
+                onChange={handleAvatarFileInputChange}
+                style={{ display: 'none' }}
+              />
+              <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
+              <button
+                type="button"
+                className="border"
+              >
+                Change ta photo
+              </button>
+            </div>
             <br />
 
             <div className="flex items-center w-auto m-4">
               <ul className="listeDetail">
-                <li className="bg-gray-200 w-auto  text-center p-10">
+                <li className="bg-gray-200 w-auto text-center p-10">
                   <Controller
                     name="firstname"
                     control={control}
@@ -77,6 +92,7 @@ export default function Profile() {
                         {...field}
                         disabled={savingProfile || loadingProfile}
                         label="Firstname"
+                        autoComplete="off"
                       />
                     )}
                   />
@@ -90,6 +106,7 @@ export default function Profile() {
                         {...field}
                         disabled={savingProfile || loadingProfile}
                         label="Lastname"
+                        autoComplete="off"
                       />
                     )}
                   />
@@ -104,7 +121,7 @@ export default function Profile() {
                         {...field}
                         disabled={savingProfile || loadingProfile}
                         label="Email"
-                        readOnly
+                        autoComplete="off"
                       />
                     )}
                   />
@@ -124,6 +141,7 @@ export default function Profile() {
             <p>Modifier votre profil</p>
             <p>Ajouter un animal</p>
             <Logout />
+            <DeleteProfile />
           </div>
         </div>
       </form>

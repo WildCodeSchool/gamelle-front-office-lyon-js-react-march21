@@ -15,7 +15,6 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
-
   return (
     // --------- Creation du form pour créer un compte --------- //
     <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-8">

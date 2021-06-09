@@ -1,5 +1,5 @@
 import qs from 'query-string';
-import { createContext, useCallback, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import API from '../APIClient';
 import history from '../history';
@@ -48,6 +48,11 @@ export default function CurrentUserContextProvider({ children }) {
   });
 
   // ------------------------------------------ //
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  // ------------------------------------------ //
   const createProfile = useCallback(async (form) => {
     try {
       API.post('/users', form);
@@ -80,11 +85,14 @@ export default function CurrentUserContextProvider({ children }) {
           }
         ).then((res) => res.data);
         setProfile(updatedProfile);
-        addToast('Profile successfully updated', {
+        addToast('Votre profil a bien été mis à jour !', {
           appearance: 'success',
         });
       } catch (err) {
         window.console.error(err);
+        addToast('Il ya eu un problème lors de la mise à jour', {
+          appearance: 'error',
+        });
       } finally {
         setSavingProfile(false);
       }
@@ -108,6 +116,23 @@ export default function CurrentUserContextProvider({ children }) {
     }
   }, []);
 
+  const deleteUser = (id) => {
+    // eslint-disable-next-line
+    if (window.confirm('Are you sure ?')) {
+      setLoadingProfile(true);
+      API.delete(`/profil/${id}`)
+        .then(() => {
+          setProfile((profil) => profil.filter((n) => n.id !== id));
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoadingProfile(false);
+        });
+    }
+  };
+
   return (
     <CurrentUserContext.Provider
       value={{
@@ -120,6 +145,7 @@ export default function CurrentUserContextProvider({ children }) {
         logout,
         login,
         createProfile,
+        deleteUser,
       }}
     >
       {children}
