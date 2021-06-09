@@ -15,7 +15,6 @@ export default function SignUp() {
     formState: { errors },
   } = useForm();
 
-  // --------- Appel a l'api --------- //
 
   return (
     // --------- Creation du form pour créer un compte --------- //

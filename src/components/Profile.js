@@ -1,12 +1,14 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import Avatar from './Avatar';
 
 export default function Profile() {
-  const { profile, getProfile } = useContext(CurrentUserContext);
-  const [isLoading] = useState(true);
-  const { control, handleSubmit, watch, reset } = useForm({
+  const avatarUploadRef = useRef();
+  const { profile, getProfile, savingProfile, loadingProfile, updateProfile } =
+    useContext(CurrentUserContext);
+  const { control, handleSubmit, watch, reset, setValue } = useForm({
     defaultValues: {
       firstname: '',
       lastname: '',
@@ -15,8 +17,11 @@ export default function Profile() {
     },
   });
 
-  const onSubmit = (data) => window.console.log(data);
+  const onSubmit = (data) =>
+    updateProfile({ ...data, avatar: avatarUploadRef.current.files[0] });
+
   const firstName = watch('firstname');
+  const avatar = watch('avatarUrl');
 
   useEffect(() => {
     getProfile();
@@ -35,23 +40,29 @@ export default function Profile() {
     }
   }, [profile]);
 
+  const handleAvatarFileInputChange = (e) => {
+    if (e.target.files[0]) {
+      setValue('avatarUrl', URL.createObjectURL(e.target.files[0]));
+    }
+  };
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center flex-col justify-center h-screen">
           <div className="titre ">
             <h1 className="mt-6 text-center text-3xl font-extrabold">
-              {`Bienvenue ${firstName} !`}
+              {firstName ? `Bienvenue ${firstName} !` : `Bienvenue !`}
             </h1>
           </div>
           <br />
           <div className="flex items-center bg-primary rounded shadow shadow-lg p-3 dark:bg-darkpurple">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW-vlzxatqDVDAQu4jpEfVlxcT_HXgembwISZjeZMdt2mm2fJv"
-              alt="imageprofil"
-              width="300"
-              className="mr-4 rounded-full p-3"
+            <input
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              ref={avatarUploadRef}
+              onChange={handleAvatarFileInputChange}
             />
+            <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
             <br />
 
             <div className="flex items-center w-auto m-4">
@@ -64,7 +75,7 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        disabled={isLoading}
+                        disabled={savingProfile || loadingProfile}
                         label="Firstname"
                       />
                     )}
@@ -75,7 +86,11 @@ export default function Profile() {
                     name="lastname"
                     control={control}
                     render={({ field }) => (
-                      <input {...field} disabled={isLoading} label="Lastname" />
+                      <input
+                        {...field}
+                        disabled={savingProfile || loadingProfile}
+                        label="Lastname"
+                      />
                     )}
                   />
                 </li>
@@ -87,7 +102,7 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        disabled={isLoading}
+                        disabled={savingProfile || loadingProfile}
                         label="Email"
                         readOnly
                       />
@@ -99,6 +114,13 @@ export default function Profile() {
           </div>
           <br />
           <div className="text-gray-700">
+            <button
+              disabled={savingProfile || loadingProfile}
+              type="submit"
+              className="text-white"
+            >
+              Sauvegarder
+            </button>
             <p>Modifier votre profil</p>
             <p>Ajouter un animal</p>
             <Logout />

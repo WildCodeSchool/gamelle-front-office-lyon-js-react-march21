@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { useContext } from 'react';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 export default function SignIn() {
   const { login } = useContext(CurrentUserContext);

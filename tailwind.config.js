@@ -27,7 +27,7 @@ module.exports = {
       grey: '#dbedf3',
       darkblue: '#283149',
       'gray-200': '#E4E4E7',
-      darkpurple: '#9370DB'
+      darkpurple: '#9370DB',
     },
     textOpacity: ['dark'],
   },

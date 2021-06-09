@@ -19,10 +19,7 @@ function Toggle() {
   return (
     <MuiThemeProvider theme={muiTheme}>
       <div>
-        <Switch
-          color="primary"
-          onClick={() => changeTheme()}
-        />
+        <Switch color="primary" onClick={() => changeTheme()} />
       </div>
     </MuiThemeProvider>
   );
