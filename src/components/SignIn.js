@@ -1,29 +1,11 @@
 /* eslint-disable */
-import { useState } from 'react';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useToasts } from 'react-toast-notifications';
-import API from '../APIClient';
-
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 export default function SignIn() {
-  const { addToast } = useToasts();
+  const { login } = useContext(CurrentUserContext);
   const { register, handleSubmit } = useForm();
-  const onSubmit = ({ email, password }) => {
-    API.post('/auth/login', { email, password })
-      .then((res) =>
-        addToast('Connection réussie !', {
-          appearance: 'success',
-          autoDismiss: true,
-          autoDismissTimeout: 3000,
-        })
-      )
-      .catch((err) => {
-        if (err.response && err.response.status === 401) {
-          addToast('Email ou mot de passe incorrect !', {
-            appearance: 'error',
-          });
-        } else window.console.error(err);
-      });
-  };
+
   return (
     <div className="max-w-md w-full">
       <div>
@@ -32,7 +14,7 @@ export default function SignIn() {
         </h2>
       </div>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(login)}
         className="mt-6 "
         action="send"
         method="POST"
@@ -47,7 +29,7 @@ export default function SignIn() {
             autoComplete="email"
             required
             className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="Email address"
+            placeholder="croc.blanc@exemple.com"
             {...register('email')}
           />
         </div>
@@ -59,16 +41,16 @@ export default function SignIn() {
             autoComplete="current-password"
             required
             className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="Password"
+            placeholder="********"
             {...register('password')}
           />
         </div>
         <div>
           <button
             type="submit"
-            className="group relative uppercase w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="group relative uppercase w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-darkpurple"
           >
-            Connection
+            Connexion
           </button>
         </div>
       </form>

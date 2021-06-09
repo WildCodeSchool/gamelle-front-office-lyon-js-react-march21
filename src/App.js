@@ -4,19 +4,25 @@ import './index.css';
 import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContext from './contexts/ResultsContext';
+import CurrentUserContextProvider from './contexts/CurrentUserContext';
 
 function App() {
   const [resultsList, setResultsList] = useState([]);
-
   return (
-    <ResultsContext.Provider value={{ resultsList, setResultsList }}>
-      <div className="bg-grey dark:bg-darkblue">
-        <ToastProvider>
-          <Header />
-          <Main />
-        </ToastProvider>
-      </div>
-    </ResultsContext.Provider>
+    <div className="bg-grey dark:bg-darkblue">
+      <ToastProvider
+        autoDismiss
+        autoDismissTimeout={5000}
+        placement="bottom-right"
+      >
+        <CurrentUserContextProvider>
+          <ResultsContext.Provider value={{ resultsList, setResultsList }}>
+            <Header />
+            <Main />
+          </ResultsContext.Provider>
+        </CurrentUserContextProvider>
+      </ToastProvider>
+    </div>
   );
 }
 

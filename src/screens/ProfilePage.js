@@ -1,7 +1,9 @@
-/* eslint-disable */
-import SignIn from '../components/SignIn';
-import SignUp from '../components/SignUp';
+import Profile from '../components/Profile';
 
 export default function ProfilePage() {
-  return <></>;
+  return (
+    <>
+      <Profile />
+    </>
+  );
 }
