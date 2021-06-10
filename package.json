@@ -35,7 +35,7 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
-    "autoprefixer": "^9",
+    "autoprefixer": "^9.8.6",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -47,9 +47,9 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.3.0",
-    "postcss": "^7",
+    "postcss": "^7.0.35",
     "prettier": "^2.1.2",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat"
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.4"
   },
   "scripts": {
     "start": "craco start",
