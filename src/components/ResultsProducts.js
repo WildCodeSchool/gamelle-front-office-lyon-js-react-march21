@@ -18,6 +18,7 @@ export default function ResultsPage() {
             <div>
               <div className="font-bold">{result.brand}</div>
               <div>{result.name}</div>
+              <div>{result.barcode}</div>
             </div>
           </li>
         ))}
