@@ -125,6 +125,7 @@ export default function CurrentUserContextProvider({ children }) {
           setProfile((profil) => profil.filter((n) => n.id !== id));
         })
         .catch((err) => {
+          // eslint-disable-next-line no-console
           console.log(err);
         })
         .finally(() => {
