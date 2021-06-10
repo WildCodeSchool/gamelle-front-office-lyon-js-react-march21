@@ -1,4 +1,4 @@
-import qs from 'query-string';
+// import qs from 'query-string';
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import API from '../APIClient';
@@ -32,8 +32,8 @@ export default function CurrentUserContextProvider({ children }) {
   const login = useCallback(async ({ email, password }) => {
     try {
       await API.post('/auth/login', { email, password });
-      const { redirectUrl } = qs.parse(window.location.search);
-      if (redirectUrl) history.push(redirectUrl);
+      // const { redirectUrl } = qs.parse(window.location.search);
+      // if (redirectUrl) history.push(redirectUrl);
       addToast('Connexion réussie !', {
         appearance: 'success',
       });
@@ -116,19 +116,41 @@ export default function CurrentUserContextProvider({ children }) {
     }
   }, []);
 
+  const kick = useCallback(async () => {
+    try {
+      await API.get('/auth/logout');
+      setProfile(undefined);
+      history.push('/');
+    } catch (err) {
+      window.console.error(err);
+    }
+  }, []);
+
   const deleteUser = (id) => {
     // eslint-disable-next-line
     if (window.confirm('Are you sure ?')) {
       setLoadingProfile(true);
-      API.delete(`/profil/${id}`)
+      API.delete(`/users/${id}`)
         .then(() => {
-          setProfile((profil) => profil.filter((n) => n.id !== id));
+          setProfile(
+            Object.values((profil) => profil.filter((n) => n.id !== id))
+          );
+          addToast('Votre compte a bien été supprimé !', {
+            appearance: 'success',
+          });
         })
         .catch((err) => {
-          console.log(err);
+          window.console.error(err);
+          addToast(
+            'Il u a eu une erreur lors de la supression de votre compte !',
+            {
+              appearance: 'error',
+            }
+          );
         })
         .finally(() => {
           setLoadingProfile(false);
+          kick();
         });
     }
   };
@@ -146,9 +168,33 @@ export default function CurrentUserContextProvider({ children }) {
         login,
         createProfile,
         deleteUser,
+        kick,
       }}
     >
       {children}
     </CurrentUserContext.Provider>
   );
 }
+
+/*   const deleteUser = useCallback(async (id) => {
+    // eslint-disable-next-line
+    if (window.confirm('Are you sure ?')) {
+      setLoadingProfile(true);
+      try {
+        await API.delete(`/profil/${id}`).then(() => {
+          setProfile((profil) => profil.filter((n) => n.id !== id));
+          addToast('Votre compte a bien éte supprimé !', {
+            appearance: 'error',
+          }).finally(() => {
+            setLoadingProfile(false);
+          });
+        });
+      } catch (err) {
+        addToast('Il y a eu une erreur lors de la création de votre compte !', {
+          appearance: 'error',
+        });
+      }
+    }
+  });
+
+*/

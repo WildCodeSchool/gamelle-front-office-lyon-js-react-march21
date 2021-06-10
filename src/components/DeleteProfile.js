@@ -2,10 +2,10 @@ import { useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function DeleteProfile() {
-  const { deleteUser } = useContext(CurrentUserContext);
+  const { profile, deleteUser } = useContext(CurrentUserContext);
   return (
     <>
-      <button type="button" onClick={deleteUser}>
+      <button type="button" onClick={() => deleteUser(profile.id)}>
         Delete moi stp
       </button>
     </>

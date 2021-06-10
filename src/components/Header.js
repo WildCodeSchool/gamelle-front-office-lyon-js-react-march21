@@ -40,9 +40,9 @@ export default function Header() {
         </div>
         <div
           // eslint-disable-next-line prettier/prettier
-          className={`lg:flex flex-grow items-center${
-            burger ? ' flex' : ' hidden'
-          }`}
+          className={`lg:flex flex-grow items-center${burger ? ' flex' : ' hidden'
+            // eslint-disable-next-line prettier/prettier
+            }`}
         >
           <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
             <li className="nav-item">
@@ -63,15 +63,23 @@ export default function Header() {
                 {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                exact
-                to="/profil"
-              >
-                {burger ? 'Profil' : <FontAwesomeIcon icon={faUserCircle} />}
-              </NavLink>
-            </li>
+            {isLoggedIn && (
+              <>
+                <li>
+                  <NavLink
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                    exact
+                    to="/profil"
+                  >
+                    {burger ? (
+                      'Profil'
+                    ) : (
+                      <FontAwesomeIcon icon={faUserCircle} />
+                    )}
+                  </NavLink>
+                </li>
+              </>
+            )}
             {!isLoggedIn && (
               <>
                 <li>

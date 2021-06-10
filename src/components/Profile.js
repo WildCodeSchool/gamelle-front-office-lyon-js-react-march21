@@ -62,7 +62,10 @@ export default function Profile() {
           </div>
           <br />
           <div className="flex items-center bg-primary rounded shadow shadow-lg p-3 dark:bg-darkpurple">
-            <div className="flex justify-center items-center" onClick={handleAvatarClick}>
+            <div
+              className="flex justify-center items-center"
+              onClick={handleAvatarClick}
+            >
               <input
                 type="file"
                 accept="image/png, image/jpeg, image/jpg"
@@ -71,10 +74,7 @@ export default function Profile() {
                 style={{ display: 'none' }}
               />
               <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
-              <button
-                type="button"
-                className="border"
-              >
+              <button type="button" className="border">
                 Change ta photo
               </button>
             </div>
