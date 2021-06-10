@@ -16,10 +16,10 @@ export default function UserProfile() {
 
         <div className="flex items-center w-auto m-4">
           <ul className="listeDetail">
-            <li className="bg-grey w-auto  text-center p-10">
+            <li className="bg-grey  w-auto  text-center p-10">
               <p>user.name</p>
             </li>
-            <li className="bg-white w-auto text-center p-10">
+            <li className="bg-white  w-auto text-center p-10">
               <p>user.username</p>
             </li>
             <li className="bg-grey w-auto text-center p-10">
