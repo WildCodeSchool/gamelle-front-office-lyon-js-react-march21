@@ -5,19 +5,33 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { useState, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useToasts } from 'react-toast-notifications';
 
 export default function SignUp() {
-  const { createProfile } = useContext(CurrentUserContext);
+  const { addToast } = useToasts();
+  const { createProfile /*, confirmedPassword, setConfirmedPassword */ } = useContext(CurrentUserContext);
   const [password, setPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const confirm = (form) => {
+    if (password !== confirmedPassword) {
+      addToast("Les mots de passe ne sont pas identiques", {
+        appearance: 'error',
+      });
+    } else {
+      createProfile(form)
+    }
+  }
+
   return (
     // --------- Creation du form pour créer un compte --------- //
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-8 shad">
       <div className="max-w-md w-full">
         <div>
           <h2 className="mt-6 text-center text-3xl font-gamelle font-extrabold dark:text-white">
@@ -29,7 +43,7 @@ export default function SignUp() {
           </h3>
         </div>
         <form
-          onSubmit={handleSubmit(createProfile)}
+          onSubmit={handleSubmit(confirm)}
           className="mt-8 space-y-6"
           action="send"
           method="POST"
@@ -93,7 +107,7 @@ export default function SignUp() {
             <input
               className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={password}
               required
               placeholder="********"
@@ -106,12 +120,27 @@ export default function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          <div className="mb-3">
+            <label htmlFor="confirmedPassword" className="dark:text-white">
+              Veuillez confirmer votre mot de passe<span style={{ color: 'red' }}>*</span>
+            </label>
+            <input
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+              name="confirmedPassword"
+              type={showPassword ? "text" : "password"}
+              value={confirmedPassword}
+              required
+              placeholder="********"
+              onChange={(e) => setConfirmedPassword(e.target.value)}
+            />
+          </div>
+          <input type="checkbox" onClick={() => setShowPassword(!showPassword)} />
           <div>
             <PasswordStrengthBar
               password={password}
               minLength={8}
               scoreWords={[
-                'Trop court',
+                'Trop faible',
                 'Faible',
                 'Moyen',
                 'Fort',
@@ -135,6 +164,7 @@ export default function SignUp() {
             </button>
           </div>
         </form>
+
       </div>
     </div>
   );

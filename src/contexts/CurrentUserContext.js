@@ -11,6 +11,7 @@ export default function CurrentUserContextProvider({ children }) {
   const [profile, setProfile] = useState();
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
+  // const [confirmedPassword, setConfirmedPassword] = useState('');
   const isLoggedIn = !!profile;
 
   // ------------------------------------------ //
@@ -53,9 +54,10 @@ export default function CurrentUserContextProvider({ children }) {
   }, []);
 
   // ------------------------------------------ //
+
   const createProfile = useCallback(async (form) => {
     try {
-      API.post('/users', form);
+      await API.post('/users', form);
       addToast('La création de votre compte a été un succès !', {
         appearance: 'success',
       });
@@ -169,6 +171,8 @@ export default function CurrentUserContextProvider({ children }) {
         createProfile,
         deleteUser,
         kick,
+        // confirmedPassword,
+        // setConfirmedPassword,
       }}
     >
       {children}
