@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios from 'axios';
 import { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router';
@@ -8,11 +9,9 @@ const apiBase = process.env.REACT_APP_API_BASE_URL;
 export default function FicheProduit() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const location = useLocation();
-  let productId = location.state != null ? location.state.productId : null;
-  console.log('productId     ', productId);
 
   useEffect(() => {
-    productId = location.state != null ? location.state.productId : null;
+    const productId = location.state != null ? location.state.productId : null;
     console.log('productId     ', productId);
 
     axios
