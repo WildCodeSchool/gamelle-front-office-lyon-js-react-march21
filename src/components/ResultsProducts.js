@@ -7,20 +7,6 @@ import ResultsContext from '../contexts/ResultsContext';
 
 export default function ResultsPage() {
   const { resultsList } = useContext(ResultsContext);
-  // const history = useHistory();
-  // const apiBase = process.env.REACT_APP_API_BASE_URL;
-  // const { setFoodDetails } = useContext(FoodContext);
-
-  // const goToDetails = (id) => {
-  //   axios
-  //     .get(`${apiBase}/foods/${id}`)
-  //     .then((res) => {
-  //       setFoodDetails(res);
-  //       console.log('gotodetails    ', res);
-  //       history.push(`/ficheproduit/${id}`);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   return resultsList.length !== 0 ? (
     <div className="flex items-center flex-col justify-center">
@@ -43,13 +29,8 @@ export default function ResultsPage() {
                 },
               }}
             >
-              {/* <button
-              className="flex items-center bg-white shadow shadow-lg px-5 py-2 m-5"
-              type="button"
-              onClick={() => goToDetails(result.id)}
-            > */}
               <img
-                className="w-40 h-40 bg-auto rounded-xl mr-5"
+                className="w-40 h-40 object-contain bg-auto rounded-xl mr-5"
                 src={result.image}
                 alt={result.name}
               />
@@ -58,7 +39,6 @@ export default function ResultsPage() {
                 <p className="text-base">{result.name}</p>
                 <p className="text-base">{result.barcode}</p>
               </div>
-              {/* </button> */}
             </NavLink>
           </li>
         ))}

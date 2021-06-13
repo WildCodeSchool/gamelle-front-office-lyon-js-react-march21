@@ -35,7 +35,7 @@ export default function FicheProduit() {
               className="flex items-center bg-white shadow shadow-lg px-5 py-2 m-5"
             >
               <img
-                className="w-20 h-20 mr-4 rounded-full p-3"
+                className="w-20 h-20 object-contain mr-4 rounded-full p-3"
                 src={foodDetails.image_aws_url}
                 alt={foodDetails.image_aws_url}
               />
