@@ -30,7 +30,7 @@ export default function ResultsPage() {
               }}
             >
               <img
-                className="w-40 h-40 object-contain bg-auto rounded-xl mr-5"
+                className="w-40 h-40 object-contain bg-gray-300 rounded-xl mr-5"
                 src={result.image}
                 alt={result.name}
               />
