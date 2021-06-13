@@ -4,10 +4,13 @@ import './index.css';
 import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContext from './contexts/ResultsContext';
+import FoodContext from './contexts/FoodContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 
 function App() {
   const [resultsList, setResultsList] = useState([]);
+  const [foodDetails, setFoodDetails] = useState([]);
+
   return (
     <div className="bg-grey dark:bg-darkblue">
       <ToastProvider
@@ -17,8 +20,10 @@ function App() {
       >
         <CurrentUserContextProvider>
           <ResultsContext.Provider value={{ resultsList, setResultsList }}>
-            <Header />
-            <Main />
+            <FoodContext.Provider value={{ foodDetails, setFoodDetails }}>
+              <Header />
+              <Main />
+            </FoodContext.Provider>
           </ResultsContext.Provider>
         </CurrentUserContextProvider>
       </ToastProvider>
