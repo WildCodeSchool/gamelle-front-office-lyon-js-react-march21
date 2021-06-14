@@ -1,6 +1,7 @@
 // import qs from 'query-string';
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
+import qs from 'query-string';
 import API from '../APIClient';
 import history from '../history';
 
@@ -13,6 +14,7 @@ export default function CurrentUserContextProvider({ children }) {
   const [savingProfile, setSavingProfile] = useState(false);
   // const [confirmedPassword, setConfirmedPassword] = useState('');
   const isLoggedIn = !!profile;
+  const [showModal, setShowModal] = useState(false);
 
   // ------------------------------------------ //
   const getProfile = useCallback(async () => {
@@ -118,6 +120,7 @@ export default function CurrentUserContextProvider({ children }) {
     }
   }, []);
 
+  // ------------------------------------------ //
   const kick = useCallback(async () => {
     try {
       await API.get('/auth/logout');
@@ -128,6 +131,7 @@ export default function CurrentUserContextProvider({ children }) {
     }
   }, []);
 
+  // ------------------------------------------ //
   const deleteUser = (id) => {
     // eslint-disable-next-line
     if (window.confirm('Are you sure ?')) {
@@ -157,6 +161,56 @@ export default function CurrentUserContextProvider({ children }) {
     }
   };
 
+  // ------------------------------------------ //
+  const resetPassword = useCallback(async (data) => {
+    const { userId, token } = qs.parse(window.location.search);
+    try {
+      await API.post('/users/reset-password', {
+        password: data.password,
+        token,
+        userId,
+      });
+      addToast('Votre mot de passe a bien été mis à jour !', {
+        appearance: 'success',
+      });
+      history.push('/');
+    } catch {
+      addToast(
+        'Un problème est survenu lors de la mise à jour de votre mot de passe, veuillez réessayer !',
+        { appearance: 'error' }
+      );
+    }
+  });
+
+  // ------------------------------------------ //
+  const resetPasswordEmail = (data) => {
+    API.post('/users/reset-password-email', data).then(() => {
+      addToast(
+        'Un email a été envoyé afin de réinitialiser votre mot de passe, veuillez vérifier votre boîte mail !',
+        { appearance: 'success' }
+      );
+    });
+  };
+
+  /* const checkedEmail = useCallback(async (data) => {
+    const { userId, token } = qs.parse(window.location.search);
+    try {
+      await API.post('/users/confirmed-email', {
+        email: data.email,
+        token,
+        userId,
+      });
+      addToast('La création de votre compte est un succès !', {
+        appearance: 'success',
+      });
+    } catch {
+      addToast(
+        'Un problème est survenu lors de la création de votre compte, veuillez réessayer !',
+        { appearance: 'error' }
+      );
+    }
+  }); */
+
   return (
     <CurrentUserContext.Provider
       value={{
@@ -171,6 +225,11 @@ export default function CurrentUserContextProvider({ children }) {
         createProfile,
         deleteUser,
         kick,
+        resetPassword,
+        resetPasswordEmail,
+        showModal,
+        setShowModal,
+        // checkedEmail,
         // confirmedPassword,
         // setConfirmedPassword,
       }}

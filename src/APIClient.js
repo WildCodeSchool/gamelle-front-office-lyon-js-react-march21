@@ -14,13 +14,14 @@ const API = axios.create({
     if (
       err.response &&
       (err.response.status === 401 || err.response.status === 403) &&
-      window.location.pathname !== '/'
+      window.location.pathname !== '/' &&
+      window.location.pathname !== '/mot-de-passe-oublié' &&
+      window.location.pathname !== '/réinitialisation-mot-de-passe'
     ) {
       browserHistory.push(`/?redirectUrl=${window.location.pathname}`);
     }
     return Promise.reject(err);
   }
-);
-*/
+); */
 
 export default API;
