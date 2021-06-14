@@ -9,9 +9,10 @@ import { useToasts } from 'react-toast-notifications';
 
 export default function SignUp() {
   const { addToast } = useToasts();
-  const { createProfile /*, confirmedPassword, setConfirmedPassword */ } = useContext(CurrentUserContext);
+  const { createProfile /*, confirmedPassword, setConfirmedPassword */ } =
+    useContext(CurrentUserContext);
   const [password, setPassword] = useState('');
-  const [confirmedPassword, setConfirmedPassword] = useState('')
+  const [confirmedPassword, setConfirmedPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -21,13 +22,13 @@ export default function SignUp() {
 
   const confirm = (form) => {
     if (password !== confirmedPassword) {
-      addToast("Les mots de passe ne sont pas identiques", {
+      addToast('Les mots de passe ne sont pas identiques', {
         appearance: 'error',
       });
     } else {
-      createProfile(form)
+      createProfile(form);
     }
-  }
+  };
 
   return (
     // --------- Creation du form pour créer un compte --------- //
@@ -107,7 +108,7 @@ export default function SignUp() {
             <input
               className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
               name="password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               value={password}
               required
               placeholder="********"
@@ -122,19 +123,23 @@ export default function SignUp() {
           </div>
           <div className="mb-3">
             <label htmlFor="confirmedPassword" className="dark:text-white">
-              Veuillez confirmer votre mot de passe<span style={{ color: 'red' }}>*</span>
+              Veuillez confirmer votre mot de passe
+              <span style={{ color: 'red' }}>*</span>
             </label>
             <input
               className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
               name="confirmedPassword"
-              type={showPassword ? "text" : "password"}
+              type={showPassword ? 'text' : 'password'}
               value={confirmedPassword}
               required
               placeholder="********"
               onChange={(e) => setConfirmedPassword(e.target.value)}
             />
           </div>
-          <input type="checkbox" onClick={() => setShowPassword(!showPassword)} />
+          <input
+            type="checkbox"
+            onClick={() => setShowPassword(!showPassword)}
+          />
           <div>
             <PasswordStrengthBar
               password={password}
@@ -164,7 +169,6 @@ export default function SignUp() {
             </button>
           </div>
         </form>
-
       </div>
     </div>
   );

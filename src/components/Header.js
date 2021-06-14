@@ -40,9 +40,10 @@ export default function Header() {
         </div>
         <div
           // eslint-disable-next-line prettier/prettier
-          className={`lg:flex flex-grow items-center${burger ? ' flex' : ' hidden'
+          className={`lg:flex flex-grow items-center${
+            burger ? ' flex' : ' hidden'
             // eslint-disable-next-line prettier/prettier
-            }`}
+          }`}
         >
           <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
             <li className="nav-item">
