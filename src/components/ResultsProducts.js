@@ -1,12 +1,15 @@
-// import axios from 'axios';
-import { useContext } from 'react';
-// import { useHistory } from 'react-router';
+import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import ResultsContext from '../contexts/ResultsContext';
-// import FoodContext from '../contexts/FoodContext';
+import FoodContext from '../contexts/FoodContext';
 
 export default function ResultsPage() {
   const { resultsList } = useContext(ResultsContext);
+  const { setFoodDetails } = useContext(FoodContext);
+
+  useEffect(() => {
+    setFoodDetails([]);
+  }, []);
 
   return resultsList.length !== 0 ? (
     <div className="flex items-center flex-col justify-center">
