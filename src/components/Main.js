@@ -6,6 +6,8 @@ import HistoryPage from '../screens/HistoryPage';
 import ResultsPage from '../screens/ResultsPage';
 import FichePage from '../screens/FichePage';
 import SignUp from './SignUp';
+import GetResetPasswordMailPage from '../screens/GetResetPasswordMailPage';
+import ResetPasswordPage from '../screens/ResetPasswordPage';
 
 export default function Main() {
   return (
@@ -19,6 +21,16 @@ export default function Main() {
         <Route exact path="/inscription" component={SignUp} />
         <Route path="/ficheproduit" component={FichePage} />
         <Route exact path="/signUp" component={SignUp} />
+        <Route
+          exact
+          path="/mot-de-passe-oublie"
+          component={GetResetPasswordMailPage}
+        />
+        <Route
+          exact
+          path="/reinitialisation-mot-de-passe"
+          component={ResetPasswordPage}
+        />
       </Switch>
     </main>
   );

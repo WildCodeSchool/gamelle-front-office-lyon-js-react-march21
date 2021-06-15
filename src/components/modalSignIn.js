@@ -1,11 +1,11 @@
 /* eslint-disable */
 
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import SignIn from './SignIn';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function ModalSignIn() {
-  const [showModal, setShowModal] = useState(false);
-
+  const { showModal, setShowModal } = useContext(CurrentUserContext);
   return (
     <div>
       <div

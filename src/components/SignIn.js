@@ -2,8 +2,10 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { NavLink } from 'react-router-dom';
+
 export default function SignIn() {
-  const { login } = useContext(CurrentUserContext);
+  const { login, setShowModal } = useContext(CurrentUserContext);
   const { register, handleSubmit } = useForm();
 
   return (
@@ -15,7 +17,7 @@ export default function SignIn() {
       </div>
       <form
         onSubmit={handleSubmit(login)}
-        className="mt-6 "
+        className="mt-6"
         action="send"
         method="POST"
       >
@@ -45,6 +47,9 @@ export default function SignIn() {
             {...register('password')}
           />
         </div>
+        <NavLink to="/mot-de-passe-oublie" onClick={() => setShowModal(false)}>
+          Mot de passe oublié ?
+        </NavLink>
         <div>
           <button
             type="submit"
