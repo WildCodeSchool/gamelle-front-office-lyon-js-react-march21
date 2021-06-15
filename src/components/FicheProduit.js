@@ -1,21 +1,18 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 import { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router';
+import qs from 'query-string';
 import FoodContext from '../contexts/FoodContext';
 
 const apiBase = process.env.REACT_APP_API_BASE_URL;
 
 export default function FicheProduit() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
-  const location = useLocation();
+  const { id } = qs.parse(window.location.search);
 
   useEffect(() => {
-    const productId = location.state != null ? location.state.productId : null;
-    console.log('productId     ', productId);
-
     axios
-      .get(`${apiBase}/foods/${productId}`)
+      .get(`${apiBase}/foods/${id}`)
       .then((res) => {
         setFoodDetails(res.data);
       })

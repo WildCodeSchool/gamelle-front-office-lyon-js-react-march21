@@ -23,10 +23,7 @@ export default function ResultsPage() {
             <NavLink
               className="flex items-center bg-white shadow shadow-lg px-5 py-2 m-5"
               to={{
-                pathname: `/ficheproduit`,
-                state: {
-                  productId: result.id,
-                },
+                pathname: `/ficheproduit/?id=${result.id}`,
               }}
             >
               <img

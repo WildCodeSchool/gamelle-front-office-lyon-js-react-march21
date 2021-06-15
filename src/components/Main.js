@@ -12,12 +12,12 @@ export default function Main() {
     <main>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/recherche" component={SearchPage} />
+        <Route path="/recherche" component={SearchPage} />
         <Route exact path="/profil" component={ProfilePage} />
         <Route exact path="/historique" component={HistoryPage} />
-        <Route exact path="/resultats" component={ResultsPage} />
+        <Route path="/resultats" component={ResultsPage} />
         <Route exact path="/inscription" component={SignUp} />
-        <Route exact path="/ficheproduit" component={FichePage} />
+        <Route path="/ficheproduit" component={FichePage} />
         <Route exact path="/signUp" component={SignUp} />
       </Switch>
     </main>
