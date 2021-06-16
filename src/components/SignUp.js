@@ -32,7 +32,7 @@ export default function SignUp() {
 
   return (
     // --------- Creation du form pour créer un compte --------- //
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-8 lg:px-8 shad">
+    <div className="flex items-center justify-center px-4 sm:px-8 lg:px-8 p-5">
       <div className="max-w-md w-full">
         <div>
           <h2 className="mt-6 text-center text-3xl font-gamelle font-extrabold dark:text-white">

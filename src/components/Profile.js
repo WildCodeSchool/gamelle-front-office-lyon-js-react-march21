@@ -54,14 +54,14 @@ export default function Profile() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center flex-col justify-center h-screen">
+        <div className="flex items-center flex-col justify-center p-5">
           <div className="titre ">
-            <h1 className="mt-6 text-center text-3xl font-extrabold">
+            <h1 className="mt-6 text-center text-3xl font-extrabold m-16">
               {firstName ? `Bienvenue ${firstName} !` : `Bienvenue !`}
             </h1>
           </div>
           <br />
-          <div className="flex items-center bg-primary rounded shadow shadow-lg p-3 dark:bg-darkpurple">
+          <div className="flex items-center object-center bg-primary rounded shadow shadow-lg p-3 dark:bg-darkpurple">
             <div
               className="flex justify-center items-center"
               onClick={handleAvatarClick}

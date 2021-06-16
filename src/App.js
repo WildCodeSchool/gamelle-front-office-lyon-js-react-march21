@@ -12,7 +12,7 @@ function App() {
   const [foodDetails, setFoodDetails] = useState([]);
 
   return (
-    <div className="bg-grey dark:bg-darkblue">
+    <div className="bg-grey dark:bg-darkblue min-h-screen">
       <ToastProvider
         autoDismiss
         autoDismissTimeout={5000}

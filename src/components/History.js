@@ -1,8 +1,8 @@
 export default function History() {
   return (
-    <div className="flex items-center flex-col justify-center">
+    <div className="flex items-center flex-col justify-center m-5">
       <div className="titre ">
-        <h1 className="mt-6 text-center text-3xl font-extrabold">
+        <h1 className="mt-6 text-center text-3xl font-extrabold m-16">
           Mon historique
         </h1>
       </div>
