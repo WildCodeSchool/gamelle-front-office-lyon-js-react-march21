@@ -1,20 +1,34 @@
 /* eslint-disable no-console */
 import axios from 'axios';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import qs from 'query-string';
 import FoodContext from '../contexts/FoodContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const apiBase = process.env.REACT_APP_API_BASE_URL;
 
 export default function FicheProduit() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
+  const { profile } = useContext(CurrentUserContext);
+  const [favoriteStatus, setFavoriteStatus] = useState(null);
 
   useEffect(() => {
     axios
       .get(`${apiBase}/foods/${id}`)
-      .then((res) => {
-        setFoodDetails(res.data);
+      .then(async (res) => {
+        await setFoodDetails(res.data);
+        if (profile !== null) {
+          const userId = profile.id;
+          const foodId = parseInt(id, 10);
+          axios
+            .post(`${apiBase}/histories`, { foodId, userId })
+            .then((hist) => {
+              console.log(hist);
+              setFavoriteStatus(hist.data.favoriteId);
+            })
+            .catch((err) => console.log(err));
+        }
       })
       .catch((err) => console.log(err));
   }, []);
@@ -50,6 +64,9 @@ export default function FicheProduit() {
                     <span className="italic text-xs"> inconnu</span>
                   )}
                 </div>
+                <div
+                  className={favoriteStatus ? 'isFavorite' : 'notFavorite'}
+                />
               </div>
             </div>
           </div>
