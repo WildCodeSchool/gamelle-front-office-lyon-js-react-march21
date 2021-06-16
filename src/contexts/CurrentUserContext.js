@@ -32,9 +32,9 @@ export default function CurrentUserContextProvider({ children }) {
   }, []);
 
   // ------------------------------------------ //
-  const login = useCallback(async ({ email, password }) => {
+  const login = useCallback(async ({ email, password, stayConnected }) => {
     try {
-      await API.post('/auth/login', { email, password });
+      await API.post('/auth/login', { email, password, stayConnected });
       // const { redirectUrl } = qs.parse(window.location.search);
       // if (redirectUrl) history.push(redirectUrl);
       addToast('Connexion réussie !', {
@@ -60,7 +60,7 @@ export default function CurrentUserContextProvider({ children }) {
   const createProfile = useCallback(async (form) => {
     try {
       await API.post('/users', form);
-      addToast('La création de votre compte a été un succès !', {
+      addToast("Un email a été envoyé afin d'activer votre compte.", {
         appearance: 'success',
       });
     } catch (err) {
@@ -111,6 +111,7 @@ export default function CurrentUserContextProvider({ children }) {
       addToast('Vous vous êtes déconnecté !', {
         appearance: 'success',
       });
+      setShowModal(false);
       setProfile(undefined);
       history.push('/');
     } catch (err) {
@@ -192,6 +193,25 @@ export default function CurrentUserContextProvider({ children }) {
     });
   };
 
+  const validateEmail = useCallback(async () => {
+    const { userId, token } = qs.parse(window.location.search);
+    try {
+      await API.post('/users/validated-email', {
+        token,
+        userId,
+      });
+      addToast('Votre compte a été activé avec succès !', {
+        appearance: 'success',
+      });
+      history.push('/');
+    } catch {
+      addToast(
+        'Un problème est survenu lors de la confirmation de votre compte, veuillez réessayer !',
+        { appearance: 'error' }
+      );
+    }
+  });
+
   /* const checkedEmail = useCallback(async (data) => {
     const { userId, token } = qs.parse(window.location.search);
     try {
@@ -229,6 +249,7 @@ export default function CurrentUserContextProvider({ children }) {
         resetPasswordEmail,
         showModal,
         setShowModal,
+        validateEmail,
         // checkedEmail,
         // confirmedPassword,
         // setConfirmedPassword,

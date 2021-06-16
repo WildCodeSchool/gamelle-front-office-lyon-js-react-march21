@@ -33,16 +33,14 @@ export default function Header() {
           </NavLink>
           <button type="button" onClick={handleBurgerToggle}>
             <FontAwesomeIcon
-              className="lg:hidden flex "
+              className="lg:hidden flex"
               icon={burger ? faTimes : faBars}
             />
           </button>
         </div>
         <div
-          // eslint-disable-next-line prettier/prettier
           className={`lg:flex flex-grow items-center${
             burger ? ' flex' : ' hidden'
-            // eslint-disable-next-line prettier/prettier
           }`}
         >
           <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">

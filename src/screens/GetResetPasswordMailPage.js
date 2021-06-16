@@ -12,15 +12,17 @@ export default function GetResetPasswordMailPage() {
   });
 
   return (
-    <div className="min-h-screen flex justify-center py-12 px-4 sm:px-8 lg:px-8 shad">
+    <div className="min-h-screen flex justify-center items-center">
       <form
         onSubmit={handleSubmit(resetPasswordEmail)}
-        className="mt-6 "
         action="send"
         method="POST"
+        className="w-1/3"
       >
         <div className="mb-3">
-          <label htmlFor="email-address">Adresse Email</label>
+          <label htmlFor="email-address" className="dark:text-white">
+            Adresse Email <span style={{ color: 'red' }}>*</span>
+          </label>
           <input
             name="email"
             type="email"

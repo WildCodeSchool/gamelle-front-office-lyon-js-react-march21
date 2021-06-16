@@ -6,6 +6,7 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { useState, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useToasts } from 'react-toast-notifications';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 export default function SignUp() {
   const { addToast } = useToasts();
@@ -136,8 +137,9 @@ export default function SignUp() {
               onChange={(e) => setConfirmedPassword(e.target.value)}
             />
           </div>
-          <input
-            type="checkbox"
+          <FontAwesomeIcon
+            className="cursor-pointer dark:text-white"
+            icon={showPassword ? faEye : faEyeSlash}
             onClick={() => setShowPassword(!showPassword)}
           />
           <div>

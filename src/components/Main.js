@@ -7,6 +7,7 @@ import ResultsPage from '../screens/ResultsPage';
 import SignUp from './SignUp';
 import GetResetPasswordMailPage from '../screens/GetResetPasswordMailPage';
 import ResetPasswordPage from '../screens/ResetPasswordPage';
+import ConfirmEmail from '../screens/ConfirmEmail';
 
 export default function Main() {
   return (
@@ -28,6 +29,7 @@ export default function Main() {
           path="/reinitialisation-mot-de-passe"
           component={ResetPasswordPage}
         />
+        <Route exact path="/confirm-email" component={ConfirmEmail} />
       </Switch>
     </main>
   );
