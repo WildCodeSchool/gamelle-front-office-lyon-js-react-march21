@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { useEffect, useContext, useRef } from 'react';
+import { useEffect, useContext, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -19,9 +19,12 @@ export default function Profile() {
     },
   });
 
-  const onSubmit = (data) =>
-    updateProfile({ ...data, avatar: avatarUploadRef.current.files[0] });
+  const [changeInput, setChangeInput] = useState(true);
 
+  const onSubmit = (data) => {
+    updateProfile({ ...data, avatar: avatarUploadRef.current.files[0] });
+    setChangeInput(!changeInput);
+  };
   const firstName = watch('firstname');
   const avatar = watch('avatarUrl');
 
@@ -56,8 +59,8 @@ export default function Profile() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center flex-col justify-center p-5">
           <div className="titre ">
-            <h1 className="mt-6 text-center text-3xl font-extrabold m-16">
-              {firstName ? `Bienvenue ${firstName} !` : `Bienvenue !`}
+            <h1 className="mt-6 text-center text-3xl font-extrabold dark:text-white">
+              Votre profil
             </h1>
           </div>
           <br />
@@ -90,7 +93,9 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        disabled={savingProfile || loadingProfile}
+                        disabled={
+                          changeInput ? true : savingProfile || loadingProfile
+                        }
                         label="Firstname"
                         autoComplete="off"
                       />
@@ -103,8 +108,11 @@ export default function Profile() {
                     control={control}
                     render={({ field }) => (
                       <input
+                        className="bg-transparent"
                         {...field}
-                        disabled={savingProfile || loadingProfile}
+                        disabled={
+                          changeInput ? true : savingProfile || loadingProfile
+                        }
                         label="Lastname"
                         autoComplete="off"
                       />
@@ -119,7 +127,9 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        disabled={savingProfile || loadingProfile}
+                        disabled={
+                          changeInput ? true : savingProfile || loadingProfile
+                        }
                         label="Email"
                         autoComplete="off"
                       />
@@ -130,18 +140,36 @@ export default function Profile() {
             </div>
           </div>
           <br />
-          <div className="text-gray-700">
+          <div className="flex flex-col bg-black">
             <button
-              disabled={savingProfile || loadingProfile}
-              type="submit"
-              className="text-white"
+              type="button"
+              className="font-bold dark:text-white"
+              onClick={() => alert('Ça ne marche pas encore !')}
             >
-              Sauvegarder
+              Ajouter un animal
             </button>
-            <p>Modifier votre profil</p>
-            <p>Ajouter un animal</p>
-            <Logout />
-            <DeleteProfile />
+            {changeInput ? (
+              <button
+                type="button"
+                className="font-bold dark:text-white"
+                onClick={() => setChangeInput(!changeInput)}
+              >
+                Modifier votre profil
+              </button>
+            ) : null}
+            {changeInput ? null : (
+              <button
+                disabled={changeInput}
+                type="submit"
+                className="font-bold dark:text-white"
+              >
+                Sauvegarder
+              </button>
+            )}
+            <div className="mt-10">
+              <Logout />
+              <DeleteProfile />
+            </div>
           </div>
         </div>
       </form>
