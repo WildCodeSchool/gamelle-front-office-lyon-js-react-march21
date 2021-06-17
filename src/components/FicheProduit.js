@@ -76,7 +76,7 @@ export default function FicheProduit() {
                   Constituants analytiques (en %)
                 </h1>
                 <p className="text-xl border border-grey px-5 py-1">
-                  Humidité :
+                  Humidité :{' '}
                   {foodDetails.humidity ? (
                     foodDetails.humidity
                   ) : (
@@ -92,7 +92,7 @@ export default function FicheProduit() {
                   )}
                 </p>
                 <p className="text-xl border border-grey px-5 py-1">
-                  Mat. grasses brutes :
+                  Mat. grasses brutes :{' '}
                   {foodDetails.fat_100g ? (
                     foodDetails.fat_100g
                   ) : (
@@ -100,7 +100,7 @@ export default function FicheProduit() {
                   )}
                 </p>
                 <p className="text-xl border border-grey px-5 py-1">
-                  Mat. minérales (ou cendres) :
+                  Mat. minérales (ou cendres) :{' '}
                   {foodDetails.cendars_100g ? (
                     foodDetails.cendars_100g
                   ) : (
@@ -108,7 +108,7 @@ export default function FicheProduit() {
                   )}
                 </p>
                 <p className="text-xl border border-grey px-5 py-1">
-                  Cellulose brute :
+                  Cellulose brute :{' '}
                   {foodDetails.cellulose_100g ? (
                     foodDetails.cellulose_100g
                   ) : (
@@ -119,7 +119,7 @@ export default function FicheProduit() {
                   <h1 className="text-2xl">Calcium et Phosphore :</h1>
                   <ul className="bg-grey m-5">
                     <li>
-                      Calcium :
+                      Calcium :{' '}
                       {foodDetails.calcium_100g ? (
                         foodDetails.calcium_100g
                       ) : (
@@ -127,18 +127,26 @@ export default function FicheProduit() {
                       )}
                     </li>
                     <li>
-                      Phosphore :
+                      Phosphore :{' '}
                       {foodDetails.phosphorus_100g ? (
                         foodDetails.phosphorus_100g
                       ) : (
                         <span className="italic text-xs"> Inconnu</span>
                       )}
                     </li>
-                    <li>Ratio calcium/phosphore : </li>
+                    <li>
+                      Ratio calcium/phosphore :{' '}
+                      {foodDetails.phosphorus_100g &&
+                      foodDetails.calcium_100g ? (
+                        foodDetails.calcium_100g / foodDetails.phosphorus_100g
+                      ) : (
+                        <span className="italic text-xs"> Inconnu</span>
+                      )}{' '}
+                    </li>
                   </ul>
                 </div>
                 <p className="text-xl border border-grey px-5 py-1">
-                  Sodium :
+                  Sodium :{' '}
                   {foodDetails.sodium_100g ? (
                     foodDetails.sodium_100g
                   ) : (
@@ -146,7 +154,7 @@ export default function FicheProduit() {
                   )}
                 </p>
                 <p className="text-xl border border-grey px-5 py-1">
-                  Potassium :
+                  Potassium :{' '}
                   {foodDetails.potassium_100g ? (
                     foodDetails.potassium_100g
                   ) : (
@@ -157,7 +165,7 @@ export default function FicheProduit() {
                   <h1 className="text-2xl">Omega :</h1>
                   <ul className=" bg-grey m-5">
                     <li>
-                      Omega 3 :
+                      Omega 3 :{' '}
                       {foodDetails.omega3_fat_100g ? (
                         foodDetails.omega3_fat_100g
                       ) : (
@@ -165,7 +173,7 @@ export default function FicheProduit() {
                       )}
                     </li>
                     <li>
-                      Omega 6 :
+                      Omega 6 :{' '}
                       {foodDetails.omega6_fat_100g ? (
                         foodDetails.omega6_fat_100g
                       ) : (
@@ -176,13 +184,13 @@ export default function FicheProduit() {
                 </div>
 
                 <p className="text-xl border border-grey px-5 py-1">
-                  Vitamines (en UI/Kg) :
+                  Vitamines (en UI/Kg) :{' '}
                 </p>
                 <h1 className="font-bold text-2xl px-10 py-6 border border-grey bg-gray-200">
                   Additifs
                 </h1>
                 <p className="text-xl border border-grey px-5 py-1">
-                  Vitamines (en UI/Kg) :
+                  Vitamines (en UI/Kg) :{' '}
                 </p>
                 <div
                   className={favoriteStatus ? 'isFavorite' : 'notFavorite'}
