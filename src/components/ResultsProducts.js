@@ -24,7 +24,7 @@ export default function ResultsPage() {
         {resultsList.map((result) => (
           <li key={result.id}>
             <NavLink
-              className="flex items-center bg-white shadow shadow-lg px-5 py-2 m-5"
+              className="flex items-center bg-white shadow-lg px-5 py-2 m-5"
               to={{
                 pathname: `/ficheproduit/?id=${result.id}`,
               }}
