@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
