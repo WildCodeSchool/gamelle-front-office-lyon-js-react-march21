@@ -24,7 +24,6 @@ export default function FicheProduit() {
           axios
             .post(`${apiBase}/histories`, { foodId, userId })
             .then((hist) => {
-              console.log(hist);
               setFavoriteStatus(hist.data.favoriteId);
             })
             .catch((err) => console.log(err));
@@ -39,19 +38,17 @@ export default function FicheProduit() {
     <>
       {foodDetails && (
         <>
-          <div className="flex items-center flex-col justify-center p-5">
-            <div className="titre ">
-              <h1 className="mt-6 text-center text-3xl font-extrabold m-16">
-                Fiche Produit
-              </h1>
-            </div>
-            <br />
-
-            <div className="flex flex-col bg-white shadow shadow-lg dark:bg-darkpurple w-6/12 m-10 ">
+          <div className="flex items-center flex-col justify-center md:p-5">
+            <div className=" relative md:flex md:flex-col md:shadow-lg lg:w-7/12 md:w-10/12 md:m-10 bg-white dark:bg-darkpurple">
+              <div className="absolute right-0 mr-5 mt-3">
+                <div
+                  className={favoriteStatus ? 'isFavorite' : 'notFavorite'}
+                />
+              </div>
               <div className="flex items-center  border border-grey">
                 <div key={foodDetails.id} className="m-5">
                   <img
-                    className="mx-auto h-96 scale-0 rounded-xl"
+                    className="flex-none h-40 object-cover rounded-xl mr-5 md:h-96 md:w-72"
                     src={foodDetails.image_aws_url}
                     alt={foodDetails.image_aws_url}
                   />
@@ -192,9 +189,6 @@ export default function FicheProduit() {
                 <p className="text-xl border border-grey px-5 py-1">
                   Vitamines (en UI/Kg) :{' '}
                 </p>
-                <div
-                  className={favoriteStatus ? 'isFavorite' : 'notFavorite'}
-                />
               </div>
             </div>
           </div>
