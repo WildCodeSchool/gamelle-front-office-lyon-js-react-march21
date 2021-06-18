@@ -30,13 +30,15 @@ export default function ResultsPage() {
               }}
             >
               <img
-                className="w-40 h-40 object-contain bg-gray-300 rounded-xl mr-5"
+                className=" flex-none h-20 w-20 object-cover rounded-xl mr-5 md:h-40 md:w-40 "
                 src={result.image}
                 alt={result.name}
               />
               <div>
-                <p className="font-bold text-xl">{result.brand}</p>
-                <p className="text-base">{result.name}</p>
+                <p className="font-bold text-base md:text-xl ">
+                  {result.brand}
+                </p>
+                <p className="text-sm md:text-base">{result.name}</p>
               </div>
             </NavLink>
           </li>
