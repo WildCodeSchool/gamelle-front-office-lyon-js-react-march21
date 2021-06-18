@@ -24,7 +24,6 @@ export default function FicheProduit() {
           axios
             .post(`${apiBase}/histories`, { foodId, userId })
             .then((hist) => {
-              console.log(hist);
               setFavoriteStatus(hist.data.favoriteId);
             })
             .catch((err) => console.log(err));

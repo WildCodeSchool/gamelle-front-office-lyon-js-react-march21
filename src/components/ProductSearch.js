@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import axios from 'axios';
 import { useHistory } from 'react-router';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import API from '../APIClient';
 import ResultsContext from '../contexts/ResultsContext';
 
 export default function ProductSearch() {
@@ -14,8 +14,7 @@ export default function ProductSearch() {
   const { setResultsList } = useContext(ResultsContext);
 
   useEffect(() => {
-    axios
-      .get(`${apiBase}/searches`)
+    API.get(`${apiBase}/searches`)
       .then((res) => {
         setBrandList(res.data[0]);
         setFoodTypeList(res.data[1]);
@@ -26,8 +25,7 @@ export default function ProductSearch() {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
-    axios
-      .post(`${apiBase}/searches`, form)
+    API.post(`${apiBase}/searches`, form)
       .then((res) => {
         setResultsList(res.data);
         history.push('/resultats');

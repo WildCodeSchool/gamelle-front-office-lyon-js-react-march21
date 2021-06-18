@@ -17,7 +17,7 @@ export default function Main() {
         <Route exact path="/" component={HomePage} />
         <Route path="/recherche" component={SearchPage} />
         <Route exact path="/profil" component={ProfilePage} />
-        <Route exact path="/historique" component={HistoryPage} />
+        <Route path="/historique" component={HistoryPage} />
         <Route path="/resultats" component={ResultsPage} />
         <Route exact path="/inscription" component={SignUp} />
         <Route path="/ficheproduit" component={FichePage} />
