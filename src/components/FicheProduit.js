@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import axios from 'axios';
 import { useContext, useEffect, useState } from 'react';
 import qs from 'query-string';
+import API from '../APIClient';
 import FoodContext from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -14,15 +14,13 @@ export default function FicheProduit() {
   const [favoriteStatus, setFavoriteStatus] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`${apiBase}/foods/${id}`)
+    API.get(`${apiBase}/foods/${id}`)
       .then(async (res) => {
         await setFoodDetails(res.data);
         if (profile !== null) {
           const userId = profile.id;
           const foodId = parseInt(id, 10);
-          axios
-            .post(`${apiBase}/histories`, { foodId, userId })
+          API.post(`${apiBase}/histories`, { foodId, userId })
             .then((hist) => {
               setFavoriteStatus(hist.data.favoriteId);
             })
