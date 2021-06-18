@@ -18,7 +18,6 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Header() {
   const { isLoggedIn = true } = useContext(CurrentUserContext);
-
   const [burger, setBurger] = useState(false);
   const handleBurgerToggle = () => {
     setBurger(!burger);
@@ -55,7 +54,11 @@ export default function Header() {
             </li>
             <li className="nav-item">
               <NavLink
-                exact
+                // to={
+                //   profile
+                //     ? `/historique?userId=${profile.id}`
+                //     : '/historique?userId=0'
+                // }
                 to="/historique"
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
               >
