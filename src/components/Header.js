@@ -18,7 +18,6 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Header() {
   const { isLoggedIn = true } = useContext(CurrentUserContext);
-
   const [burger, setBurger] = useState(false);
   const handleBurgerToggle = () => {
     setBurger(!burger);
@@ -33,13 +32,12 @@ export default function Header() {
           </NavLink>
           <button type="button" onClick={handleBurgerToggle}>
             <FontAwesomeIcon
-              className="lg:hidden flex "
+              className="lg:hidden flex"
               icon={burger ? faTimes : faBars}
             />
           </button>
         </div>
         <div
-          // eslint-disable-next-line prettier/prettier
           className={`lg:flex flex-grow items-center${
             burger ? ' flex' : ' hidden'
           }`}
@@ -56,22 +54,34 @@ export default function Header() {
             </li>
             <li className="nav-item">
               <NavLink
-                exact
+                // to={
+                //   profile
+                //     ? `/historique?userId=${profile.id}`
+                //     : '/historique?userId=0'
+                // }
                 to="/historique"
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
               >
                 {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                exact
-                to="/profil"
-              >
-                {burger ? 'Profil' : <FontAwesomeIcon icon={faUserCircle} />}
-              </NavLink>
-            </li>
+            {isLoggedIn && (
+              <>
+                <li>
+                  <NavLink
+                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                    exact
+                    to="/profil"
+                  >
+                    {burger ? (
+                      'Profil'
+                    ) : (
+                      <FontAwesomeIcon icon={faUserCircle} />
+                    )}
+                  </NavLink>
+                </li>
+              </>
+            )}
             {!isLoggedIn && (
               <>
                 <li>

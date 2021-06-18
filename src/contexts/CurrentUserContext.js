@@ -1,6 +1,7 @@
-import qs from 'query-string';
-import { createContext, useCallback, useState } from 'react';
+// import qs from 'query-string';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
+import qs from 'query-string';
 import API from '../APIClient';
 import history from '../history';
 
@@ -11,7 +12,9 @@ export default function CurrentUserContextProvider({ children }) {
   const [profile, setProfile] = useState();
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
+  // const [confirmedPassword, setConfirmedPassword] = useState('');
   const isLoggedIn = !!profile;
+  const [showModal, setShowModal] = useState(false);
 
   // ------------------------------------------ //
   const getProfile = useCallback(async () => {
@@ -29,11 +32,11 @@ export default function CurrentUserContextProvider({ children }) {
   }, []);
 
   // ------------------------------------------ //
-  const login = useCallback(async ({ email, password }) => {
+  const login = useCallback(async ({ email, password, stayConnected }) => {
     try {
-      await API.post('/auth/login', { email, password });
-      const { redirectUrl } = qs.parse(window.location.search);
-      if (redirectUrl) history.push(redirectUrl);
+      await API.post('/auth/login', { email, password, stayConnected });
+      // const { redirectUrl } = qs.parse(window.location.search);
+      // if (redirectUrl) history.push(redirectUrl);
       addToast('Connexion réussie !', {
         appearance: 'success',
       });
@@ -48,10 +51,16 @@ export default function CurrentUserContextProvider({ children }) {
   });
 
   // ------------------------------------------ //
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  // ------------------------------------------ //
+
   const createProfile = useCallback(async (form) => {
     try {
-      API.post('/users', form);
-      addToast('La création de votre compte a été un succès !', {
+      await API.post('/users', form);
+      addToast("Un email a été envoyé afin d'activer votre compte.", {
         appearance: 'success',
       });
     } catch (err) {
@@ -80,11 +89,14 @@ export default function CurrentUserContextProvider({ children }) {
           }
         ).then((res) => res.data);
         setProfile(updatedProfile);
-        addToast('Profile successfully updated', {
+        addToast('Votre profil a bien été mis à jour !', {
           appearance: 'success',
         });
       } catch (err) {
         window.console.error(err);
+        addToast('Il ya eu un problème lors de la mise à jour', {
+          appearance: 'error',
+        });
       } finally {
         setSavingProfile(false);
       }
@@ -99,6 +111,7 @@ export default function CurrentUserContextProvider({ children }) {
       addToast('Vous vous êtes déconnecté !', {
         appearance: 'success',
       });
+      setShowModal(false);
       setProfile(undefined);
       history.push('/');
     } catch (err) {
@@ -107,6 +120,116 @@ export default function CurrentUserContextProvider({ children }) {
       });
     }
   }, []);
+
+  // ------------------------------------------ //
+  const kick = useCallback(async () => {
+    try {
+      await API.get('/auth/logout');
+      setProfile(undefined);
+      history.push('/');
+    } catch (err) {
+      window.console.error(err);
+    }
+  }, []);
+
+  // ------------------------------------------ //
+  const deleteUser = (id) => {
+    // eslint-disable-next-line
+    if (window.confirm('Are you sure ?')) {
+      setLoadingProfile(true);
+      API.delete(`/users/${id}`)
+        .then(() => {
+          setProfile(
+            Object.values((profil) => profil.filter((n) => n.id !== id))
+          );
+          addToast('Votre compte a bien été supprimé !', {
+            appearance: 'success',
+          });
+        })
+        .catch((err) => {
+          window.console.error(err);
+          addToast(
+            'Il u a eu une erreur lors de la supression de votre compte !',
+            {
+              appearance: 'error',
+            }
+          );
+        })
+        .finally(() => {
+          setLoadingProfile(false);
+          kick();
+        });
+    }
+  };
+
+  // ------------------------------------------ //
+  const resetPassword = useCallback(async (data) => {
+    const { userId, token } = qs.parse(window.location.search);
+    try {
+      await API.post('/users/reset-password', {
+        password: data.password,
+        token,
+        userId,
+      });
+      addToast('Votre mot de passe a bien été mis à jour !', {
+        appearance: 'success',
+      });
+      history.push('/');
+    } catch {
+      addToast(
+        'Un problème est survenu lors de la mise à jour de votre mot de passe, veuillez réessayer !',
+        { appearance: 'error' }
+      );
+    }
+  });
+
+  // ------------------------------------------ //
+  const resetPasswordEmail = (data) => {
+    API.post('/users/reset-password-email', data).then(() => {
+      addToast(
+        'Un email a été envoyé afin de réinitialiser votre mot de passe, veuillez vérifier votre boîte mail !',
+        { appearance: 'success' }
+      );
+    });
+  };
+
+  const validateEmail = useCallback(async () => {
+    const { userId, token } = qs.parse(window.location.search);
+    try {
+      await API.post('/users/validated-email', {
+        token,
+        userId,
+      });
+      addToast('Votre compte a été activé avec succès !', {
+        appearance: 'success',
+      });
+      history.push('/');
+    } catch {
+      addToast(
+        'Un problème est survenu lors de la confirmation de votre compte, veuillez réessayer !',
+        { appearance: 'error' }
+      );
+    }
+  });
+
+  /* const checkedEmail = useCallback(async (data) => {
+    const { userId, token } = qs.parse(window.location.search);
+    try {
+      await API.post('/users/confirmed-email', {
+        email: data.email,
+        token,
+        userId,
+      });
+      addToast('La création de votre compte est un succès !', {
+        appearance: 'success',
+      });
+    } catch {
+      addToast(
+        'Un problème est survenu lors de la création de votre compte, veuillez réessayer !',
+        { appearance: 'error' }
+      );
+    }
+  }); */
 
   return (
     <CurrentUserContext.Provider
@@ -120,9 +243,42 @@ export default function CurrentUserContextProvider({ children }) {
         logout,
         login,
         createProfile,
+        deleteUser,
+        kick,
+        resetPassword,
+        resetPasswordEmail,
+        showModal,
+        setShowModal,
+        validateEmail,
+        // checkedEmail,
+        // confirmedPassword,
+        // setConfirmedPassword,
       }}
     >
       {children}
     </CurrentUserContext.Provider>
   );
 }
+
+/*   const deleteUser = useCallback(async (id) => {
+    // eslint-disable-next-line
+    if (window.confirm('Are you sure ?')) {
+      setLoadingProfile(true);
+      try {
+        await API.delete(`/profil/${id}`).then(() => {
+          setProfile((profil) => profil.filter((n) => n.id !== id));
+          addToast('Votre compte a bien éte supprimé !', {
+            appearance: 'error',
+          }).finally(() => {
+            setLoadingProfile(false);
+          });
+        });
+      } catch (err) {
+        addToast('Il y a eu une erreur lors de la création de votre compte !', {
+          appearance: 'error',
+        });
+      }
+    }
+  });
+
+*/

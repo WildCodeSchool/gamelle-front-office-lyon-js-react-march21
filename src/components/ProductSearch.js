@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import axios from 'axios';
 import { useHistory } from 'react-router';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import API from '../APIClient';
 import ResultsContext from '../contexts/ResultsContext';
 
 export default function ProductSearch() {
@@ -14,8 +14,7 @@ export default function ProductSearch() {
   const { setResultsList } = useContext(ResultsContext);
 
   useEffect(() => {
-    axios
-      .get(`${apiBase}/searches`)
+    API.get(`${apiBase}/searches`)
       .then((res) => {
         setBrandList(res.data[0]);
         setFoodTypeList(res.data[1]);
@@ -26,8 +25,7 @@ export default function ProductSearch() {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
-    axios
-      .post(`${apiBase}/searches`, form)
+    API.post(`${apiBase}/searches`, form)
       .then((res) => {
         setResultsList(res.data);
         history.push('/resultats');
@@ -36,10 +34,10 @@ export default function ProductSearch() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 p-5">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 m-16">
             Rechercher un produit
           </h2>
         </div>

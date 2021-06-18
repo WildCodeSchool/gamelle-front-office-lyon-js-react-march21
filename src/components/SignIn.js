@@ -1,11 +1,15 @@
 /* eslint-disable */
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-export default function SignIn() {
-  const { login } = useContext(CurrentUserContext);
-  const { register, handleSubmit } = useForm();
+import { NavLink } from 'react-router-dom';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
+export default function SignIn() {
+  const { login, setShowModal } = useContext(CurrentUserContext);
+  const { register, handleSubmit } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="max-w-md w-full">
       <div>
@@ -15,7 +19,7 @@ export default function SignIn() {
       </div>
       <form
         onSubmit={handleSubmit(login)}
-        className="mt-6 "
+        className="mt-6"
         action="send"
         method="POST"
       >
@@ -40,11 +44,28 @@ export default function SignIn() {
             type="password"
             autoComplete="current-password"
             required
+            type={showPassword ? 'text' : 'password'}
             className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
             placeholder="********"
             {...register('password')}
           />
+          <FontAwesomeIcon
+            className="cursor-pointer flex mt-3"
+            icon={showPassword ? faEye : faEyeSlash}
+            onClick={() => setShowPassword(!showPassword)}
+          />
         </div>
+        <NavLink to="/mot-de-passe-oublie" onClick={() => setShowModal(false)}>
+          Mot de passe oublié ?
+        </NavLink>
+        <br />
+        <input
+          name="stayConnected"
+          className="mr-3"
+          type="checkbox"
+          {...register('stayConnected')}
+        />
+        <label>Maintenir la connexion</label>
         <div>
           <button
             type="submit"
