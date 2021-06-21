@@ -71,19 +71,19 @@ export default function ProductSearch() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="foodTypeName">
+            <label htmlFor="foodTypeId">
               Type d'aliment :
               <select
-                {...register('foodTypeName', { required: true })}
-                defaultValue="title"
+                {...register('foodTypeId')}
+                defaultValue=""
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option key="title" value="title" disabled>
+                <option key="title" value="" disabled>
                   Sélectionnez un type d'aliments
                 </option>
                 {foodTypeList &&
                   foodTypeList.map((element) => (
-                    <option key={element.name} value={element.name}>
+                    <option key={element.name} value={element.id}>
                       {element.name}
                     </option>
                   ))}
@@ -92,19 +92,19 @@ export default function ProductSearch() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="animalCategoryName">
+            <label htmlFor="animalCategoryId">
               Pour :
               <select
-                {...register('animalCategoryName', { required: 'required' })}
-                defaultValue="title"
+                {...register('animalCategoryId')}
+                defaultValue=""
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option key="title" value="title" disabled>
+                <option key="title" value="" disabled>
                   Sélectionnez une catégorie
                 </option>
                 {animalCategoryList &&
                   animalCategoryList.map((element) => (
-                    <option key={element.name} value={element.name}>
+                    <option key={element.name} value={element.id}>
                       {element.name}
                     </option>
                   ))}

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
@@ -16,6 +17,10 @@ export default function History() {
         .catch((err) => console.log(err));
     }
   }, []);
+
+  const handleClickFavorite = () => {
+    console.log('clic');
+  };
 
   return historyList.length !== 0 ? (
     <div className="flex items-center flex-col justify-center m-5">
@@ -40,7 +45,12 @@ export default function History() {
                 <p className="font-bold text-xl">{hist.Foods.name}</p>
                 <p className="text-base">{hist.Foods.brand}</p>
               </div>
-              <div className={hist.favoriteId ? 'isFavorite' : 'notFavorite'} />
+              <button
+                type="button"
+                aria-label="Favorite"
+                onClick={() => handleClickFavorite(hist)}
+                className={hist.favoriteId ? 'isFavorite' : 'notFavorite'}
+              />
             </li>
           );
         })}
