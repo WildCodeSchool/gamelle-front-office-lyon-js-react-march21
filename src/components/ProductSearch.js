@@ -62,7 +62,7 @@ export default function ProductSearch() {
                 </option>
                 {brandList &&
                   brandList.map((element) => (
-                    <option key={element.brand} value={element.name}>
+                    <option key={element.brand} value={element.brand}>
                       {element.brand}
                     </option>
                   ))}{' '}
