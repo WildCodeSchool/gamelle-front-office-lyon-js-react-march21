@@ -65,7 +65,7 @@ export default function ProductSearch() {
                     <option key={element.brand} value={element.brand}>
                       {element.brand}
                     </option>
-                  ))}{' '}
+                  ))}
               </select>
             </label>
           </div>

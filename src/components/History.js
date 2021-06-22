@@ -1,26 +1,47 @@
 /* eslint-disable no-console */
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import FavoritesContext from '../contexts/FavoritesContext';
 import API from '../APIClient';
 
 export default function History() {
-  const apiBase = process.env.REACT_APP_API_BASE_URL;
   const [historyList, setHistoryList] = useState([]);
+  const { favoritesList, setFavoritesList } = useContext(FavoritesContext);
   const { profile } = useContext(CurrentUserContext);
+  console.log('profile   ', profile);
 
   useEffect(() => {
     if (profile) {
-      API.get(`${apiBase}/histories`)
+      API.get(`/histories`)
         .then((res) => {
           setHistoryList(res.data);
+        })
+        .catch((err) => console.log(err));
+      API.get(`/favorites`)
+        .then((res) => {
+          setFavoritesList(res.data);
         })
         .catch((err) => console.log(err));
     }
   }, []);
 
-  const handleClickFavorite = () => {
-    console.log('clic');
+  const handleClickFavorite = (item) => {
+    if (item.favoriteId) {
+      console.log('dejà fav');
+    } else {
+      API.get(`/favorites`)
+        .then((res) => {
+          console.log(res);
+          // setHistoryList(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+
+    console.log(item.userId);
   };
+
+  console.log('favoritesList   ', favoritesList);
+  console.log('historyList   ', historyList);
 
   return historyList.length !== 0 ? (
     <div className="flex items-center flex-col justify-center m-5">
@@ -34,7 +55,10 @@ export default function History() {
       <ul>
         {historyList.map((hist) => {
           return (
-            <li className="flex items-center bg-white shadow shadow-lg px-5 py-2 m-5">
+            <li
+              key={hist.id}
+              className="flex items-center bg-white shadow shadow-lg px-5 py-2 m-5"
+            >
               <img
                 className="w-40 h-40 bg-auto rounded-xl mr-5"
                 src={hist.Foods.image}
