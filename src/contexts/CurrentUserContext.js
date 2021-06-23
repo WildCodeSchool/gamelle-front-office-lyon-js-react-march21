@@ -236,13 +236,14 @@ export default function CurrentUserContextProvider({ children }) {
   }); */
 
   // favoritesList = {103: true, 456: false} ici 456 était fav puis a été supprimé
-  const toggleFoodInFavorites = (foodId) => {
-    setFavoritesIdsList((currentFavorites) => {
+  const toggleFoodInFavorites = async (foodId) => {
+    const newList = await ((currentFavorites) => {
       return {
         ...currentFavorites,
         [foodId]: !currentFavorites[foodId],
       };
     });
+    setFavoritesIdsList(newList);
   };
 
   return (

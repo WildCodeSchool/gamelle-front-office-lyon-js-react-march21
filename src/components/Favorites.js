@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
 
 export default function Favorites() {
-  const { profile } = useContext(CurrentUserContext);
+  const { profile, toggleFoodInFavorites } = useContext(CurrentUserContext);
   const [favoritesList, setFavoritesList] = useState([]);
 
   useEffect(() => {
@@ -15,19 +15,14 @@ export default function Favorites() {
         })
         .catch((err) => console.log(err));
     }
-  }, [profile]);
+  }, []);
 
   const handleClickDelete = (item) => {
-    const { id } = item;
-    API.delete(`/favorites/${id}`)
-      .then(() => {
-        API.get(`/favorites`)
-          .then((result) => {
-            setFavoritesList(result.data);
-          })
-          .catch((err) => console.log(err));
-      })
+    const { foodId } = item;
+    API.delete(`/favorites/${foodId}`)
+      .then(() => {})
       .catch((err) => console.log(err));
+    toggleFoodInFavorites(item.foodId);
   };
 
   return favoritesList.length !== 0 ? (

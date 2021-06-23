@@ -18,22 +18,13 @@ export default function History() {
     }
   }, []);
 
-  const handleClickFavorite = (item) => {
-    toggleFoodInFavorites(item.foodId);
-    console.log('favoritesIdsList   ', favoritesIdsList);
-    console.log('item   ', item);
-    if (item.favoriteId) {
-      console.log('dejà fav');
-      const { id } = item;
-      API.delete(`/favorites/${id}`)
-        .then(() => {
-          API.get(`/favorites`)
-            .then((result) => {
-              console.log(result.data);
-              // setFavoritesList(result.data);
-            })
-            .catch((err) => console.log(err));
-        })
+  const handleClickFavorite = async (item) => {
+    const isFavorite = !!favoritesIdsList[item.foodId];
+
+    if (isFavorite) {
+      const { foodId } = item;
+      API.delete(`/favorites/${foodId}`)
+        .then(() => {})
         .catch((err) => console.log(err));
     } else {
       API.post(`/favorites`, { foodId: item.foodId })
@@ -42,11 +33,8 @@ export default function History() {
         })
         .catch((err) => console.log(err));
     }
-
-    console.log(item.userId);
+    toggleFoodInFavorites(item.foodId);
   };
-
-  console.log('historyList   ', historyList);
 
   return historyList.length !== 0 ? (
     <div className="flex items-center flex-col justify-center m-5">
