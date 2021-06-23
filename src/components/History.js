@@ -5,31 +5,39 @@ import API from '../APIClient';
 
 export default function History() {
   const [historyList, setHistoryList] = useState([]);
-  const { profile, getProfile } = useContext(CurrentUserContext);
+  const { profile, toggleFoodInFavorites, favoritesIdsList } =
+    useContext(CurrentUserContext);
 
   useEffect(() => {
     if (profile) {
       API.get(`/histories`)
         .then((res) => {
-          const histWithFav = res.data.map((item) => {
-            const favId = profile.favorites.filter(
-              (profileFav) => profileFav[1] === item.foodId
-            );
-            return { ...item, favoriteId: favId[0] ? favId[0][0] : null };
-          });
-          setHistoryList(histWithFav);
+          setHistoryList(res.data);
         })
         .catch((err) => console.log(err));
     }
-  }, [profile]);
+  }, []);
 
   const handleClickFavorite = (item) => {
+    toggleFoodInFavorites(item.foodId);
+    console.log('favoritesIdsList   ', favoritesIdsList);
+    console.log('item   ', item);
     if (item.favoriteId) {
       console.log('dejà fav');
+      const { id } = item;
+      API.delete(`/favorites/${id}`)
+        .then(() => {
+          API.get(`/favorites`)
+            .then((result) => {
+              console.log(result.data);
+              // setFavoritesList(result.data);
+            })
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
     } else {
       API.post(`/favorites`, { foodId: item.foodId })
         .then(() => {
-          getProfile();
           // setHistoryList(res.data);
         })
         .catch((err) => console.log(err));
@@ -51,6 +59,7 @@ export default function History() {
 
       <ul>
         {historyList.map((hist) => {
+          const isFavorite = !!favoritesIdsList[hist.foodId];
           return (
             <li
               key={hist.id}
@@ -66,11 +75,12 @@ export default function History() {
                 <p className="font-bold text-xl">{hist.Foods.name}</p>
                 <p className="text-base">{hist.Foods.brand}</p>
               </div>
+
               <button
                 type="button"
                 aria-label="Favorite"
                 onClick={() => handleClickFavorite(hist)}
-                className={hist.favoriteId ? 'isFavorite' : 'notFavorite'}
+                className={isFavorite ? 'isFavorite' : 'notFavorite'}
               />
             </li>
           );
