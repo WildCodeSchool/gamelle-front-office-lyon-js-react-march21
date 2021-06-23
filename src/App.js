@@ -5,13 +5,12 @@ import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContext from './contexts/ResultsContext';
 import FoodContext from './contexts/FoodContext';
-import FavoritesContext from './contexts/FavoritesContext';
+
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 
 function App() {
   const [resultsList, setResultsList] = useState([]);
   const [foodDetails, setFoodDetails] = useState([]);
-  const [favoritesList, setFavoritesList] = useState([]);
 
   return (
     <div className="bg-grey dark:bg-darkblue min-h-screen">
@@ -23,12 +22,8 @@ function App() {
         <CurrentUserContextProvider>
           <ResultsContext.Provider value={{ resultsList, setResultsList }}>
             <FoodContext.Provider value={{ foodDetails, setFoodDetails }}>
-              <FavoritesContext.Provider
-                value={{ favoritesList, setFavoritesList }}
-              >
-                <Header />
-                <Main />
-              </FavoritesContext.Provider>
+              <Header />
+              <Main />
             </FoodContext.Provider>
           </ResultsContext.Provider>
         </CurrentUserContextProvider>

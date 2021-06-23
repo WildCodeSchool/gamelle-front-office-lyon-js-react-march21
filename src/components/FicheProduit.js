@@ -5,7 +5,7 @@ import API from '../APIClient';
 import FoodContext from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const apiBase = process.env.REACT_APP_API_BASE_URL;
+// const apiBase = process.env.REACT_APP_API_BASE_URL;
 
 export default function FicheProduit() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
@@ -14,13 +14,13 @@ export default function FicheProduit() {
   const [favoriteStatus, setFavoriteStatus] = useState(null);
 
   useEffect(() => {
-    API.get(`${apiBase}/foods/${id}`)
+    API.get(`/foods/${id}`)
       .then(async (res) => {
         await setFoodDetails(res.data);
         if (profile !== null) {
           const userId = profile.id;
           const foodId = parseInt(id, 10);
-          API.post(`${apiBase}/histories`, { foodId, userId })
+          API.post(`/histories`, { foodId, userId })
             .then((hist) => {
               setFavoriteStatus(hist.data.favoriteId);
             })

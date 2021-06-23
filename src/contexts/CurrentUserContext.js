@@ -22,6 +22,7 @@ export default function CurrentUserContextProvider({ children }) {
     let data = null;
     try {
       data = await API.get('/currentUser').then((res) => res.data);
+      console.log(data);
       setProfile(data);
     } catch (err) {
       window.console.error(err);

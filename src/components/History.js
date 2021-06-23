@@ -1,37 +1,35 @@
 /* eslint-disable no-console */
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import FavoritesContext from '../contexts/FavoritesContext';
 import API from '../APIClient';
 
 export default function History() {
   const [historyList, setHistoryList] = useState([]);
-  const { favoritesList, setFavoritesList } = useContext(FavoritesContext);
-  const { profile } = useContext(CurrentUserContext);
-  console.log('profile   ', profile);
+  const { profile, getProfile } = useContext(CurrentUserContext);
 
   useEffect(() => {
     if (profile) {
       API.get(`/histories`)
         .then((res) => {
-          setHistoryList(res.data);
-        })
-        .catch((err) => console.log(err));
-      API.get(`/favorites`)
-        .then((res) => {
-          setFavoritesList(res.data);
+          const histWithFav = res.data.map((item) => {
+            const favId = profile.favorites.filter(
+              (profileFav) => profileFav[1] === item.foodId
+            );
+            return { ...item, favoriteId: favId[0] ? favId[0][0] : null };
+          });
+          setHistoryList(histWithFav);
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [profile]);
 
   const handleClickFavorite = (item) => {
     if (item.favoriteId) {
       console.log('dejà fav');
     } else {
-      API.get(`/favorites`)
-        .then((res) => {
-          console.log(res);
+      API.post(`/favorites`, { foodId: item.foodId })
+        .then(() => {
+          getProfile();
           // setHistoryList(res.data);
         })
         .catch((err) => console.log(err));
@@ -40,7 +38,6 @@ export default function History() {
     console.log(item.userId);
   };
 
-  console.log('favoritesList   ', favoritesList);
   console.log('historyList   ', historyList);
 
   return historyList.length !== 0 ? (

@@ -1,12 +1,11 @@
 /* eslint-disable no-console */
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import FavoritesContext from '../contexts/FavoritesContext';
 import API from '../APIClient';
 
 export default function Favorites() {
-  const { favoritesList, setFavoritesList } = useContext(FavoritesContext);
   const { profile } = useContext(CurrentUserContext);
+  const [favoritesList, setFavoritesList] = useState([]);
 
   useEffect(() => {
     if (profile) {
@@ -16,7 +15,7 @@ export default function Favorites() {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [profile]);
 
   const handleClickDelete = (item) => {
     const { id } = item;
