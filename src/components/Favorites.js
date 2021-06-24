@@ -11,18 +11,21 @@ export default function Favorites() {
     if (profile) {
       API.get(`/favorites`)
         .then((res) => {
+          console.log(res.data);
           setFavoritesList(res.data);
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [profile]);
 
   const handleClickDelete = (item) => {
     const { foodId } = item;
     API.delete(`/favorites/${foodId}`)
-      .then(() => {})
+      .then(() => {
+        toggleFoodInFavorites(item.foodId);
+        setFavoritesList(favoritesList.filter((fav) => fav.foodId !== foodId));
+      })
       .catch((err) => console.log(err));
-    toggleFoodInFavorites(item.foodId);
   };
 
   return favoritesList.length !== 0 ? (

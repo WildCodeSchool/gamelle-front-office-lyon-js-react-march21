@@ -24,16 +24,17 @@ export default function History() {
     if (isFavorite) {
       const { foodId } = item;
       API.delete(`/favorites/${foodId}`)
-        .then(() => {})
+        .then(() => {
+          toggleFoodInFavorites(item.foodId);
+        })
         .catch((err) => console.log(err));
     } else {
       API.post(`/favorites`, { foodId: item.foodId })
         .then(() => {
-          // setHistoryList(res.data);
+          toggleFoodInFavorites(item.foodId);
         })
         .catch((err) => console.log(err));
     }
-    toggleFoodInFavorites(item.foodId);
   };
 
   return historyList.length !== 0 ? (
