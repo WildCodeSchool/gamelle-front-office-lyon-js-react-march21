@@ -47,7 +47,7 @@ export default function Header() {
               <NavLink
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
-                to="/recherche"
+                to="/"
               >
                 {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
               </NavLink>
@@ -59,7 +59,7 @@ export default function Header() {
                 //     ? `/historique?userId=${profile.id}`
                 //     : '/historique?userId=0'
                 // }
-                to="/historique"
+                to="/history"
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
               >
                 {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
@@ -71,7 +71,7 @@ export default function Header() {
                   <NavLink
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                     exact
-                    to="/profil"
+                    to="/profile"
                   >
                     {burger ? (
                       'Profil'
@@ -87,7 +87,7 @@ export default function Header() {
                 <li>
                   <NavLink
                     exact
-                    to="/inscription"
+                    to="/sign-up"
                     className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                   >
                     S'inscrire

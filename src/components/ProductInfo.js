@@ -7,7 +7,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const apiBase = process.env.REACT_APP_API_BASE_URL;
 
-export default function FicheProduit() {
+export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
   const { profile } = useContext(CurrentUserContext);

@@ -1,9 +1,12 @@
-import ProductSearch from '../components/ProductSearch';
+import DrawerSearch from '../components/DrawerSearch';
+import ResultsProducts from '../components/ResultsProducts';
+// import DrawerProductInfo from '../components/DrawerProductInfo';
 
 export default function SearchPage() {
   return (
     <>
-      <ProductSearch />
+      <DrawerSearch />
+      <ResultsProducts />
     </>
   );
 }

@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-import { useHistory } from 'react-router';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import API from '../APIClient';
@@ -7,10 +6,10 @@ import ResultsContext from '../contexts/ResultsContext';
 
 export default function ProductSearch() {
   const apiBase = process.env.REACT_APP_API_BASE_URL;
-  const history = useHistory();
   const [brandList, setBrandList] = useState(null);
   const [foodTypeList, setFoodTypeList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
+
   const { setResultsList } = useContext(ResultsContext);
 
   useEffect(() => {
@@ -28,13 +27,12 @@ export default function ProductSearch() {
     API.post(`${apiBase}/searches`, form)
       .then((res) => {
         setResultsList(res.data);
-        history.push('/resultats');
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 p-5">
+    <div className="bg-opaque min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 m-16">
@@ -95,7 +93,9 @@ export default function ProductSearch() {
             <label htmlFor="animalCategoryName">
               Pour :
               <select
-                {...register('animalCategoryName', { required: 'required' })}
+                {...register('animalCategoryName', {
+                  required: 'required',
+                })}
                 defaultValue="title"
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
