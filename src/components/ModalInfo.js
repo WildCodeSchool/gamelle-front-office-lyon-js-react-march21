@@ -31,7 +31,7 @@ export default function ModalInfo() {
                 className=" rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
                 onClick={(e) => {
                   // do not close modal if anything inside modal content is clicked
-                  e.stopPropagation()
+                  e.stopPropagation();
                   history.goBack();
                 }}
               >
