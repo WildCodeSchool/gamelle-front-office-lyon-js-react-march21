@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { NavLink } from 'react-router-dom';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 export default function SignIn() {
   const { login, setShowModal } = useContext(CurrentUserContext);
@@ -16,6 +17,18 @@ export default function SignIn() {
         <h2 className="mt-6 text-center text-3xl font-extrabold">
           Connectez-vous
         </h2>
+      </div>
+      <div className="flex justify-center mt-4">
+        <a
+          className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-googleblue hover:via-googlered hover:to-googleyellow animate-slide-in"
+          href="http://localhost:5000/auth/google"
+        >
+          <FontAwesomeIcon
+            className="flex items-center cursor-pointer mx-2 mt-1"
+            icon={faGoogle}
+          />
+          <p className="mr-2">Connectez vous avec votre compte Google</p>
+        </a>
       </div>
       <form
         onSubmit={handleSubmit(login)}
@@ -55,7 +68,7 @@ export default function SignIn() {
             onClick={() => setShowPassword(!showPassword)}
           />
         </div>
-        <NavLink to="/mot-de-passe-oublie" onClick={() => setShowModal(false)}>
+        <NavLink to="/forgot-password" onClick={() => setShowModal(false)}>
           Mot de passe oublié ?
         </NavLink>
         <br />

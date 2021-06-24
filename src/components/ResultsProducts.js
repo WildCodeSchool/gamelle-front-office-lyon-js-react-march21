@@ -1,15 +1,13 @@
+/* eslint-disable */
 import { useContext, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import ResultsContext from '../contexts/ResultsContext';
 import FoodContext from '../contexts/FoodContext';
+import ModalInfo from './ModalInfo';
 
-export default function ResultsPage() {
+export default function ResultsProducts() {
+  const location = useLocation();
   const { resultsList } = useContext(ResultsContext);
-  const { setFoodDetails } = useContext(FoodContext);
-
-  useEffect(() => {
-    setFoodDetails([]);
-  }, []);
 
   return resultsList.length !== 0 ? (
     <div className="flex items-center flex-col justify-center p-5">
@@ -26,19 +24,25 @@ export default function ResultsPage() {
             <NavLink
               className="flex items-center bg-white shadow-lg px-5 py-2 m-5"
               to={{
-                pathname: `/ficheproduit/?id=${result.id}`,
+                pathname: `/product-info/?id=${result.id}`,
+                state: { background: location },
               }}
             >
-              <img
-                className=" flex-none h-20 w-20 object-cover rounded-xl mr-5 md:h-40 md:w-40 "
-                src={result.image}
-                alt={result.name}
-              />
-              <div>
-                <p className="font-bold text-base md:text-xl ">
-                  {result.brand}
-                </p>
-                <p className="text-sm md:text-base">{result.name}</p>
+              <div className="flex items-center bg-white shadow-lg px-5 py-2 m-5">
+                <img
+                  className=" flex-none h-20 w-20 object-cover rounded-xl mr-5 md:h-40 md:w-40 "
+                  src={result.image}
+                  alt={result.name}
+                />
+                <div>
+                  <p className="font-bold text-base md:text-xl ">
+                    {result.brand}
+                  </p>
+                  <p className="text-sm md:text-base">{result.name}</p>
+                  <div>
+                    <ModalInfo />
+                  </div>
+                </div>
               </div>
             </NavLink>
           </li>
@@ -46,6 +50,8 @@ export default function ResultsPage() {
       </ul>
     </div>
   ) : (
-    <h1>Désolé, votre recherche n'a produit aucun résultat</h1>
+    <h1 className="flex justify-center">
+      Désolé, votre recherche n'a produit aucun résultat
+    </h1>
   );
 }

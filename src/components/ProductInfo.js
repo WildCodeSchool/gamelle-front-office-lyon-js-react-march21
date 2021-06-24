@@ -1,13 +1,12 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 import { useContext, useEffect, useState } from 'react';
 import qs from 'query-string';
 import API from '../APIClient';
 import FoodContext from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const apiBase = process.env.REACT_APP_API_BASE_URL;
-
-export default function FicheProduit() {
+export default function ProductInfo() {
+  const apiBase = process.env.REACT_APP_API_BASE_URL;
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
   const { profile } = useContext(CurrentUserContext);
@@ -27,10 +26,9 @@ export default function FicheProduit() {
             .catch((err) => console.log(err));
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(setFoodDetails([]));
   }, []);
-
-  console.log('foodDetails   ', foodDetails);
 
   return (
     <>
@@ -132,7 +130,7 @@ export default function FicheProduit() {
                     <li>
                       Ratio calcium/phosphore :{' '}
                       {foodDetails.phosphorus_100g &&
-                      foodDetails.calcium_100g ? (
+                        foodDetails.calcium_100g ? (
                         foodDetails.calcium_100g / foodDetails.phosphorus_100g
                       ) : (
                         <span className="italic text-xs"> Inconnu</span>
