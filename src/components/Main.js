@@ -1,4 +1,4 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useLocation } from 'react-router-dom';
 import SearchPage from '../screens/SearchPage';
 import ProfilePage from '../screens/ProfilePage';
 import HistoryPage from '../screens/HistoryPage';
@@ -8,11 +8,14 @@ import SignUp from './SignUp';
 import GetResetPasswordMailPage from '../screens/GetResetPasswordMailPage';
 import ResetPasswordPage from '../screens/ResetPasswordPage';
 import ConfirmEmail from '../screens/ConfirmEmail';
+import ModalInfo from './ModalInfo';
 
 export default function Main() {
+  const location = useLocation();
+  const background = location.state && location.state.background;
   return (
     <main>
-      <Switch>
+      <Switch location={background || location}>
         <Route exact path="/" component={SearchPage} />
         <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/history" component={HistoryPage} />
@@ -26,6 +29,7 @@ export default function Main() {
         />
         <Route exact path="/reset-password" component={ResetPasswordPage} />
         <Route exact path="/confirm-email" component={ConfirmEmail} />
+        {background && <Route path="/product-info/" component={ModalInfo} />}
       </Switch>
     </main>
   );

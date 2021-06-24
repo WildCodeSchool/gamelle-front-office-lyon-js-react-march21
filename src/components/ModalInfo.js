@@ -1,40 +1,15 @@
 /* eslint-disable */
-import { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import qs from 'query-string';
+import { useState } from 'react';
+import { useHistory, useParams } from 'react-router';
 import ProductInfo from './ProductInfo';
-import FoodContext from '../contexts/FoodContext';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import ResultsProducts from './ResultsProducts';
 
-const apiBase = process.env.REACT_APP_API_BASE_URL;
-function ModalInfo() {
+export default function ModalInfo() {
+  const history = useHistory();
   const [showModalInfo, setShowModalInfo] = useState(false);
-  const { foodDetails, setFoodDetails } = useContext(FoodContext);
-  const { id } = qs.parse(window.location.search);
-  const { profile } = useContext(CurrentUserContext);
-  const [favoriteStatus, setFavoriteStatus] = useState(null);
   const handleToggleModal = () => {
     setShowModalInfo(!showModalInfo);
   };
-
-  useEffect(() => {
-    axios
-      .get(`${apiBase}/foods/${id}`)
-      .then(async (res) => {
-        await setFoodDetails(res.data);
-        if (profile !== null) {
-          const userId = profile.id;
-          const foodId = parseInt(id, 10);
-          axios
-            .post(`${apiBase}/histories`, { foodId, userId })
-            .then((hist) => {
-              setFavoriteStatus(hist.data.favoriteId);
-            })
-            .catch((err) => console.log(err));
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
 
   return (
     <div>
@@ -56,7 +31,8 @@ function ModalInfo() {
                 className=" rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"
                 onClick={(e) => {
                   // do not close modal if anything inside modal content is clicked
-                  e.stopPropagation();
+                  e.stopPropagation()
+                  history.goBack();
                 }}
               >
                 {/*header*/}
@@ -81,4 +57,3 @@ function ModalInfo() {
     </div>
   );
 }
-export default ModalInfo;
