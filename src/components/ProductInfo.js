@@ -130,7 +130,7 @@ export default function ProductInfo() {
                     <li>
                       Ratio calcium/phosphore :{' '}
                       {foodDetails.phosphorus_100g &&
-                        foodDetails.calcium_100g ? (
+                      foodDetails.calcium_100g ? (
                         foodDetails.calcium_100g / foodDetails.phosphorus_100g
                       ) : (
                         <span className="italic text-xs"> Inconnu</span>
