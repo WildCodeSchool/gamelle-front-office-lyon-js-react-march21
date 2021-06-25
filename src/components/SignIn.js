@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { NavLink } from 'react-router-dom';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 export default function SignIn() {
   const { login, setShowModal } = useContext(CurrentUserContext);
@@ -20,7 +20,7 @@ export default function SignIn() {
       </div>
       <div className="flex justify-center mt-4">
         <a
-          className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-googleblue hover:via-googlered hover:to-googleyellow animate-slide-in"
+          className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-googleblue hover:via-googlered hover:to-googleyellow"
           href="http://localhost:5000/auth/google"
         >
           <FontAwesomeIcon
@@ -28,6 +28,18 @@ export default function SignIn() {
             icon={faGoogle}
           />
           <p className="mr-2">Connectez vous avec votre compte Google</p>
+        </a>
+      </div>
+      <div className="flex justify-center mt-4">
+        <a
+          className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-facebookdarkblue hover:via-facebookblue hover:to-white"
+          href="http://localhost:5000/auth/facebook"
+        >
+          <FontAwesomeIcon
+            className="flex items-center cursor-pointer mx-2 mt-1"
+            icon={faFacebook}
+          />
+          <p className="mr-2">Connectez vous avec votre compte Facebook</p>
         </a>
       </div>
       <form
