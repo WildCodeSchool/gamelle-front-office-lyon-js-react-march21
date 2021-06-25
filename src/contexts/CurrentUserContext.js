@@ -15,14 +15,18 @@ export default function CurrentUserContextProvider({ children }) {
   // const [confirmedPassword, setConfirmedPassword] = useState('');
   const isLoggedIn = !!profile;
   const [showModal, setShowModal] = useState(false);
+  const [favoritesIdsList, setFavoritesIdsList] = useState({});
 
   // ------------------------------------------ //
   const getProfile = useCallback(async () => {
     setLoadingProfile(true);
     let data = null;
+    let favs = null;
     try {
       data = await API.get('/currentUser').then((res) => res.data);
       setProfile(data);
+      favs = await API.get('/favorites/listfav').then((res) => res.data);
+      setFavoritesIdsList(favs);
     } catch (err) {
       window.console.error(err);
     } finally {
@@ -231,6 +235,17 @@ export default function CurrentUserContextProvider({ children }) {
     }
   }); */
 
+  // favoritesList = {103: true, 456: false} ici 456 était fav puis a été supprimé
+  const toggleFoodInFavorites = async (foodId) => {
+    const newList = await ((currentFavorites) => {
+      return {
+        ...currentFavorites,
+        [foodId]: !currentFavorites[foodId],
+      };
+    });
+    setFavoritesIdsList(newList);
+  };
+
   return (
     <CurrentUserContext.Provider
       value={{
@@ -253,6 +268,9 @@ export default function CurrentUserContextProvider({ children }) {
         // checkedEmail,
         // confirmedPassword,
         // setConfirmedPassword,
+        setFavoritesIdsList,
+        favoritesIdsList,
+        toggleFoodInFavorites,
       }}
     >
       {children}
