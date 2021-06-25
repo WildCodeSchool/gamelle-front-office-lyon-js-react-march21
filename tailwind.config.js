@@ -44,11 +44,22 @@ module.exports = {
       darkblue: '#283149',
       'gray-200': '#E4E4E7',
       darkpurple: '#9370DB',
+      googleblue: '#4285F4',
+      googlered: '#EA4335',
+      googleyellow: '#FBBC05',
+      googlegreen: '#34A853',
     },
     textOpacity: ['dark'],
   },
-  variants: {
-    extend: {},
+  extend: {
+    keyframes: {
+      'slide-in': {
+        '0%': { color: 'teal', transform: 'scaleX(0)' },
+        '100%': { color: 'lightcoral', transform: 'scaleX(1)' },
+      },
+    },
+    animation: { 'slide-in': 'slide-in 0.5s ease-out' },
   },
+  variants: {},
   plugins: [],
 };

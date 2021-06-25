@@ -1,11 +1,11 @@
-/* eslint-disable no-console */
-import { useContext, useEffect } from 'react';
+/* eslint-disable */
+import { useContext, useEffect, useState } from 'react';
 import qs from 'query-string';
 import API from '../APIClient';
 import FoodContext from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export default function FicheProduit() {
+export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
@@ -23,7 +23,8 @@ export default function FicheProduit() {
             .catch((err) => console.log(err));
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(setFoodDetails([]));
   }, []);
 
   const handleClickFavorite = async () => {

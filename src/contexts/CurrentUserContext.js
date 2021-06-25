@@ -12,7 +12,6 @@ export default function CurrentUserContextProvider({ children }) {
   const [profile, setProfile] = useState();
   const [loadingProfile, setLoadingProfile] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
-  // const [confirmedPassword, setConfirmedPassword] = useState('');
   const isLoggedIn = !!profile;
   const [showModal, setShowModal] = useState(false);
   const [favoritesIdsList, setFavoritesIdsList] = useState({});
@@ -39,8 +38,6 @@ export default function CurrentUserContextProvider({ children }) {
   const login = useCallback(async ({ email, password, stayConnected }) => {
     try {
       await API.post('/auth/login', { email, password, stayConnected });
-      // const { redirectUrl } = qs.parse(window.location.search);
-      // if (redirectUrl) history.push(redirectUrl);
       addToast('Connexion réussie !', {
         appearance: 'success',
       });
@@ -216,25 +213,6 @@ export default function CurrentUserContextProvider({ children }) {
     }
   });
 
-  /* const checkedEmail = useCallback(async (data) => {
-    const { userId, token } = qs.parse(window.location.search);
-    try {
-      await API.post('/users/confirmed-email', {
-        email: data.email,
-        token,
-        userId,
-      });
-      addToast('La création de votre compte est un succès !', {
-        appearance: 'success',
-      });
-    } catch {
-      addToast(
-        'Un problème est survenu lors de la création de votre compte, veuillez réessayer !',
-        { appearance: 'error' }
-      );
-    }
-  }); */
-
   // favoritesList = {103: true, 456: false} ici 456 était fav puis a été supprimé
   const toggleFoodInFavorites = async (foodId) => {
     const newList = await ((currentFavorites) => {
@@ -265,9 +243,6 @@ export default function CurrentUserContextProvider({ children }) {
         showModal,
         setShowModal,
         validateEmail,
-        // checkedEmail,
-        // confirmedPassword,
-        // setConfirmedPassword,
         setFavoritesIdsList,
         favoritesIdsList,
         toggleFoodInFavorites,
@@ -277,26 +252,3 @@ export default function CurrentUserContextProvider({ children }) {
     </CurrentUserContext.Provider>
   );
 }
-
-/*   const deleteUser = useCallback(async (id) => {
-    // eslint-disable-next-line
-    if (window.confirm('Are you sure ?')) {
-      setLoadingProfile(true);
-      try {
-        await API.delete(`/profil/${id}`).then(() => {
-          setProfile((profil) => profil.filter((n) => n.id !== id));
-          addToast('Votre compte a bien éte supprimé !', {
-            appearance: 'error',
-          }).finally(() => {
-            setLoadingProfile(false);
-          });
-        });
-      } catch (err) {
-        addToast('Il y a eu une erreur lors de la création de votre compte !', {
-          appearance: 'error',
-        });
-      }
-    }
-  });
-
-*/
