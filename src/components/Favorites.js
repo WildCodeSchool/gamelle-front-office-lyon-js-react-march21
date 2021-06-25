@@ -11,7 +11,6 @@ export default function Favorites() {
     if (profile) {
       API.get(`/favorites`)
         .then((res) => {
-          console.log(res.data);
           setFavoritesList(res.data);
         })
         .catch((err) => console.log(err));
