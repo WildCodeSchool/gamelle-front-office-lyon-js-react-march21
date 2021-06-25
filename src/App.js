@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContext from './contexts/ResultsContext';
 import FoodContext from './contexts/FoodContext';
+
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 
 function App() {
