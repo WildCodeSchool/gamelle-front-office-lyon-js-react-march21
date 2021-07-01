@@ -10,6 +10,7 @@ import SignUp from './SignUp';
 import GetResetPasswordMailPage from '../screens/GetResetPasswordMailPage';
 import ResetPasswordPage from '../screens/ResetPasswordPage';
 import ConfirmEmail from '../screens/ConfirmEmail';
+import Favorites from '../screens/FavoritesPage';
 
 export default function Main() {
   return (
@@ -32,7 +33,8 @@ export default function Main() {
           path="/reinitialisation-mot-de-passe"
           component={ResetPasswordPage}
         />
-        <Route path="/confirm-email" component={ConfirmEmail} />
+        <Route exact path="/confirm-email" component={ConfirmEmail} />
+        <Route path="/favoris" component={Favorites} />
       </Switch>
     </main>
   );

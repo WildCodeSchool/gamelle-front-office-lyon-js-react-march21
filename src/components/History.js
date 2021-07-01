@@ -4,13 +4,13 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
 
 export default function History() {
-  const apiBase = process.env.REACT_APP_API_BASE_URL;
   const [historyList, setHistoryList] = useState([]);
-  const { profile } = useContext(CurrentUserContext);
+  const { profile, toggleFoodInFavorites, favoritesIdsList } =
+    useContext(CurrentUserContext);
 
   useEffect(() => {
     if (profile) {
-      API.get(`${apiBase}/histories`)
+      API.get(`/histories`)
         .then((res) => {
           setHistoryList(res.data);
         })
@@ -18,8 +18,23 @@ export default function History() {
     }
   }, []);
 
-  const handleClickFavorite = () => {
-    console.log('clic');
+  const handleClickFavorite = async (item) => {
+    const isFavorite = !!favoritesIdsList[item.foodId];
+
+    if (isFavorite) {
+      const { foodId } = item;
+      API.delete(`/favorites/${foodId}`)
+        .then(() => {
+          toggleFoodInFavorites(item.foodId);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      API.post(`/favorites`, { foodId: item.foodId })
+        .then(() => {
+          toggleFoodInFavorites(item.foodId);
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   return historyList.length !== 0 ? (
@@ -33,14 +48,15 @@ export default function History() {
 
       <ul>
         {historyList.map((hist) => {
+          const isFavorite = !!favoritesIdsList[hist.foodId];
           return (
-            <li className="flex bg-white shadow-lg px-5 py-2 m-5">
+            <li key={hist.id} className="flex bg-white shadow-lg px-5 py-2 m-5">
               <div className="absolute right-1/4">
                 <button
                   type="button"
                   aria-label="Favorite"
                   onClick={() => handleClickFavorite(hist)}
-                  className={hist.favoriteId ? 'isFavorite' : 'notFavorite'}
+                  className={isFavorite ? 'isFavorite' : 'notFavorite'}
                 />
               </div>
               <div className="flex items-center">

@@ -1,36 +1,49 @@
 /* eslint-disable no-console */
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import qs from 'query-string';
 import API from '../APIClient';
 import FoodContext from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-const apiBase = process.env.REACT_APP_API_BASE_URL;
-
 export default function FicheProduit() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
-  const { profile } = useContext(CurrentUserContext);
-  const [favoriteStatus, setFavoriteStatus] = useState(null);
+  const { profile, toggleFoodInFavorites, favoritesIdsList } =
+    useContext(CurrentUserContext);
 
   useEffect(() => {
-    API.get(`${apiBase}/foods/${id}`)
+    API.get(`/foods/${id}`)
       .then(async (res) => {
         await setFoodDetails(res.data);
-        if (profile !== null) {
+        if (profile) {
           const userId = profile.id;
           const foodId = parseInt(id, 10);
-          API.post(`${apiBase}/histories`, { foodId, userId })
-            .then((hist) => {
-              setFavoriteStatus(hist.data.favoriteId);
-            })
+          API.post(`/histories`, { foodId, userId })
+            .then(() => {})
             .catch((err) => console.log(err));
         }
       })
       .catch((err) => console.log(err));
   }, []);
 
-  console.log('foodDetails   ', foodDetails);
+  const handleClickFavorite = async () => {
+    const isFavorite = !!favoritesIdsList[id];
+    const foodId = parseInt(id, 10);
+
+    if (isFavorite) {
+      API.delete(`/favorites/${foodId}`)
+        .then(() => {
+          toggleFoodInFavorites(foodId);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      API.post(`/favorites`, { foodId })
+        .then(() => {
+          toggleFoodInFavorites(foodId);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
 
   return (
     <>
@@ -39,8 +52,14 @@ export default function FicheProduit() {
           <div className="flex items-center flex-col justify-center md:p-5">
             <div className="relative md:flex md:flex-col md:shadow-lg lg:w-7/12 md:w-10/12 md:m-10 bg-white dark:bg-darkpurple">
               <div className="absolute right-0 mr-5 mt-3">
-                <div
-                  className={favoriteStatus ? 'isFavorite' : 'notFavorite'}
+                <button
+                  type="button"
+                  aria-label="Favorite"
+                  onClick={() => handleClickFavorite(foodDetails)}
+                  className={
+                    // eslint-disable-next-line no-extra-boolean-cast
+                    !!favoritesIdsList[id] ? 'isFavorite' : 'notFavorite'
+                  }
                 />
               </div>
               <div className="flex items-center  border border-grey">

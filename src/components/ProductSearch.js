@@ -6,7 +6,7 @@ import API from '../APIClient';
 import ResultsContext from '../contexts/ResultsContext';
 
 export default function ProductSearch() {
-  const apiBase = process.env.REACT_APP_API_BASE_URL;
+  // const apiBase = process.env.REACT_APP_API_BASE_URL;
   const history = useHistory();
   const [brandList, setBrandList] = useState(null);
   const [foodTypeList, setFoodTypeList] = useState(null);
@@ -14,7 +14,7 @@ export default function ProductSearch() {
   const { setResultsList } = useContext(ResultsContext);
 
   useEffect(() => {
-    API.get(`${apiBase}/searches`)
+    API.get(`/searches`)
       .then((res) => {
         setBrandList(res.data[0]);
         setFoodTypeList(res.data[1]);
@@ -25,7 +25,7 @@ export default function ProductSearch() {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
-    API.post(`${apiBase}/searches`, form)
+    API.post(`/searches`, form)
       .then((res) => {
         setResultsList(res.data);
         history.push('/resultats');
@@ -65,7 +65,7 @@ export default function ProductSearch() {
                     <option key={element.brand} value={element.brand}>
                       {element.brand}
                     </option>
-                  ))}{' '}
+                  ))}
               </select>
             </label>
           </div>
