@@ -2,6 +2,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from '../screens/HomePage';
 import SearchPage from '../screens/SearchPage';
 import ProfilePage from '../screens/ProfilePage';
+import PetFormPage from '../screens/PetFormPage';
 import HistoryPage from '../screens/HistoryPage';
 import ResultsPage from '../screens/ResultsPage';
 import FichePage from '../screens/FichePage';
@@ -16,23 +17,22 @@ export default function Main() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/recherche" component={SearchPage} />
-        <Route exact path="/profil" component={ProfilePage} />
+        <Route path="/profil" component={ProfilePage} />
+        <Route path="/petform" component={PetFormPage} />
         <Route path="/historique" component={HistoryPage} />
         <Route path="/resultats" component={ResultsPage} />
-        <Route exact path="/inscription" component={SignUp} />
+        <Route path="/inscription" component={SignUp} />
         <Route path="/ficheproduit" component={FichePage} />
-        <Route exact path="/signUp" component={SignUp} />
+        <Route path="/signUp" component={SignUp} />
         <Route
-          exact
           path="/mot-de-passe-oublie"
           component={GetResetPasswordMailPage}
         />
         <Route
-          exact
           path="/reinitialisation-mot-de-passe"
           component={ResetPasswordPage}
         />
-        <Route exact path="/confirm-email" component={ConfirmEmail} />
+        <Route path="/confirm-email" component={ConfirmEmail} />
       </Switch>
     </main>
   );
