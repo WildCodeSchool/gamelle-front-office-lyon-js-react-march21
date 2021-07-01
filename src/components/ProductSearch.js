@@ -1,14 +1,17 @@
 /* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { isMobileOnly, isTablet, isDesktop, osName } from 'react-device-detect';
+
 import API from '../APIClient';
 import ResultsContext from '../contexts/ResultsContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function ProductSearch() {
   const [brandList, setBrandList] = useState(null);
   const [foodTypeList, setFoodTypeList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
-
+  const { profile } = useContext(CurrentUserContext);
   const { setResultsList } = useContext(ResultsContext);
 
   useEffect(() => {
@@ -23,9 +26,40 @@ export default function ProductSearch() {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
+    console.log('form   ', form);
     API.post(`/searches`, form)
       .then((res) => {
         setResultsList(res.data);
+        // update statistics
+        let device = null;
+        if (isMobileOnly) {
+          device = 'mobile';
+        } else if (isTablet) {
+          device = 'tablet';
+        } else if (isDesktop) {
+          device = 'desktop';
+        }
+        const userId = profile ? profile.id : null;
+        const statsInfos = {
+          userId,
+          requestInfo: 'search',
+          brand: form.brand,
+          foodTypeId:
+            form.foodTypeId !== '' ? parseInt(form.foodTypeId, 10) : null,
+          animalCategoryId:
+            form.animalCategoryId !== ''
+              ? parseInt(form.animalCategoryId, 10)
+              : null,
+          searchText: form.searchedWords,
+          device,
+          osName,
+        };
+        console.log('statsInfos   ', statsInfos);
+        API.post(`/statistics`, statsInfos)
+          .then((stat) => {
+            console.log(stat.data);
+          })
+          .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
   };
