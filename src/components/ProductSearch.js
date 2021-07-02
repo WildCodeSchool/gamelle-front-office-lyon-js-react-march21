@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { isMobileOnly, isTablet, isDesktop, osName } from 'react-device-detect';
 
 import API from '../APIClient';
 import ResultsContext from '../contexts/ResultsContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import DeviceContext from '../contexts/DeviceContext';
 
 export default function ProductSearch() {
   const [brandList, setBrandList] = useState(null);
@@ -13,6 +13,7 @@ export default function ProductSearch() {
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
   const { profile } = useContext(CurrentUserContext);
   const { setResultsList } = useContext(ResultsContext);
+  const { userDevice } = useContext(DeviceContext);
 
   useEffect(() => {
     API.get(`/searches`)
@@ -26,19 +27,11 @@ export default function ProductSearch() {
 
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
-    console.log('form   ', form);
     API.post(`/searches`, form)
       .then((res) => {
         setResultsList(res.data);
         // update statistics
-        let device = null;
-        if (isMobileOnly) {
-          device = 'mobile';
-        } else if (isTablet) {
-          device = 'tablet';
-        } else if (isDesktop) {
-          device = 'desktop';
-        }
+
         const userId = profile ? profile.id : null;
         const statsInfos = {
           userId,
@@ -51,8 +44,8 @@ export default function ProductSearch() {
               ? parseInt(form.animalCategoryId, 10)
               : null,
           searchText: form.searchedWords,
-          device,
-          osName,
+          device: userDevice.device,
+          osName: userDevice.osName,
         };
         console.log('statsInfos   ', statsInfos);
         API.post(`/statistics`, statsInfos)

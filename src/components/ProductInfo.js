@@ -4,14 +4,16 @@ import qs from 'query-string';
 import API from '../APIClient';
 import FoodContext from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import DeviceContext from '../contexts/DeviceContext';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
     useContext(CurrentUserContext);
+  const { userDevice } = useContext(DeviceContext);
 
-  useEffect(() => {
+  useEffect(async () => {
     API.get(`/foods/${id}`)
       .then(async (res) => {
         await setFoodDetails(res.data);
@@ -23,8 +25,38 @@ export default function ProductInfo() {
             .catch((err) => console.log(err));
         }
       })
-      .catch((err) => console.log(err))
-      .finally(setFoodDetails([]));
+      .catch((err) => console.log(err));
+
+    const foodGamelle = await API.get(`/foods/gamelle/${id}`).then(
+      (res) => res.data
+    );
+
+    console.log('foodGamelle   ', foodGamelle);
+    // statistics
+    const userId = profile ? profile.id : null;
+    const statsInfos = {
+      userId,
+      requestInfo: 'foodDetails',
+      brand: foodGamelle.brand,
+      foodTypeId:
+        foodGamelle.foodTypeId !== ''
+          ? parseInt(foodGamelle.foodTypeId, 10)
+          : null,
+      animalCategoryId:
+        foodGamelle.animalCategoryId !== ''
+          ? parseInt(foodGamelle.animalCategoryId, 10)
+          : null,
+      searchText: foodGamelle.searchedWords,
+      foodId: foodGamelle.id,
+      device: userDevice.device,
+      osName: userDevice.osName,
+    };
+    console.log('statsInfos   ', statsInfos);
+    await API.post(`/statistics`, statsInfos)
+      .then((stat) => {
+        console.log(stat.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   const handleClickFavorite = async () => {

@@ -1,16 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import './index.css';
+import { isMobileOnly, isTablet, isDesktop, osName } from 'react-device-detect';
 import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContext from './contexts/ResultsContext';
 import FoodContext from './contexts/FoodContext';
-
+import DeviceContext from './contexts/DeviceContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 
 function App() {
   const [resultsList, setResultsList] = useState([]);
   const [foodDetails, setFoodDetails] = useState([]);
+  const [userDevice, setUserDevice] = useState([]);
+
+  useEffect(() => {
+    let device = null;
+    if (isMobileOnly) {
+      device = 'mobile';
+    } else if (isTablet) {
+      device = 'tablet';
+    } else if (isDesktop) {
+      device = 'desktop';
+    }
+    setUserDevice({ device, osName });
+  }, []);
 
   return (
     <div className="bg-grey dark:bg-darkblue min-h-screen">
@@ -20,12 +34,14 @@ function App() {
         placement="bottom-right"
       >
         <CurrentUserContextProvider>
-          <ResultsContext.Provider value={{ resultsList, setResultsList }}>
-            <FoodContext.Provider value={{ foodDetails, setFoodDetails }}>
-              <Header />
-              <Main />
-            </FoodContext.Provider>
-          </ResultsContext.Provider>
+          <DeviceContext.Provider value={{ userDevice }}>
+            <ResultsContext.Provider value={{ resultsList, setResultsList }}>
+              <FoodContext.Provider value={{ foodDetails, setFoodDetails }}>
+                <Header />
+                <Main />
+              </FoodContext.Provider>
+            </ResultsContext.Provider>
+          </DeviceContext.Provider>
         </CurrentUserContextProvider>
       </ToastProvider>
     </div>
