@@ -31,9 +31,9 @@ export default function ProductInfo() {
       (res) => res.data
     );
 
-    console.log('foodGamelle   ', foodGamelle);
     // statistics
     const userId = profile ? profile.id : null;
+
     const statsInfos = {
       userId,
       requestInfo: 'foodDetails',
@@ -50,12 +50,11 @@ export default function ProductInfo() {
       foodId: foodGamelle.id,
       device: userDevice.device,
       osName: userDevice.osName,
+      requestSentAt: new Date(),
     };
-    console.log('statsInfos   ', statsInfos);
+
     await API.post(`/statistics`, statsInfos)
-      .then((stat) => {
-        console.log(stat.data);
-      })
+      .then(() => {})
       .catch((err) => console.log(err));
   }, []);
 

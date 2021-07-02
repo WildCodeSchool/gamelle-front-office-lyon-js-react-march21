@@ -1,18 +1,33 @@
 /* eslint-disable no-console */
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import DeviceContext from '../contexts/DeviceContext';
 import API from '../APIClient';
 
 export default function History() {
   const [historyList, setHistoryList] = useState([]);
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
     useContext(CurrentUserContext);
+  const { userDevice } = useContext(DeviceContext);
 
   useEffect(() => {
     if (profile) {
       API.get(`/histories`)
         .then((res) => {
           setHistoryList(res.data);
+          // update statistics
+          const userId = profile.id;
+          const statsInfos = {
+            userId,
+            requestInfo: 'history',
+            device: userDevice.device,
+            osName: userDevice.osName,
+            requestSentAt: new Date(),
+          };
+
+          API.post(`/statistics`, statsInfos)
+            .then(() => {})
+            .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
     }

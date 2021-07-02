@@ -1,17 +1,32 @@
 /* eslint-disable no-console */
 import { useEffect, useContext, useState } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import DeviceContext from '../contexts/DeviceContext';
 import API from '../APIClient';
 
 export default function Favorites() {
   const { profile, toggleFoodInFavorites } = useContext(CurrentUserContext);
   const [favoritesList, setFavoritesList] = useState([]);
+  const { userDevice } = useContext(DeviceContext);
 
   useEffect(() => {
     if (profile) {
       API.get(`/favorites`)
         .then((res) => {
           setFavoritesList(res.data);
+          // update statistics
+          const userId = profile.id;
+          const statsInfos = {
+            userId,
+            requestInfo: 'favorites',
+            device: userDevice.device,
+            osName: userDevice.osName,
+            requestSentAt: new Date(),
+          };
+
+          API.post(`/statistics`, statsInfos)
+            .then(() => {})
+            .catch((err) => console.log(err));
         })
         .catch((err) => console.log(err));
     }

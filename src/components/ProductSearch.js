@@ -30,8 +30,8 @@ export default function ProductSearch() {
     API.post(`/searches`, form)
       .then((res) => {
         setResultsList(res.data);
-        // update statistics
 
+        // update statistics
         const userId = profile ? profile.id : null;
         const statsInfos = {
           userId,
@@ -46,12 +46,11 @@ export default function ProductSearch() {
           searchText: form.searchedWords,
           device: userDevice.device,
           osName: userDevice.osName,
+          requestSentAt: new Date(),
         };
-        console.log('statsInfos   ', statsInfos);
+
         API.post(`/statistics`, statsInfos)
-          .then((stat) => {
-            console.log(stat.data);
-          })
+          .then(() => {})
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
