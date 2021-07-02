@@ -64,9 +64,10 @@ export default function History() {
       <ul>
         {historyList.map((hist) => {
           const isFavorite = !!favoritesIdsList[hist.foodId];
+
           return (
             <li
-              key={hist.id}
+              key={hist.consultedAt}
               className="flex items-center bg-white shadow shadow-lg px-5 py-2 m-5"
             >
               <img

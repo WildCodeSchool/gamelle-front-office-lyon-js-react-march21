@@ -2,7 +2,6 @@ import { Switch, Route, useLocation } from 'react-router-dom';
 import SearchPage from '../screens/SearchPage';
 import ProfilePage from '../screens/ProfilePage';
 import HistoryPage from '../screens/HistoryPage';
-import ResultsPage from '../screens/ResultsPage';
 import SignUp from './SignUp';
 import GetResetPasswordMailPage from '../screens/GetResetPasswordMailPage';
 import ResetPasswordPage from '../screens/ResetPasswordPage';
@@ -19,7 +18,6 @@ export default function Main() {
         <Route exact path="/" component={SearchPage} />
         <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/history" component={HistoryPage} />
-        <Route exact path="/results" component={ResultsPage} />
         <Route exact path="/sign-up" component={SignUp} />
         <Route
           exact
