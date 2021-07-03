@@ -51,6 +51,8 @@ export default function ProductInfo() {
       device: userDevice.device,
       osName: userDevice.osName,
       requestSentAt: new Date(),
+      ipv4Address: userDevice.ipv4Address,
+      ipv6Address: userDevice.ipv6Address,
     };
 
     await API.post(`/statistics`, statsInfos)

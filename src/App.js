@@ -9,12 +9,14 @@ import FoodContext from './contexts/FoodContext';
 import DeviceContext from './contexts/DeviceContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 
+const publicIp = require('public-ip');
+
 function App() {
   const [resultsList, setResultsList] = useState([]);
   const [foodDetails, setFoodDetails] = useState([]);
   const [userDevice, setUserDevice] = useState([]);
 
-  useEffect(() => {
+  useEffect(async () => {
     let device = null;
     if (isMobileOnly) {
       device = 'mobile';
@@ -23,9 +25,12 @@ function App() {
     } else if (isDesktop) {
       device = 'desktop';
     }
-    setUserDevice({ device, osName });
-  }, []);
 
+    const ipv4Address = await publicIp.v4();
+    const ipv6Address = await publicIp.v6();
+
+    setUserDevice({ device, osName, ipv4Address, ipv6Address });
+  }, []);
   return (
     <div className="bg-grey dark:bg-darkblue min-h-screen">
       <ToastProvider

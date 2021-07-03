@@ -22,6 +22,8 @@ export default function Favorites() {
             device: userDevice.device,
             osName: userDevice.osName,
             requestSentAt: new Date(),
+            ipv4Address: userDevice.ipv4Address,
+            ipv6Address: userDevice.ipv6Address,
           };
 
           API.post(`/statistics`, statsInfos)
