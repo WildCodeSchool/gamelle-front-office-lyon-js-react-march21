@@ -1,13 +1,24 @@
 /* eslint-disable no-console */
 import { useEffect, useContext, useState } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import DeviceContext from '../contexts/DeviceContext';
+import { DeviceContext } from '../contexts/DeviceContext';
 import API from '../APIClient';
 
 export default function Favorites() {
   const { profile, toggleFoodInFavorites } = useContext(CurrentUserContext);
   const [favoritesList, setFavoritesList] = useState([]);
   const { userDevice } = useContext(DeviceContext);
+  const [statsInfos, setStatsInfos] = useState({});
+
+  useEffect(() => {
+    if (profile && statsInfos) {
+      API.post(`/statistics`, statsInfos)
+        .then(() => {})
+        .catch((err) => console.log(err));
+    }
+  }, [statsInfos]);
+
+  console.log(userDevice);
 
   useEffect(() => {
     if (profile) {
@@ -16,7 +27,8 @@ export default function Favorites() {
           setFavoritesList(res.data);
           // update statistics
           const userId = profile.id;
-          const statsInfos = {
+          setStatsInfos({
+            ...statsInfos,
             userId,
             requestInfo: 'favorites',
             device: userDevice.device,
@@ -24,11 +36,7 @@ export default function Favorites() {
             requestSentAt: new Date(),
             ipv4Address: userDevice.ipv4Address,
             ipv6Address: userDevice.ipv6Address,
-          };
-
-          API.post(`/statistics`, statsInfos)
-            .then(() => {})
-            .catch((err) => console.log(err));
+          });
         })
         .catch((err) => console.log(err));
     }
@@ -40,6 +48,21 @@ export default function Favorites() {
       .then(() => {
         toggleFoodInFavorites(item.foodId);
         setFavoritesList(favoritesList.filter((fav) => fav.foodId !== foodId));
+        setStatsInfos({
+          ...statsInfos,
+          brand: item.Foods.brand,
+          foodTypeId:
+            item.Foods.foodTypeId !== ''
+              ? parseInt(item.Foods.foodTypeId, 10)
+              : null,
+          animalCategoryId:
+            item.Foods.animalCategoryId !== ''
+              ? parseInt(item.Foods.animalCategoryId, 10)
+              : null,
+          foodId,
+          requestInfo: 'removeFavorite',
+          requestSentAt: new Date(),
+        });
       })
       .catch((err) => console.log(err));
   };

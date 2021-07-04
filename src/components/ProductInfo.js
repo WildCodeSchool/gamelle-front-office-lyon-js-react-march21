@@ -4,7 +4,7 @@ import qs from 'query-string';
 import API from '../APIClient';
 import FoodContext from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import DeviceContext from '../contexts/DeviceContext';
+import { DeviceContext } from '../contexts/DeviceContext';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
@@ -12,6 +12,7 @@ export default function ProductInfo() {
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
     useContext(CurrentUserContext);
   const { userDevice } = useContext(DeviceContext);
+  const [statsInfos, setStatsInfos] = useState(null);
 
   useEffect(async () => {
     API.get(`/foods/${id}`)
@@ -33,8 +34,7 @@ export default function ProductInfo() {
 
     // statistics
     const userId = profile ? profile.id : null;
-
-    const statsInfos = {
+    setStatsInfos({
       userId,
       requestInfo: 'foodDetails',
       brand: foodGamelle.brand,
@@ -53,12 +53,15 @@ export default function ProductInfo() {
       requestSentAt: new Date(),
       ipv4Address: userDevice.ipv4Address,
       ipv6Address: userDevice.ipv6Address,
-    };
-
-    await API.post(`/statistics`, statsInfos)
-      .then(() => {})
-      .catch((err) => console.log(err));
+    });
   }, []);
+
+  useEffect(() => {
+    if (statsInfos)
+      API.post(`/statistics`, statsInfos)
+        .then(() => {})
+        .catch((err) => console.log(err));
+  }, [statsInfos]);
 
   const handleClickFavorite = async () => {
     const isFavorite = !!favoritesIdsList[id];
@@ -66,14 +69,26 @@ export default function ProductInfo() {
 
     if (isFavorite) {
       API.delete(`/favorites/${foodId}`)
-        .then(() => {
+        .then(async () => {
           toggleFoodInFavorites(foodId);
+          setStatsInfos({
+            ...statsInfos,
+            foodId,
+            requestInfo: 'addFavorite',
+            requestSentAt: new Date(),
+          });
         })
         .catch((err) => console.log(err));
     } else {
       API.post(`/favorites`, { foodId })
-        .then(() => {
+        .then(async () => {
           toggleFoodInFavorites(foodId);
+          setStatsInfos({
+            ...statsInfos,
+            foodId,
+            requestInfo: 'removeFavorite',
+            requestSentAt: new Date(),
+          });
         })
         .catch((err) => console.log(err));
     }

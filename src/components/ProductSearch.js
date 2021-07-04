@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import API from '../APIClient';
 import ResultsContext from '../contexts/ResultsContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import DeviceContext from '../contexts/DeviceContext';
+import { DeviceContext } from '../contexts/DeviceContext';
 
 export default function ProductSearch() {
   const [brandList, setBrandList] = useState(null);
@@ -14,6 +14,7 @@ export default function ProductSearch() {
   const { profile } = useContext(CurrentUserContext);
   const { setResultsList } = useContext(ResultsContext);
   const { userDevice } = useContext(DeviceContext);
+  const [statsInfos, setStatsInfos] = useState(null);
 
   useEffect(() => {
     API.get(`/searches`)
@@ -25,15 +26,22 @@ export default function ProductSearch() {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    if (statsInfos)
+      API.post(`/statistics`, statsInfos)
+        .then(() => {})
+        .catch((err) => console.log(err));
+  }, [statsInfos]);
+
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
     API.post(`/searches`, form)
-      .then((res) => {
+      .then(async (res) => {
         setResultsList(res.data);
 
         // update statistics
         const userId = profile ? profile.id : null;
-        const statsInfos = {
+        setStatsInfos({
           userId,
           requestInfo: 'search',
           brand: form.brand,
@@ -49,11 +57,7 @@ export default function ProductSearch() {
           requestSentAt: new Date(),
           ipv4Address: userDevice.ipv4Address,
           ipv6Address: userDevice.ipv6Address,
-        };
-
-        API.post(`/statistics`, statsInfos)
-          .then(() => {})
-          .catch((err) => console.log(err));
+        });
       })
       .catch((err) => console.log(err));
   };
