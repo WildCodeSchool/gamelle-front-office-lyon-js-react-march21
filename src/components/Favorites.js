@@ -8,7 +8,7 @@ export default function Favorites() {
   const { profile, toggleFoodInFavorites } = useContext(CurrentUserContext);
   const [favoritesList, setFavoritesList] = useState([]);
   const { userDevice } = useContext(DeviceContext);
-  const [statsInfos, setStatsInfos] = useState({});
+  const [statsInfos, setStatsInfos] = useState(null);
 
   useEffect(() => {
     if (profile && statsInfos) {
@@ -18,7 +18,7 @@ export default function Favorites() {
     }
   }, [statsInfos]);
 
-  console.log(userDevice);
+  console.log('dans favorites   ', userDevice);
 
   useEffect(() => {
     if (profile) {

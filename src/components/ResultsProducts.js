@@ -1,8 +1,7 @@
 /* eslint-disable */
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import ResultsContext from '../contexts/ResultsContext';
-import FoodContext from '../contexts/FoodContext';
+import { ResultsContext } from '../contexts/ResultsContext';
 import ModalInfo from './ModalInfo';
 
 export default function ResultsProducts() {

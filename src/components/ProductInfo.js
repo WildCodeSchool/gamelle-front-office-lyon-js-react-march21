@@ -2,7 +2,7 @@
 import { useContext, useEffect, useState } from 'react';
 import qs from 'query-string';
 import API from '../APIClient';
-import FoodContext from '../contexts/FoodContext';
+import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { DeviceContext } from '../contexts/DeviceContext';
 

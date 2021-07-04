@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import API from '../APIClient';
-import ResultsContext from '../contexts/ResultsContext';
+import { ResultsContext } from '../contexts/ResultsContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { DeviceContext } from '../contexts/DeviceContext';
 

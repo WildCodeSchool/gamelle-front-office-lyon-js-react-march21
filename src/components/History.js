@@ -32,6 +32,8 @@ export default function History() {
     }
   }, []);
 
+  console.log('dans history   ', userDevice);
+  console.log(new Date());
   useEffect(() => {
     if (profile && statsInfos) {
       API.post(`/statistics`, statsInfos)
@@ -115,6 +117,12 @@ export default function History() {
               <div>
                 <p className="font-bold text-xl">{hist.Foods.name}</p>
                 <p className="text-base">{hist.Foods.brand}</p>
+                {/* <p className="text-base">
+                  {new Intl.DateTimeFormat('fr-FR', {
+                    dateStyle: 'long',
+                    timeStyle: 'medium',
+                  }).format(new Date(hist.consultedAt))}
+                </p> */}
               </div>
 
               <button
