@@ -18,8 +18,6 @@ export default function Favorites() {
     }
   }, [statsInfos]);
 
-  console.log('dans favorites   ', userDevice);
-
   useEffect(() => {
     if (profile) {
       API.get(`/favorites`)
