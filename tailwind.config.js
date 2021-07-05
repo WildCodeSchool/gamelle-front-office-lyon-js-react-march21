@@ -48,18 +48,12 @@ module.exports = {
       googlered: '#EA4335',
       googleyellow: '#FBBC05',
       googlegreen: '#34A853',
+      facebookdarkblue: '#4267B2',
+      facebookblue: '#1877F2',
     },
     textOpacity: ['dark'],
   },
-  extend: {
-    keyframes: {
-      'slide-in': {
-        '0%': { color: 'teal', transform: 'scaleX(0)' },
-        '100%': { color: 'lightcoral', transform: 'scaleX(1)' },
-      },
-    },
-    animation: { 'slide-in': 'slide-in 0.5s ease-out' },
-  },
+  extend: {},
   variants: {},
   plugins: [],
 };
