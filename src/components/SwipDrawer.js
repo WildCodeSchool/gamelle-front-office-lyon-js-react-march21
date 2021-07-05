@@ -12,11 +12,13 @@ export default function SwipDrawer() {
     right: false,
   });
 
-  useEffect(() => {
+  {
+    /*  useEffect(() => {
     setTimeout(() => {
       setDrawer({ left: true });
     }, 1500);
-  }, []);
+  }, []); */
+  }
 
   const leaveDrawer = (e) => {
     e.stopPropagation();
@@ -34,7 +36,7 @@ export default function SwipDrawer() {
     </div>
   );
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between ">
       {['left', 'right'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
