@@ -59,12 +59,12 @@ export default function Profile() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center flex-col justify-center p-5">
           <div className="titre ">
-            <h1 className="mt-6 text-center text-3xl font-extrabold dark:text-white">
+            <h1 className="mt-6 text-center text-3xl font-extrabold ">
               Votre profil
             </h1>
           </div>
           <br />
-          <div className="flex items-center object-center bg-primary rounded shadow shadow-lg p-3 dark:bg-darkpurple">
+          <div className="flex items-center object-center bg-primary rounded shadow-lg p-3">
             <div
               className="flex justify-center items-center"
               onClick={handleAvatarClick}
@@ -140,36 +140,18 @@ export default function Profile() {
             </div>
           </div>
           <br />
-          <div className="flex flex-col bg-black">
-            <button
-              type="button"
-              className="font-bold dark:text-white"
-              onClick={() => alert('Ça ne marche pas encore !')}
-            >
-              Ajouter un animal
-            </button>
-            {changeInput ? (
+          <div className="flex">
+            <div className="flex w-full md:w-full">
               <button
                 type="button"
-                className="font-bold dark:text-white"
-                onClick={() => setChangeInput(!changeInput)}
+                className="font-bold rounded bg-primary
+                hover:bg-secondary text-white
+                m-5 p-2"
               >
-                Modifier votre profil
+                Ajouter un animal
               </button>
-            ) : null}
-            {changeInput ? null : (
-              <button
-                disabled={changeInput}
-                type="submit"
-                className="font-bold dark:text-white"
-              >
-                Sauvegarder
-              </button>
-            )}
-            <div className="mt-10">
-              <Logout />
-              <DeleteProfile />
             </div>
+            <DeleteProfile />
           </div>
         </div>
       </form>
