@@ -24,7 +24,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full flex bg-primary dark:bg-darkpurple">
+    <header className="w-full flex bg-primary">
       <div className="container px-4 justify-between items-start align-center flex flex-wrap">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start xl:justify-start 2xl:justify-start">
           <NavLink exact path="/" to="/">

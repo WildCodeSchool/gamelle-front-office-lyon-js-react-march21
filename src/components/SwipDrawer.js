@@ -7,41 +7,46 @@ import Button from '@material-ui/core/Button';
 import ProductSearch from './ProductSearch';
 
 export default function SwipDrawer() {
-  const [state, setState] = useState({
-    top: false,
-    bottom: false,
+  const [drawer, setDrawer] = useState({
+    left: false,
+    right: false,
   });
 
-  useEffect(() => {
+  {
+    /*  useEffect(() => {
     setTimeout(() => {
-      setState({ top: true });
-    }, 2000);
-  }, []);
+      setDrawer({ left: true });
+    }, 1500);
+  }, []); */
+  }
 
-  const sprite = (e) => {
+  const leaveDrawer = (e) => {
     e.stopPropagation();
   };
 
-  const toggleDrawer = (anchor, open) => (event) => {
-    setState({ ...state, [anchor]: open });
+  const toggleDrawer = (anchor, open) => () => {
+    setDrawer({ ...drawer, [anchor]: open });
   };
   const list = (anchor) => (
-    <div role="presentation" onClick={(toggleDrawer(anchor, false), sprite)}>
+    <div
+      role="presentation"
+      onClick={(toggleDrawer(anchor, false), leaveDrawer)}
+    >
       <ProductSearch />
     </div>
   );
   return (
-    <div className="flex hidden">
-      {['top', 'bottom'].map((anchor) => (
+    <div className="flex justify-between ">
+      {['left', 'right'].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
           <SwipeableDrawer
             anchor={anchor}
-            open={state[anchor]}
+            open={drawer[anchor]}
             onClose={toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
-            onDoubleClick={toggleDrawer(anchor, false)}
           >
+            {' '}
             {list(anchor)}
           </SwipeableDrawer>
         </React.Fragment>
