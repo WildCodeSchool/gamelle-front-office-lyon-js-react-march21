@@ -9,6 +9,7 @@ import {
   faUserCircle,
   faSearch,
   faHistory,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../assets/logo.png';
 import ModalSignIn from './modalSignIn';
@@ -51,26 +52,22 @@ export default function Header() {
                 {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
               </NavLink>
             </li>
-            {/* <li className="nav-item">
+
+            <li className="nav-item">
+              <NavLink
+                to="/history"
+                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+              >
+                {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/favoris"
               >
-                {burger ? 'Favoris' : <FontAwesomeIcon icon={faSearch} />}
-              </NavLink>
-            </li> */}
-            <li className="nav-item">
-              <NavLink
-                // to={
-                //   profile
-                //     ? `/historique?userId=${profile.id}`
-                //     : '/historique?userId=0'
-                // }
-                to="/history"
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-              >
-                {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
+                {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
               </NavLink>
             </li>
             {isLoggedIn && (
