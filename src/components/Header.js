@@ -52,7 +52,7 @@ export default function Header() {
                 {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <NavLink
                 className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
@@ -60,7 +60,7 @@ export default function Header() {
               >
                 {burger ? 'Favoris' : <FontAwesomeIcon icon={faSearch} />}
               </NavLink>
-            </li>
+            </li> */}
             <li className="nav-item">
               <NavLink
                 // to={
