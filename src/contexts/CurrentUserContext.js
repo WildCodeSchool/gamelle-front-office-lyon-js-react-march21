@@ -213,6 +213,25 @@ export default function CurrentUserContextProvider({ children }) {
     }
   });
 
+  const checkedEmail = useCallback(async (data) => {
+    const { userId, token } = qs.parse(window.location.search);
+    try {
+      await API.post('/users/confirmed-email', {
+        email: data.email,
+        token,
+        userId,
+      });
+      addToast('La création de votre compte est un succès !', {
+        appearance: 'success',
+      });
+    } catch {
+      addToast(
+        'Un problème est survenu lors de la création de votre compte, veuillez réessayer !',
+        { appearance: 'error' }
+      );
+    }
+  });
+
   // favoritesList = {103: true, 456: false} ici 456 était fav puis a été supprimé
   const toggleFoodInFavorites = async (foodId) => {
     const newList = await ((currentFavorites) => {
@@ -243,6 +262,7 @@ export default function CurrentUserContextProvider({ children }) {
         showModal,
         setShowModal,
         validateEmail,
+        checkedEmail,
         setFavoritesIdsList,
         favoritesIdsList,
         toggleFoodInFavorites,

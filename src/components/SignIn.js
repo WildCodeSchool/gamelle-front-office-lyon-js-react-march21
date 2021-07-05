@@ -20,7 +20,7 @@ export default function SignIn() {
       </div>
       <div className="flex justify-center mt-4">
         <a
-          className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-googleblue hover:via-googlered hover:to-googleyellow animate-slide-in"
+          className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-googleblue hover:via-googlered hover:to-googleyellow"
           href="http://localhost:5000/auth/google"
         >
           <FontAwesomeIcon
