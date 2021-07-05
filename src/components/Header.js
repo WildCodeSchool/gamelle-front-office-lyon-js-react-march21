@@ -12,7 +12,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../assets/logo.png';
 import ModalSignIn from './modalSignIn';
-import Toggle from './Toggle';
 import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
@@ -103,9 +102,6 @@ export default function Header() {
                 <Logout />
               </li>
             )}
-            <li className="mb-3">
-              <Toggle />
-            </li>
           </ul>
         </div>
       </div>

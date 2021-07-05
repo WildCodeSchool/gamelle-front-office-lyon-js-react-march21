@@ -1,6 +1,7 @@
 import { Switch, Route, useLocation } from 'react-router-dom';
 import SearchPage from '../screens/SearchPage';
 import ProfilePage from '../screens/ProfilePage';
+import PetFormPage from '../screens/PetFormPage';
 import HistoryPage from '../screens/HistoryPage';
 import ResultsPage from '../screens/ResultsPage';
 import ProductInfo from '../screens/ProductInfoPage';
@@ -9,6 +10,7 @@ import GetResetPasswordMailPage from '../screens/GetResetPasswordMailPage';
 import ResetPasswordPage from '../screens/ResetPasswordPage';
 import ConfirmEmail from '../screens/ConfirmEmail';
 import ModalInfo from './ModalInfo';
+import Favorites from '../screens/FavoritesPage';
 
 export default function Main() {
   const location = useLocation();
@@ -29,6 +31,8 @@ export default function Main() {
         />
         <Route exact path="/reset-password" component={ResetPasswordPage} />
         <Route exact path="/confirm-email" component={ConfirmEmail} />
+        <Route path="/favoris" component={Favorites} />
+        <Route path="/petform" component={PetFormPage} />
         {background && <Route path="/product-info/" component={ModalInfo} />}
       </Switch>
     </main>
