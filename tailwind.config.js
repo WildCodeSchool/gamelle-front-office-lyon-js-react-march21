@@ -52,8 +52,31 @@ module.exports = {
       facebookblue: '#1877F2',
     },
     textOpacity: ['dark'],
+    extend: {
+      keyframes: {
+        wiggle: {
+          '0%, 100%': {
+            transform: 'translateX(-50%)',
+          },
+          '50%': {
+            transform: 'translateX(0%)',
+          },
+        },
+        reverseWiggle: {
+          '0%, 100%': {
+            transform: 'translateX(50%)',
+          },
+          '50%': {
+            transform: 'translateX(0%)',
+          },
+        },
+      },
+      animation: {
+        wiggle: 'wiggle 1s infinite',
+        reverseWiggle: 'reverseWiggle 1s infinite',
+      },
+    },
   },
-  extend: {},
   variants: {},
   plugins: [],
 };

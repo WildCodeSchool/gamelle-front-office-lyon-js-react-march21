@@ -1,55 +1,71 @@
 /* eslint-disable */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faArrowAltCircleLeft,
+  faArrowAltCircleRight,
+} from '@fortawesome/free-solid-svg-icons';
 import ProductSearch from './ProductSearch';
+import { DrawerContext } from '../contexts/DrawerContext';
 
 export default function SwipDrawer() {
-  const [drawer, setDrawer] = useState({
-    left: false,
-    right: false,
-  });
+  const { drawer, toggleDrawer, leaveDrawer } = useContext(DrawerContext);
 
-  {
-    /*  useEffect(() => {
-    setTimeout(() => {
-      setDrawer({ left: true });
-    }, 1500);
-  }, []); */
-  }
-
-  const leaveDrawer = (e) => {
-    e.stopPropagation();
-  };
-
-  const toggleDrawer = (anchor, open) => () => {
-    setDrawer({ ...drawer, [anchor]: open });
-  };
   const list = (anchor) => (
-    <div
-      role="presentation"
-      onClick={(toggleDrawer(anchor, false), leaveDrawer)}
-    >
+    <div role="none" onClick={(toggleDrawer(anchor, false), leaveDrawer)}>
       <ProductSearch />
     </div>
   );
+
   return (
-    <div className="flex justify-between ">
-      {['left', 'right'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+    <div className="w-screen min-h-screen flex justify-between fixed">
+      {['left'].map((anchor) => (
+        <div key={anchor} className="flex">
+          <Button
+            style={{ backgroundColor: 'transparent' }}
+            onClick={toggleDrawer(anchor, true)}
+            title="Cliquer ici pour ouvrir la barre de recherche"
+          >
+            <FontAwesomeIcon
+              icon={faArrowAltCircleRight}
+              className="animate-wiggle"
+            />
+          </Button>
           <SwipeableDrawer
             anchor={anchor}
-            open={drawer[anchor]}
+            open={drawer[anchor] || false}
             onClose={toggleDrawer(anchor, false)}
             onOpen={toggleDrawer(anchor, true)}
           >
-            {' '}
             {list(anchor)}
           </SwipeableDrawer>
-        </React.Fragment>
+        </div>
+      ))}
+      {['right'].map((anchor) => (
+        <div key={anchor} className="flex">
+          <Button
+            style={{ backgroundColor: 'transparent' }}
+            onClick={toggleDrawer(anchor, true)}
+            title="cliqué pour ouvrir la recherche"
+          >
+            <FontAwesomeIcon
+              icon={faArrowAltCircleLeft}
+              className="animate-reverseWiggle"
+            />
+          </Button>
+          <SwipeableDrawer
+            anchor={anchor}
+            open={drawer[anchor] || false}
+            onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}
+          >
+            {list(anchor)}
+          </SwipeableDrawer>
+        </div>
       ))}
     </div>
   );

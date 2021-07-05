@@ -6,6 +6,7 @@ import ResultsContextProvider from './contexts/ResultsContext';
 import FoodContextProvider from './contexts/FoodContext';
 import DeviceContextProvider from './contexts/DeviceContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
+import DrawerContextProvider from './contexts/DrawerContext';
 
 function App() {
   return (
@@ -19,8 +20,10 @@ function App() {
           <DeviceContextProvider>
             <ResultsContextProvider>
               <FoodContextProvider>
-                <Header />
-                <Main />
+                <DrawerContextProvider>
+                  <Header />
+                  <Main />
+                </DrawerContextProvider>
               </FoodContextProvider>
             </ResultsContextProvider>
           </DeviceContextProvider>
