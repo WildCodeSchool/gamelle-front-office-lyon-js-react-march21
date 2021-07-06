@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-// import { focusHandling } from "cruip-js-toolkit";
 
 import {
   Chart,
@@ -16,7 +15,8 @@ Chart.register(DoughnutController, ArcElement, TimeScale, Tooltip, Legend);
 function DoughnutChart({ data, width, height }) {
   const canvas = useRef(null);
   const legend = useRef(null);
-
+  console.log(data);
+  console.log(data.datasets[0].data);
   useEffect(() => {
     const ctx = canvas.current;
     const chart = new Chart(ctx, {
@@ -86,7 +86,7 @@ function DoughnutChart({ data, width, height }) {
       ],
     });
     return () => chart.destroy();
-  }, []);
+  }, [data]);
 
   return (
     <div className="flex-grow flex flex-col justify-center">

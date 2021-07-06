@@ -1,12 +1,20 @@
+import { useContext, useState } from 'react';
 import Flatpickr from 'react-flatpickr';
+import { StatsContext } from '../../contexts/StatsContext';
 
-function Datepicker() {
+import 'flatpickr/dist/themes/material_green.css';
+
+export default function Datepicker() {
+  const { setStatsStartDate, setStatsEndDate } = useContext(StatsContext);
+  const [chosenDates, setChosenDates] = useState([]);
+  const defDate = new Date();
+
   const options = {
     mode: 'range',
     static: true,
     monthSelectorType: 'static',
     dateFormat: 'd M Y',
-    defaultDate: [new Date().setDate(new Date().getDate() - 6), new Date()],
+    defaultDate: [new Date().setDate(defDate.getDate() - 6), defDate],
     prevArrow:
       '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
     nextArrow:
@@ -14,11 +22,30 @@ function Datepicker() {
     onReady: (selectedDates, dateStr, instance) => {
       // eslint-disable-next-line no-param-reassign
       instance.element.value = dateStr.replace('to', '-');
+      setChosenDates(selectedDates);
     },
     onChange: (selectedDates, dateStr, instance) => {
       // eslint-disable-next-line no-param-reassign
       instance.element.value = dateStr.replace('to', '-');
+      setChosenDates(selectedDates);
     },
+  };
+
+  const handleClickDates = async () => {
+    const tempStartDate = chosenDates[0];
+    const tempEndDate =
+      chosenDates.length === 2 ? chosenDates[1] : chosenDates[0];
+    setStatsStartDate(new Date(tempStartDate.setHours(0, 0, 0, 0)));
+    setStatsEndDate(
+      new Date(
+        new Date(tempEndDate.setDate(tempEndDate.getDate() + 1)).setHours(
+          0,
+          0,
+          0,
+          0
+        )
+      )
+    );
   };
 
   return (
@@ -26,6 +53,7 @@ function Datepicker() {
       <Flatpickr
         className="form-input pl-9 text-gray-500 hover:text-gray-600 font-medium focus:border-gray-300 w-60"
         options={options}
+        value={chosenDates}
       />
       <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
         <svg
@@ -35,8 +63,13 @@ function Datepicker() {
           <path d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z" />
         </svg>
       </div>
+      <button
+        type="button"
+        aria-label="datesValidation"
+        onClick={() => handleClickDates()}
+      >
+        Valider
+      </button>
     </div>
   );
 }
-
-export default Datepicker;
