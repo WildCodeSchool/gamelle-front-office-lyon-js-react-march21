@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useEffect, useContext, useState } from 'react';
 import Datepicker from '../components/dashboard/Datepicker';
 import RequestsByType from '../components/dashboard/RequestsByType';
