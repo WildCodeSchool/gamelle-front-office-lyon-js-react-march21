@@ -49,22 +49,25 @@ export default function Datepicker() {
   };
 
   return (
-    <div className="relative">
-      <Flatpickr
-        className="form-input pl-9 text-gray-500 hover:text-gray-600 font-medium focus:border-gray-300 w-60"
-        options={options}
-        value={chosenDates}
-      />
-      <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
-        <svg
-          className="w-4 h-4 fill-current text-gray-500 ml-3"
-          viewBox="0 0 16 16"
-        >
-          <path d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z" />
-        </svg>
+    <div className="relative flex items-center">
+      <div>
+        <Flatpickr
+          className="w-60 bg-white border mr-2 py-2 pl-9 rounded-lg border-gray-200 hover:border-gray-500 shadow-sm text-sm placeholder-gray-400 text-gray-500 hover:text-gray-800 font-medium focus:border-gray-300 focus:outline-none"
+          options={options}
+          value={chosenDates}
+        />
+        <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+          <svg
+            className="w-4 h-4 fill-current text-gray-500 ml-3"
+            viewBox="0 0 16 16"
+          >
+            <path d="M15 2h-2V0h-2v2H9V0H7v2H5V0H3v2H1a1 1 0 00-1 1v12a1 1 0 001 1h14a1 1 0 001-1V3a1 1 0 00-1-1zm-1 12H2V6h12v8z" />
+          </svg>
+        </div>
       </div>
       <button
         type="button"
+        className="border-2 px-2 py-1 bg-blue-500 border-gray-200 rounded-lg text-white shadow-sm focus:outline-none"
         aria-label="datesValidation"
         onClick={() => handleClickDates()}
       >

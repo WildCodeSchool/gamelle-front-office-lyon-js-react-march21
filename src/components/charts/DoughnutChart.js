@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useRef, useEffect } from 'react';
 
 import {
@@ -16,8 +15,6 @@ Chart.register(DoughnutController, ArcElement, TimeScale, Tooltip, Legend);
 function DoughnutChart({ data, width, height }) {
   const canvas = useRef(null);
   const legend = useRef(null);
-  console.log(data);
-  console.log(data.datasets[0].data);
   useEffect(() => {
     const ctx = canvas.current;
     const chart = new Chart(ctx, {
@@ -55,21 +52,46 @@ function DoughnutChart({ data, width, height }) {
             }
             // Reuse the built-in legendItems generator
             const items = c.options.plugins.legend.labels.generateLabels(c);
+
             items.forEach((item) => {
               const li = document.createElement('li');
               li.style.margin = 1;
               // Button element
               const button = document.createElement('button');
-              button.classList.add('btn-xs');
+
+              button.classList.add(
+                'font-medium',
+                'text-sm',
+                'inline-flex',
+                'items-center',
+                'justify-center',
+                'border',
+                'border-gray-300',
+                'rounded',
+                'shadow-md',
+                'transition',
+                'duration-150',
+                'ease-in-out',
+                'px-2',
+                'py-0.5',
+                'm-1',
+                'focus:outline-none'
+              );
               button.style.opacity = item.hidden ? '.3' : '';
               button.onclick = () => {
                 c.toggleDataVisibility(item.index, !item.index);
                 c.update();
-                // focusHandling("outline");
               };
               // Color box
               const box = document.createElement('span');
-              box.classList.add('colorBox');
+              box.classList.add(
+                'block',
+                'w-2',
+                'h-2',
+                'rounded-sm',
+                'mr-1',
+                'pointer-events-none'
+              );
               box.style.backgroundColor = item.fillStyle;
               // Label
               const label = document.createElement('span');

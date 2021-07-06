@@ -1,13 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback');
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback'); */
 
-@tailwind base;
-@tailwind components;
+/* @tailwind base;
+@tailwind components; */
 
 /* Additional styles */
-@import 'additional-styles/utility-patterns.css';
+/* @import 'additional-styles/utility-patterns.css';
 @import 'additional-styles/range-slider.css';
 @import 'additional-styles/toggle-switch.css';
 @import 'additional-styles/flatpickr.css';
-@import 'additional-styles/theme.css';
+@import 'additional-styles/theme.css'; */
 
-@tailwind utilities;
+/* @tailwind utilities; */
+
+/* .btn,
+.btn-sm,
+.btn-xs {
+  @apply font-medium text-sm inline-flex items-center justify-center border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out;
+}
+
+.btn {
+  @apply px-2.5 py-2;
+}
+
+.btn-sm {
+  @apply px-2 py-1;
+}
+
+.btn-xs {
+  @apply px-2 py-0.5;
+}
+
+.form-input {
+  @apply text-sm text-gray-800 bg-white border rounded leading-5 py-2 px-3 border-gray-200 hover:border-gray-500 focus:border-indigo-300 shadow-sm placeholder-gray-400;
+}
+
+.btn-xs {
+  @apply shadow-md font-medium text-sm inline-flex items-center justify-center border border-gray-500 border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out px-2 mx-2;
+} */

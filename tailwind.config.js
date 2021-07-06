@@ -47,6 +47,8 @@ module.exports = {
       indigo: colors.indigo,
       red: colors.rose,
       yellow: colors.amber,
+      blue: colors.blue,
+      breen: colors.green,
       grey: '#dbedf3',
       darkblue: '#283149',
       // 'gray-200': '#E4E4E7',
