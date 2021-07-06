@@ -9,7 +9,7 @@ export default function ModalSignIn() {
   return (
     <div>
       <div
-        className=" px-3 py-2 bg-primary text-white font-bold uppercase text-xs cursor-pointer hover:opacity-75 dark:bg-darkpurple"
+        className=" px-3 py-2 bg-primary text-white font-bold uppercase text-sm cursor-pointer hover:opacity-75 dark:bg-darkpurple"
         onClick={() => setShowModal(true)}
       >
         S'identifier

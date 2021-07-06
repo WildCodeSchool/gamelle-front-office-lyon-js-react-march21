@@ -41,6 +41,7 @@ module.exports = {
       opaque: ' #00000059',
       transparent: 'transparent',
       grey: '#dbedf3',
+      lightGrey: '#f2f9fc',
       darkblue: '#283149',
       'gray-200': '#E4E4E7',
       darkpurple: '#9370DB',
@@ -70,6 +71,7 @@ module.exports = {
             transform: 'translateX(0%)',
           },
         },
+        backgroundGradient: {},
       },
       animation: {
         wiggle: 'wiggle 1s infinite',

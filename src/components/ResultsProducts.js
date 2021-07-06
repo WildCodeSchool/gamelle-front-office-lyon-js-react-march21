@@ -12,7 +12,7 @@ export default function ResultsProducts() {
     resultsList.length !== 0 && (
       <div className="flex items-center flex-col justify-center p-5 relative mx-10">
         <div className="titre flex justify-center">
-          <h1 className="mt-6 text-center text-3xl font-extrabold m-16">
+          <h1 className="mt-6 text-center text-5xl font-extrabold m-16">
             Les résultats de votre recherche
           </h1>
         </div>
@@ -22,13 +22,13 @@ export default function ResultsProducts() {
           {resultsList.map((result) => (
             <li key={result.id}>
               <NavLink
-                className="flex items-center bg-white shadow-lg px-5 py-2 m-5"
+                className="flex items-center py-2  w-full"
                 to={{
                   pathname: `/product-info/?id=${result.id}`,
                   state: { background: location },
                 }}
               >
-                <div className="flex items-center bg-white shadow-lg px-5 py-2 m-5">
+                <div className="flex items-center bg-white shadow-lg px-5 py-2 w-full rounded-md">
                   <img
                     className=" flex-none h-20 w-20 object-cover rounded-xl mr-5 md:h-40 md:w-40 "
                     src={result.image}
