@@ -27,6 +27,7 @@ export default function SignUp() {
         appearance: 'error',
       });
     } else {
+      form = { ...form, registeredAt: new Date() };
       createProfile(form);
     }
   };

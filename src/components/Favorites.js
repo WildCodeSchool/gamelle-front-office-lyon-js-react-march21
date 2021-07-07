@@ -1,17 +1,40 @@
 /* eslint-disable no-console */
 import { useEffect, useContext, useState } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { DeviceContext } from '../contexts/DeviceContext';
 import API from '../APIClient';
 
 export default function Favorites() {
   const { profile, toggleFoodInFavorites } = useContext(CurrentUserContext);
   const [favoritesList, setFavoritesList] = useState([]);
+  const { userDevice } = useContext(DeviceContext);
+  const [statsInfos, setStatsInfos] = useState(null);
+
+  useEffect(() => {
+    if (profile && statsInfos) {
+      API.post(`/statistics`, statsInfos)
+        .then(() => {})
+        .catch((err) => console.log(err));
+    }
+  }, [statsInfos]);
 
   useEffect(() => {
     if (profile) {
       API.get(`/favorites`)
         .then((res) => {
           setFavoritesList(res.data);
+          // update statistics
+          const userId = profile.id;
+          setStatsInfos({
+            ...statsInfos,
+            userId,
+            requestInfo: 'favorites',
+            device: userDevice.device,
+            osName: userDevice.osName,
+            requestSentAt: new Date(),
+            ipv4Address: userDevice.ipv4Address,
+            ipv6Address: userDevice.ipv6Address,
+          });
         })
         .catch((err) => console.log(err));
     }
@@ -23,6 +46,21 @@ export default function Favorites() {
       .then(() => {
         toggleFoodInFavorites(item.foodId);
         setFavoritesList(favoritesList.filter((fav) => fav.foodId !== foodId));
+        setStatsInfos({
+          ...statsInfos,
+          brand: item.Foods.brand,
+          foodTypeId:
+            item.Foods.foodTypeId !== ''
+              ? parseInt(item.Foods.foodTypeId, 10)
+              : null,
+          animalCategoryId:
+            item.Foods.animalCategoryId !== ''
+              ? parseInt(item.Foods.animalCategoryId, 10)
+              : null,
+          foodId,
+          requestInfo: 'removeFavorite',
+          requestSentAt: new Date(),
+        });
       })
       .catch((err) => console.log(err));
   };

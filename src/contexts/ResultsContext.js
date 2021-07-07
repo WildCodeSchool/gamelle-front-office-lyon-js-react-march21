@@ -1,5 +1,13 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
-const ResultsContext = createContext(null);
+export const ResultsContext = createContext(null);
 
-export default ResultsContext;
+export default function ResultsContextProvider({ children }) {
+  const [resultsList, setResultsList] = useState([]);
+
+  return (
+    <ResultsContext.Provider value={{ resultsList, setResultsList }}>
+      {children}
+    </ResultsContext.Provider>
+  );
+}

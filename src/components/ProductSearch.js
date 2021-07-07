@@ -1,17 +1,20 @@
 /* eslint-disable no-console */
-import { useHistory } from 'react-router';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
 import API from '../APIClient';
-import ResultsContext from '../contexts/ResultsContext';
+import { ResultsContext } from '../contexts/ResultsContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { DeviceContext } from '../contexts/DeviceContext';
 
 export default function ProductSearch() {
-  // const apiBase = process.env.REACT_APP_API_BASE_URL;
-  const history = useHistory();
   const [brandList, setBrandList] = useState(null);
   const [foodTypeList, setFoodTypeList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
+  const { profile } = useContext(CurrentUserContext);
   const { setResultsList } = useContext(ResultsContext);
+  const { userDevice } = useContext(DeviceContext);
+  const [statsInfos, setStatsInfos] = useState(null);
 
   useEffect(() => {
     API.get(`/searches`)
@@ -23,18 +26,44 @@ export default function ProductSearch() {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    if (statsInfos)
+      API.post(`/statistics`, statsInfos)
+        .then(() => {})
+        .catch((err) => console.log(err));
+  }, [statsInfos]);
+
   const { register, handleSubmit } = useForm();
   const onSubmit = (form) => {
     API.post(`/searches`, form)
-      .then((res) => {
+      .then(async (res) => {
         setResultsList(res.data);
-        history.push('/resultats');
+
+        // update statistics
+        const userId = profile ? profile.id : null;
+        setStatsInfos({
+          userId,
+          requestInfo: 'search',
+          brand: form.brand,
+          foodTypeId:
+            form.foodTypeId !== '' ? parseInt(form.foodTypeId, 10) : null,
+          animalCategoryId:
+            form.animalCategoryId !== ''
+              ? parseInt(form.animalCategoryId, 10)
+              : null,
+          searchText: form.searchedWords,
+          device: userDevice.device,
+          osName: userDevice.osName,
+          requestSentAt: new Date(),
+          ipv4Address: userDevice.ipv4Address,
+          ipv6Address: userDevice.ipv6Address,
+        });
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8 p-5">
+    <div className="bg-opaque min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 m-16">

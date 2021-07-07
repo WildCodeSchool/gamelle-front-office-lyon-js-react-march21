@@ -1,17 +1,20 @@
-/* eslint-disable no-console */
-import { useContext, useEffect } from 'react';
+/* eslint-disable */
+import { useContext, useEffect, useState } from 'react';
 import qs from 'query-string';
 import API from '../APIClient';
-import FoodContext from '../contexts/FoodContext';
+import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { DeviceContext } from '../contexts/DeviceContext';
 
-export default function FicheProduit() {
+export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
     useContext(CurrentUserContext);
+  const { userDevice } = useContext(DeviceContext);
+  const [statsInfos, setStatsInfos] = useState(null);
 
-  useEffect(() => {
+  useEffect(async () => {
     API.get(`/foods/${id}`)
       .then(async (res) => {
         await setFoodDetails(res.data);
@@ -24,7 +27,41 @@ export default function FicheProduit() {
         }
       })
       .catch((err) => console.log(err));
+
+    const foodGamelle = await API.get(`/foods/gamelle/${id}`).then(
+      (res) => res.data
+    );
+
+    // statistics
+    const userId = profile ? profile.id : null;
+    setStatsInfos({
+      userId,
+      requestInfo: 'foodDetails',
+      brand: foodGamelle.brand,
+      foodTypeId:
+        foodGamelle.foodTypeId !== ''
+          ? parseInt(foodGamelle.foodTypeId, 10)
+          : null,
+      animalCategoryId:
+        foodGamelle.animalCategoryId !== ''
+          ? parseInt(foodGamelle.animalCategoryId, 10)
+          : null,
+      searchText: foodGamelle.searchedWords,
+      foodId: foodGamelle.id,
+      device: userDevice.device,
+      osName: userDevice.osName,
+      requestSentAt: new Date(),
+      ipv4Address: userDevice.ipv4Address,
+      ipv6Address: userDevice.ipv6Address,
+    });
   }, []);
+
+  useEffect(() => {
+    if (statsInfos)
+      API.post(`/statistics`, statsInfos)
+        .then(() => {})
+        .catch((err) => console.log(err));
+  }, [statsInfos]);
 
   const handleClickFavorite = async () => {
     const isFavorite = !!favoritesIdsList[id];
@@ -32,14 +69,26 @@ export default function FicheProduit() {
 
     if (isFavorite) {
       API.delete(`/favorites/${foodId}`)
-        .then(() => {
+        .then(async () => {
           toggleFoodInFavorites(foodId);
+          setStatsInfos({
+            ...statsInfos,
+            foodId,
+            requestInfo: 'addFavorite',
+            requestSentAt: new Date(),
+          });
         })
         .catch((err) => console.log(err));
     } else {
       API.post(`/favorites`, { foodId })
-        .then(() => {
+        .then(async () => {
           toggleFoodInFavorites(foodId);
+          setStatsInfos({
+            ...statsInfos,
+            foodId,
+            requestInfo: 'removeFavorite',
+            requestSentAt: new Date(),
+          });
         })
         .catch((err) => console.log(err));
     }
