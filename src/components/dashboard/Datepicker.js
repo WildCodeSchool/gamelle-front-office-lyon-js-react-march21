@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import Flatpickr from 'react-flatpickr';
 import { StatsContext } from '../../contexts/StatsContext';
 
@@ -6,15 +6,17 @@ import 'flatpickr/dist/themes/material_green.css';
 
 export default function Datepicker() {
   const { setStatsStartDate, setStatsEndDate } = useContext(StatsContext);
-  const [chosenDates, setChosenDates] = useState([]);
-  const defDate = new Date();
+  const [chosenDates, setChosenDates] = useState(null);
 
   const options = {
     mode: 'range',
     static: true,
     monthSelectorType: 'static',
     dateFormat: 'd M Y',
-    defaultDate: [new Date().setDate(defDate.getDate() - 6), defDate],
+    defaultDate: [
+      new Date(new Date().setDate(new Date().getDate() - 6)),
+      new Date(),
+    ],
     prevArrow:
       '<svg class="fill-current" width="7" height="11" viewBox="0 0 7 11"><path d="M5.4 10.8l1.4-1.4-4-4 4-4L5.4 0 0 5.4z" /></svg>',
     nextArrow:
@@ -30,6 +32,26 @@ export default function Datepicker() {
       setChosenDates(selectedDates);
     },
   };
+
+  useEffect(() => {
+    // console.log(chosenDates);
+    if (chosenDates) {
+      const tempStartDate = chosenDates[0];
+      const tempEndDate =
+        chosenDates.length === 2 ? chosenDates[1] : chosenDates[0];
+      setStatsStartDate(new Date(tempStartDate.setHours(0, 0, 0, 0)));
+      setStatsEndDate(
+        new Date(
+          new Date(tempEndDate.setDate(tempEndDate.getDate() + 1)).setHours(
+            0,
+            0,
+            0,
+            0
+          )
+        )
+      );
+    }
+  }, []);
 
   const handleClickDates = async () => {
     const tempStartDate = chosenDates[0];

@@ -4,7 +4,6 @@ import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContextProvider from './contexts/ResultsContext';
 import FoodContextProvider from './contexts/FoodContext';
-import DeviceContextProvider from './contexts/DeviceContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 import StatsContextProvider from './contexts/StatsContext';
 
@@ -17,16 +16,14 @@ function App() {
         placement="bottom-right"
       >
         <CurrentUserContextProvider>
-          <DeviceContextProvider>
-            <ResultsContextProvider>
-              <FoodContextProvider>
-                <StatsContextProvider>
-                  <Header />
-                  <Main />
-                </StatsContextProvider>
-              </FoodContextProvider>
-            </ResultsContextProvider>
-          </DeviceContextProvider>
+          <ResultsContextProvider>
+            <FoodContextProvider>
+              <StatsContextProvider>
+                <Header />
+                <Main />
+              </StatsContextProvider>
+            </FoodContextProvider>
+          </ResultsContextProvider>
         </CurrentUserContextProvider>
       </ToastProvider>
     </div>

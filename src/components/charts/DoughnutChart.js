@@ -56,9 +56,9 @@ function DoughnutChart({ data, width, height }) {
             items.forEach((item) => {
               const li = document.createElement('li');
               li.style.margin = 1;
+
               // Button element
               const button = document.createElement('button');
-
               button.classList.add(
                 'font-medium',
                 'text-sm',
@@ -82,6 +82,7 @@ function DoughnutChart({ data, width, height }) {
                 c.toggleDataVisibility(item.index, !item.index);
                 c.update();
               };
+
               // Color box
               const box = document.createElement('span');
               box.classList.add(
@@ -93,11 +94,14 @@ function DoughnutChart({ data, width, height }) {
                 'pointer-events-none'
               );
               box.style.backgroundColor = item.fillStyle;
+
               // Label
               const label = document.createElement('span');
               label.style.display = 'flex';
               label.style.alignItems = 'center';
-              const labelText = document.createTextNode(item.text);
+              const labelText = document.createTextNode(
+                `${item.text} ${data.datasets[0].data[item.index]}`
+              );
               label.appendChild(labelText);
               li.appendChild(button);
               button.appendChild(box);
