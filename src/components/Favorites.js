@@ -41,7 +41,7 @@ export default function Favorites() {
           return (
             <li
               key={fav.id}
-              className="flex items-center bg-white shadow shadow-lg px-5 py-2 m-5"
+              className="flex items-center bg-white shadow-lg px-5 py-2 m-5"
             >
               <img
                 className="w-40 h-40 bg-auto rounded-xl mr-5"

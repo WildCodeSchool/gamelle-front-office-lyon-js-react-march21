@@ -7,6 +7,7 @@ import ResultsContext from './contexts/ResultsContext';
 import FoodContext from './contexts/FoodContext';
 
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
+import CurrentPetProfileContextProvider from './contexts/CurrentPetProfileContext';
 
 function App() {
   const [resultsList, setResultsList] = useState([]);
@@ -20,12 +21,14 @@ function App() {
         placement="bottom-right"
       >
         <CurrentUserContextProvider>
-          <ResultsContext.Provider value={{ resultsList, setResultsList }}>
-            <FoodContext.Provider value={{ foodDetails, setFoodDetails }}>
-              <Header />
-              <Main />
-            </FoodContext.Provider>
-          </ResultsContext.Provider>
+          <CurrentPetProfileContextProvider>
+            <ResultsContext.Provider value={{ resultsList, setResultsList }}>
+              <FoodContext.Provider value={{ foodDetails, setFoodDetails }}>
+                <Header />
+                <Main />
+              </FoodContext.Provider>
+            </ResultsContext.Provider>
+          </CurrentPetProfileContextProvider>
         </CurrentUserContextProvider>
       </ToastProvider>
     </div>

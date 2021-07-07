@@ -4,9 +4,9 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function Logout() {
   const { logout } = useContext(CurrentUserContext);
   return (
-    <div>
+    <div className="flex w-full md:w-full">
       <button
-        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+        className="text-white px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
         type="button"
         onClick={logout}
       >

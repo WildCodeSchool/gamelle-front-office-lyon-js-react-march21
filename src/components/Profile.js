@@ -1,6 +1,7 @@
 /* eslint-disable */
 import { useEffect, useContext, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { NavLink } from 'react-router-dom';
 import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
@@ -59,12 +60,12 @@ export default function Profile() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center flex-col justify-center p-5">
           <div className="titre ">
-            <h1 className="mt-6 text-center text-3xl font-extrabold ">
+            <h1 className="mt-6 text-center text-3xl font-extrabold dark:text-white">
               Votre profil
             </h1>
           </div>
           <br />
-          <div className="flex items-center object-center bg-primary rounded shadow-lg p-3">
+          <div className="flex items-center object-center bg-primary rounded shadow-lg p-3 dark:bg-darkpurple">
             <div
               className="flex justify-center items-center"
               onClick={handleAvatarClick}
@@ -140,18 +141,44 @@ export default function Profile() {
             </div>
           </div>
           <br />
-          <div className="flex">
-            <div className="flex w-full md:w-full">
+          <div className="flex flex-col bg-black">
+            {changeInput ? (
               <button
                 type="button"
-                className="font-bold rounded bg-primary
+                className="font-bold"
+                onClick={() => setChangeInput(!changeInput)}
+              >
+                Modifier votre profil
+              </button>
+            ) : null}
+            {changeInput ? null : (
+              <button
+                disabled={changeInput}
+                type="submit"
+                className="font-bold"
+              >
+                Sauvegarder
+              </button>
+            )}
+
+            <div className="flex items-center mt-10">
+              <div className="flex items-center">
+                <div className="flex w-full md:w-full">
+                  <NavLink
+                    to="/petform/"
+                    type="button"
+                    className="flex justify-center items-center font-bold rounded bg-primary
                 hover:bg-secondary text-white
                 m-5 p-2"
-              >
-                Ajouter un animal
-              </button>
+                  >
+                    Ajouter un animal
+                  </NavLink>
+                </div>
+                <DeleteProfile />
+
+                <Logout />
+              </div>
             </div>
-            <DeleteProfile />
           </div>
         </div>
       </form>
