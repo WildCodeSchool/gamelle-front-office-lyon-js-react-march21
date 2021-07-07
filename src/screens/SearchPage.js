@@ -1,11 +1,11 @@
-import DrawerSearch from '../components/DrawerSearch';
+import SwipDrawer from '../components/SwipDrawer';
 import ResultsProducts from '../components/ResultsProducts';
 // import DrawerProductInfo from '../components/DrawerProductInfo';
 
 export default function SearchPage() {
   return (
     <>
-      <DrawerSearch />
+      <SwipDrawer />
       <ResultsProducts />
     </>
   );

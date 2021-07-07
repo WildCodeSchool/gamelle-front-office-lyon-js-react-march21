@@ -17,3 +17,35 @@
   background-size: 100%;
   background-repeat: no-repeat;
 }
+:root {
+  --dark-grey: #dbedf3;
+  --darker-grey: #a0d3e4;
+
+  --bg-primary: var(--darker-grey);
+  --bg-secondary: var(--dark-grey);
+}
+
+body {
+  background-color: var(--bg-primary);
+  background: linear-gradient(
+    90deg,
+    var(--bg-secondary) 0%,
+    var(--bg-primary) 100%
+  );
+  background-size: 500% 500%;
+  animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -6,10 +6,11 @@ import ResultsContextProvider from './contexts/ResultsContext';
 import FoodContextProvider from './contexts/FoodContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 import StatsContextProvider from './contexts/StatsContext';
+import DrawerContextProvider from './contexts/DrawerContext';
 
 function App() {
   return (
-    <div className="bg-grey dark:bg-darkblue min-h-screen">
+    <div className="min-h-screen">
       <ToastProvider
         autoDismiss
         autoDismissTimeout={5000}
@@ -19,8 +20,10 @@ function App() {
           <ResultsContextProvider>
             <FoodContextProvider>
               <StatsContextProvider>
-                <Header />
-                <Main />
+                <DrawerContextProvider>
+                  <Header />
+                  <Main />
+                </DrawerContextProvider>
               </StatsContextProvider>
             </FoodContextProvider>
           </ResultsContextProvider>
