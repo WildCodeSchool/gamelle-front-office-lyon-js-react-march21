@@ -51,7 +51,7 @@ export default function Header() {
           <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
             <li className="nav-item">
               <NavLink
-                className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/"
               >
@@ -62,14 +62,14 @@ export default function Header() {
             <li className="nav-item">
               <NavLink
                 to="/history"
-                className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
               >
                 {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/favoris"
               >
@@ -80,7 +80,7 @@ export default function Header() {
               <>
                 <li>
                   <NavLink
-                    className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75"
+                    className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                     exact
                     to="/profile"
                   >
@@ -99,7 +99,7 @@ export default function Header() {
                   <NavLink
                     exact
                     to="/sign-up"
-                    className="px-3 py-2 flex items-center text-sm uppercase font-bold leading-snug text-white hover:opacity-75"
+                    className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                   >
                     S'inscrire
                   </NavLink>

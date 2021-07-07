@@ -50,7 +50,7 @@ export default function SwipDrawer() {
           <Button
             style={{ backgroundColor: 'transparent' }}
             onClick={toggleDrawer(anchor, true)}
-            title="cliqué pour ouvrir la recherche"
+            title="Cliquer ici pour ouvrir la barre de recherche"
           >
             <FontAwesomeIcon
               icon={faArrowAltCircleLeft}
