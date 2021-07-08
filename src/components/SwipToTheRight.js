@@ -18,7 +18,10 @@ export default function SwipToTheRight() {
   return (
     <>
       {['right'].map((anchor) => (
-        <div key={anchor} className="flex">
+        <div
+          key={anchor}
+          className="min-h-screen w-screen flex fixed justify-end z-40"
+        >
           <Button
             style={{ backgroundColor: 'transparent' }}
             onClick={toggleDrawer(anchor, true)}
@@ -26,7 +29,7 @@ export default function SwipToTheRight() {
           >
             <FontAwesomeIcon
               icon={faArrowAltCircleLeft}
-              className="animate-reverseWiggle hidden md:flex lg:flex"
+              className="animate-reverseWiggle z-40"
             />
           </Button>
           <SwipeableDrawer

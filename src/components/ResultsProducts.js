@@ -11,7 +11,7 @@ export default function ResultsProducts() {
 
   return (
     resultsList.length !== 0 && (
-      <div className="flex flex-col justify-center items-center w-full absolute">
+      <div className="flex flex-col justify-center items-center w-full">
         <h1 className="m-6">Les résultats de votre recherche</h1>
         <div className="w-1/2">
           <ul>
@@ -23,15 +23,15 @@ export default function ResultsProducts() {
                     state: { background: location },
                   }}
                 >
-                  <div className="bg-white rounded-lg w-full flex flex-col items-center shadow-lg">
+                  <div className="bg-white rounded-lg w-full flex flex-col md:flex-row lg:flex-row items-center shadow-lg">
                     <img
                       src={result.image}
                       alt={result.name}
-                      className="bg-auto w-full h-48 rounded-t-lg" // Taille d'image à redéfinir !!
+                      className="w-full h-40 rounded-lg md:rounded-xl lg:rounded-lg object-cover md:h-40 md:w-40 lg:h-40 lg:w-40 " // Taille d'image à redéfinir !!
                     />
                     <div className="flex flex-col justify-center items-center w-full">
                       <p className="font-bold">{result.brand}</p>
-                      <p className="text-xs  w-full text-center">
+                      <p className="text-xs  w-full text-center md:text-base lg:text-base">
                         {result.name}
                       </p>
                     </div>
