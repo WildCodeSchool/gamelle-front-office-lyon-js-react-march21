@@ -6,7 +6,7 @@ function Logout() {
   return (
     <div className="flex w-full md:w-full">
       <button
-        className="text-white px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug  hover:opacity-75"
+        className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
         type="button"
         onClick={logout}
       >

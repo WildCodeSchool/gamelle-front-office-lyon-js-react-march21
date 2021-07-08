@@ -10,6 +10,7 @@ import {
   faSearch,
   faHistory,
   faHeart,
+  faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../assets/logo.png';
 import ModalSignIn from './modalSignIn';
@@ -24,12 +25,18 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full flex bg-primary">
+    <header className="w-full h-auto flex bg-primary">
       <div className="container px-4 justify-between items-start align-center flex flex-wrap">
         <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start xl:justify-start 2xl:justify-start">
-          <NavLink exact path="/" to="/">
-            <img src={Logo} alt="logo" className="w-28" />
-          </NavLink>
+          <div className="flex items-center h-full">
+            <NavLink exact path="/" to="/">
+              <img
+                src={Logo}
+                alt="logo"
+                className="w-28 flex mt-3 items-center"
+              />
+            </NavLink>
+          </div>
           <button type="button" onClick={handleBurgerToggle}>
             <FontAwesomeIcon
               className="lg:hidden flex"
@@ -45,7 +52,7 @@ export default function Header() {
           <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
             <li className="nav-item">
               <NavLink
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/"
               >
@@ -56,14 +63,14 @@ export default function Header() {
             <li className="nav-item">
               <NavLink
                 to="/history"
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
               >
                 {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/favoris"
               >
@@ -71,10 +78,25 @@ export default function Header() {
               </NavLink>
             </li>
             {isLoggedIn && (
+              <li>
+                <NavLink
+                  exact
+                  to="/dashboard"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                >
+                  {burger ? (
+                    'Statistiques'
+                  ) : (
+                    <FontAwesomeIcon icon={faChartLine} />
+                  )}
+                </NavLink>
+              </li>
+            )}
+            {isLoggedIn && (
               <>
                 <li>
                   <NavLink
-                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                    className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                     exact
                     to="/profile"
                   >
@@ -93,7 +115,7 @@ export default function Header() {
                   <NavLink
                     exact
                     to="/sign-up"
-                    className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                    className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                   >
                     S'inscrire
                   </NavLink>

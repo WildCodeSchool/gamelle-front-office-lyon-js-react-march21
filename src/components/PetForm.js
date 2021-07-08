@@ -94,7 +94,7 @@ export default function PetForm() {
             />
           </div>
 
-          <div className="flex flex-col bg-black">
+          <div className="flex flex-col">
             <button
               type="submit"
               className=" text-center	font-bold rounded bg-primary

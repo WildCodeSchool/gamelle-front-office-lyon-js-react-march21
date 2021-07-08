@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
 import { useEffect, useContext, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { DeviceContext } from '../contexts/DeviceContext';
 import API from '../APIClient';
 
 export default function Favorites() {
   const { profile, toggleFoodInFavorites } = useContext(CurrentUserContext);
   const [favoritesList, setFavoritesList] = useState([]);
-  const { userDevice } = useContext(DeviceContext);
   const [statsInfos, setStatsInfos] = useState(null);
 
   useEffect(() => {
@@ -29,11 +29,7 @@ export default function Favorites() {
             ...statsInfos,
             userId,
             requestInfo: 'favorites',
-            device: userDevice.device,
-            osName: userDevice.osName,
             requestSentAt: new Date(),
-            ipv4Address: userDevice.ipv4Address,
-            ipv6Address: userDevice.ipv6Address,
           });
         })
         .catch((err) => console.log(err));
@@ -79,25 +75,32 @@ export default function Favorites() {
           return (
             <li
               key={fav.id}
-              className="flex items-center bg-white shadow-lg px-5 py-2 m-5"
+              className="relative flex bg-white shadow-lg px-5 py-2 m-5"
             >
-              <img
-                className="w-40 h-40 bg-auto rounded-xl mr-5"
-                src={fav.Foods.image}
-                alt="imageproduit"
-              />
-
-              <div>
-                <p className="font-bold text-xl">{fav.Foods.name}</p>
-                <p className="text-base">{fav.Foods.brand}</p>
+              <div className="absolute right-5 top-5">
+                <button
+                  type="button"
+                  aria-label="Favorite"
+                  onClick={() => handleClickDelete(fav)}
+                >
+                  <FontAwesomeIcon
+                    className="text-3xl text-red-500"
+                    icon={faTimesCircle}
+                  />
+                </button>
               </div>
-              <button
-                type="button"
-                aria-label="Favorite"
-                onClick={() => handleClickDelete(fav)}
-              >
-                X
-              </button>
+              <div className="flex items-center">
+                <img
+                  className="w-40 h-40 bg-auto rounded-xl mr-5"
+                  src={fav.Foods.image}
+                  alt="imageproduit"
+                />
+
+                <div>
+                  <p className="font-bold text-xl">{fav.Foods.name}</p>
+                  <p className="text-base">{fav.Foods.brand}</p>
+                </div>
+              </div>
             </li>
           );
         })}

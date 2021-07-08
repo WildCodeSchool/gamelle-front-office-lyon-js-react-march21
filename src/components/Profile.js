@@ -141,7 +141,7 @@ export default function Profile() {
             </div>
           </div>
           <br />
-          <div className="flex flex-col bg-black">
+          <div className="flex flex-col">
             {changeInput ? (
               <button
                 type="button"
