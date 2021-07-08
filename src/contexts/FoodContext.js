@@ -1,5 +1,13 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
-const FoodContext = createContext(null);
+export const FoodContext = createContext(null);
 
-export default FoodContext;
+export default function FoodContextProvider({ children }) {
+  const [foodDetails, setFoodDetails] = useState([]);
+
+  return (
+    <FoodContext.Provider value={{ foodDetails, setFoodDetails }}>
+      {children}
+    </FoodContext.Provider>
+  );
+}

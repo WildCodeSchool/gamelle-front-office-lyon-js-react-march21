@@ -1,31 +1,32 @@
-import { useState } from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import './index.css';
 import Header from './components/Header';
 import Main from './components/Main';
-import ResultsContext from './contexts/ResultsContext';
-import FoodContext from './contexts/FoodContext';
-
+import ResultsContextProvider from './contexts/ResultsContext';
+import FoodContextProvider from './contexts/FoodContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
+import StatsContextProvider from './contexts/StatsContext';
+import DrawerContextProvider from './contexts/DrawerContext';
 
 function App() {
-  const [resultsList, setResultsList] = useState([]);
-  const [foodDetails, setFoodDetails] = useState([]);
-
   return (
-    <div className="bg-grey dark:bg-darkblue min-h-screen">
+    <div className="min-h-screen">
       <ToastProvider
         autoDismiss
         autoDismissTimeout={5000}
         placement="bottom-right"
       >
         <CurrentUserContextProvider>
-          <ResultsContext.Provider value={{ resultsList, setResultsList }}>
-            <FoodContext.Provider value={{ foodDetails, setFoodDetails }}>
-              <Header />
-              <Main />
-            </FoodContext.Provider>
-          </ResultsContext.Provider>
+          <ResultsContextProvider>
+            <FoodContextProvider>
+              <StatsContextProvider>
+                <DrawerContextProvider>
+                  <Header />
+                  <Main />
+                </DrawerContextProvider>
+              </StatsContextProvider>
+            </FoodContextProvider>
+          </ResultsContextProvider>
         </CurrentUserContextProvider>
       </ToastProvider>
     </div>
