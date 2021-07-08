@@ -68,7 +68,7 @@ export default function ProductInfo() {
           setStatsInfos({
             ...statsInfos,
             foodId,
-            requestInfo: 'addFavorite',
+            requestInfo: 'removeFavorite',
             requestSentAt: new Date(),
           });
         })
@@ -80,7 +80,7 @@ export default function ProductInfo() {
           setStatsInfos({
             ...statsInfos,
             foodId,
-            requestInfo: 'removeFavorite',
+            requestInfo: 'addFavorite',
             requestSentAt: new Date(),
           });
         })
