@@ -1,18 +1,12 @@
-/* eslint-disable */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowLeft,
-  faArrowRight,
-  faArrowAltCircleLeft,
-  faArrowAltCircleRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import ProductSearch from './ProductSearch';
 import { DrawerContext } from '../contexts/DrawerContext';
 
-export default function SwipDrawer() {
+export default function SwipToTheRight() {
   const { drawer, toggleDrawer, leaveDrawer } = useContext(DrawerContext);
 
   const list = (anchor) => (
@@ -22,29 +16,7 @@ export default function SwipDrawer() {
   );
 
   return (
-    <div className="w-screen min-h-screen flex justify-between fixed">
-      {['left'].map((anchor) => (
-        <div key={anchor} className="flex">
-          <Button
-            style={{ backgroundColor: 'transparent' }}
-            onClick={toggleDrawer(anchor, true)}
-            title="Cliquer ici pour ouvrir la barre de recherche"
-          >
-            <FontAwesomeIcon
-              icon={faArrowAltCircleRight}
-              className="animate-wiggle hidden md:flex lg:flex"
-            />
-          </Button>
-          <SwipeableDrawer
-            anchor={anchor}
-            open={drawer[anchor] || false}
-            onClose={toggleDrawer(anchor, false)}
-            onOpen={toggleDrawer(anchor, true)}
-          >
-            {list(anchor)}
-          </SwipeableDrawer>
-        </div>
-      ))}
+    <>
       {['right'].map((anchor) => (
         <div key={anchor} className="flex">
           <Button
@@ -67,6 +39,6 @@ export default function SwipDrawer() {
           </SwipeableDrawer>
         </div>
       ))}
-    </div>
+    </>
   );
 }
