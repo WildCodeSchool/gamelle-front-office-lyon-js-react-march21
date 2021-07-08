@@ -1,14 +1,12 @@
 /* eslint-disable no-console */
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { DeviceContext } from '../contexts/DeviceContext';
 import API from '../APIClient';
 
 export default function History() {
   const [historyList, setHistoryList] = useState([]);
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
     useContext(CurrentUserContext);
-  const { userDevice } = useContext(DeviceContext);
   const [statsInfos, setStatsInfos] = useState(null);
 
   useEffect(() => {
@@ -21,19 +19,13 @@ export default function History() {
           await setStatsInfos({
             userId,
             requestInfo: 'history',
-            device: userDevice.device,
-            osName: userDevice.osName,
             requestSentAt: new Date(),
-            ipv4Address: userDevice.ipv4Address,
-            ipv6Address: userDevice.ipv6Address,
           });
         })
         .catch((err) => console.log(err));
     }
   }, []);
 
-  console.log('dans history   ', userDevice);
-  console.log(new Date());
   useEffect(() => {
     if (profile && statsInfos) {
       API.post(`/statistics`, statsInfos)
@@ -106,9 +98,9 @@ export default function History() {
           return (
             <li
               key={hist.consultedAt}
-              className="flex bg-white shadow-lg px-5 py-2 m-5"
+              className="relative flex bg-white shadow-lg px-5 py-2 m-5"
             >
-              <div className="absolute right-1/4">
+              <div className="absolute right-5 top-5">
                 <button
                   type="button"
                   aria-label="Favorite"

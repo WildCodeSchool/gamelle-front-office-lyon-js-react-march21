@@ -9,6 +9,8 @@ import ResetPasswordPage from '../screens/ResetPasswordPage';
 import ConfirmEmail from '../screens/ConfirmEmail';
 import ModalInfo from './ModalInfo';
 import Favorites from '../screens/FavoritesPage';
+import Dashboard from '../screens/DashboardPage';
+import ProductInfoPage from '../screens/ProductInfoPage';
 
 export default function Main() {
   const location = useLocation();
@@ -29,8 +31,10 @@ export default function Main() {
         <Route exact path="/confirm-email" component={ConfirmEmail} />
         <Route path="/favoris" component={Favorites} />
         <Route path="/petform" component={PetFormPage} />
-        {background && <Route path="/product-info/" component={ModalInfo} />}
+        <Route path="/dashboard" component={Dashboard} />
+        <Route exact path="/product-info-page" component={ProductInfoPage} />
       </Switch>
+      {background && <Route path="/product-info/" component={ModalInfo} />}
     </main>
   );
 }

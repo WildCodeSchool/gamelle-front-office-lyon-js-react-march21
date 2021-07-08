@@ -40,9 +40,22 @@ module.exports = {
       white: '#ffffff',
       opaque: ' #00000059',
       transparent: 'transparent',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
+      gray: colors.trueGray,
+      indigo: colors.indigo,
+      red: colors.rose,
+      yellow: colors.amber,
+      blue: colors.blue,
+      green: colors.green,
       grey: '#dbedf3',
+      lightGrey: '#f2f9fc',
       darkblue: '#283149',
-      'gray-200': '#E4E4E7',
+      // 'gray-200': '#E4E4E7',
+      // 'gray-500': '#6B7280',
+      // 'gray-800': '#1F2937',
+      // 'indigo-300': '#C4B5FD',
       darkpurple: '#9370DB',
       googleblue: '#4285F4',
       googlered: '#EA4335',
@@ -52,8 +65,32 @@ module.exports = {
       facebookblue: '#1877F2',
     },
     textOpacity: ['dark'],
+    extend: {
+      keyframes: {
+        wiggle: {
+          '0%, 100%': {
+            transform: 'translateX(-50%)',
+          },
+          '50%': {
+            transform: 'translateX(0%)',
+          },
+        },
+        reverseWiggle: {
+          '0%, 100%': {
+            transform: 'translateX(50%)',
+          },
+          '50%': {
+            transform: 'translateX(0%)',
+          },
+        },
+        backgroundGradient: {},
+      },
+      animation: {
+        wiggle: 'wiggle 1s infinite',
+        reverseWiggle: 'reverseWiggle 1s infinite',
+      },
+    },
   },
-  extend: {},
   variants: {},
   plugins: [],
 };
