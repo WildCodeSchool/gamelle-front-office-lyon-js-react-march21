@@ -29,9 +29,9 @@ export default function ResultsProducts() {
                       alt={result.name}
                       className="w-full h-40 rounded-lg md:rounded-xl lg:rounded-lg object-cover md:h-40 md:w-40 lg:h-40 lg:w-40 " // Taille d'image à redéfinir !!
                     />
-                    <div className="flex flex-col justify-center items-center w-full">
+                    <div className="flex-none flex-col justify-center items-center w-full">
                       <p className="font-bold">{result.brand}</p>
-                      <p className="text-xs  w-full text-center md:text-base lg:text-base">
+                      <p className="text-xs w-full text-center md:text-base lg:text-base">
                         {result.name}
                       </p>
                     </div>

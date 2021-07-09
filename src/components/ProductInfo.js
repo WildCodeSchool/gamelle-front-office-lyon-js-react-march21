@@ -5,6 +5,8 @@ import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { DeviceContext } from '../contexts/DeviceContext';
+import Rating from '@material-ui/lab/Rating';
+import { NavLink } from 'react-router-dom';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
@@ -13,7 +15,9 @@ export default function ProductInfo() {
     useContext(CurrentUserContext);
   const { userDevice } = useContext(DeviceContext);
   const [statsInfos, setStatsInfos] = useState(null);
-
+  const [digestion, setDigestion] = useState(null);
+  const [selle, setSelle] = useState(null);
+  const [appetance, setAppetance] = useState(null);
   useEffect(async () => {
     API.get(`/foods/${id}`)
       .then(async (res) => {
@@ -99,7 +103,7 @@ export default function ProductInfo() {
       {foodDetails && (
         <>
           <div className="flex items-center flex-col justify-center md:p-5">
-            <div className="relative md:flex md:flex-col md:shadow-lg lg:w-7/12 md:w-10/12 md:m-10 bg-white dark:bg-darkpurple">
+            <div className="relative md:flex md:flex-col md:shadow-lg lg:w-10/12 md:w-10/12 md:m-10 bg-white">
               <div className="absolute right-0 mr-5 mt-3">
                 <button
                   type="button"
@@ -123,6 +127,28 @@ export default function ProductInfo() {
                 <div className="titre">
                   <div className="font-bold text-4xl">{foodDetails.brand}</div>
                   <div className="text-base">{foodDetails.name}</div>
+                </div>
+                <div className="flex flex-col w-full right-0 bg-danger items-end">
+                  <div className="w-2/3">
+                    <div className="ml-3">
+                      <h4>Appetance :</h4>
+                      <Rating name="read-only" value={appetance} readOnly />
+                      <br />
+                      <h4>Digestion :</h4>
+                      <Rating name="read-only" value={digestion} readOnly />
+                      <br />
+                      <h4>Qualitée des selles :</h4>
+                      <Rating name="read-only" value={selle} readOnly />
+                    </div>
+                    <NavLink to="/give-advice">
+                      <button
+                        className="btn btn-primary btn-primary:hover"
+                        type="type"
+                      >
+                        Je donne mon avis
+                      </button>
+                    </NavLink>
+                  </div>
                 </div>
               </div>
 

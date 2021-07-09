@@ -10,6 +10,7 @@ import ConfirmEmail from '../screens/ConfirmEmail';
 import ModalInfo from './ModalInfo';
 import Favorites from '../screens/FavoritesPage';
 import ProductInfoPage from '../screens/ProductInfoPage';
+import Avis from './Avis';
 
 export default function Main() {
   const location = useLocation();
@@ -31,6 +32,7 @@ export default function Main() {
         <Route path="/favoris" component={Favorites} />
         <Route path="/petform" component={PetFormPage} />
         <Route exact path="/product-info-page" component={ProductInfoPage} />
+        <Route exact path="/give-advice" component={Avis} />
       </Switch>
       {background && <Route path="/product-info/" component={ModalInfo} />}
     </main>

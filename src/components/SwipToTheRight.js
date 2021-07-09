@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import Button from '@material-ui/core/Button';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+// import Button from '@material-ui/core/Button';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import ProductSearch from './ProductSearch';
 import { DrawerContext } from '../contexts/DrawerContext';
 
@@ -22,7 +22,7 @@ export default function SwipToTheRight() {
           key={anchor}
           className="min-h-screen w-screen flex fixed justify-end z-40"
         >
-          <Button
+          {/*   <Button
             style={{ backgroundColor: 'transparent' }}
             onClick={toggleDrawer(anchor, true)}
             title="Cliquer ici pour ouvrir la barre de recherche"
@@ -31,7 +31,7 @@ export default function SwipToTheRight() {
               icon={faArrowAltCircleLeft}
               className="animate-reverseWiggle z-40"
             />
-          </Button>
+       </Button> */}
           <SwipeableDrawer
             anchor={anchor}
             open={drawer[anchor] || false}
