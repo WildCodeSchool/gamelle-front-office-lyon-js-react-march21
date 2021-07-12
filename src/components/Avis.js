@@ -32,8 +32,6 @@ export default function Avis() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(selle);
-
   return (
     <div>
       <div>
