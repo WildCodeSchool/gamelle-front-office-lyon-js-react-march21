@@ -21,7 +21,7 @@ export default function SignIn() {
       <div className="flex justify-center mt-4">
         <a
           className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-googleblue hover:via-googlered hover:to-googleyellow"
-          href="http://localhost:5000/auth/google"
+          href={`${process.env.REACT_APP_API_BASE_URL}/auth/google`}
         >
           <FontAwesomeIcon
             className="flex items-center cursor-pointer mx-2 mt-1"
@@ -33,7 +33,7 @@ export default function SignIn() {
       <div className="flex justify-center mt-4">
         <a
           className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-facebookdarkblue hover:via-facebookblue hover:to-white"
-          href="http://localhost:5000/auth/facebook"
+          href={`${process.env.REACT_APP_API_BASE_URL}/auth/facebook`}
         >
           <FontAwesomeIcon
             className="flex items-center cursor-pointer mx-2 mt-1"

@@ -4,17 +4,14 @@ import qs from 'query-string';
 import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { DeviceContext } from '../contexts/DeviceContext';
 import Rating from '@material-ui/lab/Rating';
 import { NavLink } from 'react-router-dom';
-import TotalRating from './TotalRating';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
     useContext(CurrentUserContext);
-  const { userDevice } = useContext(DeviceContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const [digestion, setDigestion] = useState(null);
   const [selle, setSelle] = useState(null);
@@ -53,11 +50,7 @@ export default function ProductInfo() {
           : null,
       searchText: foodGamelle.searchedWords,
       foodId: foodGamelle.id,
-      device: userDevice.device,
-      osName: userDevice.osName,
       requestSentAt: new Date(),
-      ipv4Address: userDevice.ipv4Address,
-      ipv6Address: userDevice.ipv6Address,
     });
   }, []);
 
@@ -79,7 +72,7 @@ export default function ProductInfo() {
           setStatsInfos({
             ...statsInfos,
             foodId,
-            requestInfo: 'addFavorite',
+            requestInfo: 'removeFavorite',
             requestSentAt: new Date(),
           });
         })
@@ -91,7 +84,7 @@ export default function ProductInfo() {
           setStatsInfos({
             ...statsInfos,
             foodId,
-            requestInfo: 'removeFavorite',
+            requestInfo: 'addFavorite',
             requestSentAt: new Date(),
           });
         })

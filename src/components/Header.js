@@ -10,6 +10,7 @@ import {
   faSearch,
   faHistory,
   faHeart,
+  faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 import Logo from '../assets/logo.png';
 import ModalSignIn from './modalSignIn';
@@ -76,6 +77,21 @@ export default function Header() {
                 {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
               </NavLink>
             </li>
+            {isLoggedIn && (
+              <li>
+                <NavLink
+                  exact
+                  to="/dashboard"
+                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                >
+                  {burger ? (
+                    'Statistiques'
+                  ) : (
+                    <FontAwesomeIcon icon={faChartLine} />
+                  )}
+                </NavLink>
+              </li>
+            )}
             {isLoggedIn && (
               <>
                 <li>

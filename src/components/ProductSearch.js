@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import API from '../APIClient';
 import { ResultsContext } from '../contexts/ResultsContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-import { DeviceContext } from '../contexts/DeviceContext';
 import { DrawerContext } from '../contexts/DrawerContext';
 
 export default function ProductSearch() {
@@ -14,7 +13,6 @@ export default function ProductSearch() {
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
   const { profile } = useContext(CurrentUserContext);
   const { setResultsList } = useContext(ResultsContext);
-  const { userDevice } = useContext(DeviceContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const { setDrawer } = useContext(DrawerContext);
 
@@ -54,11 +52,7 @@ export default function ProductSearch() {
               ? parseInt(form.animalCategoryId, 10)
               : null,
           searchText: form.searchedWords,
-          device: userDevice.device,
-          osName: userDevice.osName,
           requestSentAt: new Date(),
-          ipv4Address: userDevice.ipv4Address,
-          ipv6Address: userDevice.ipv6Address,
         });
       })
       .catch((err) => console.log(err));

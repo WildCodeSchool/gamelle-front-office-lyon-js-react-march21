@@ -5,7 +5,6 @@ import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContextProvider from './contexts/ResultsContext';
 import FoodContextProvider from './contexts/FoodContext';
-import DeviceContextProvider from './contexts/DeviceContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 import DrawerContextProvider from './contexts/DrawerContext';
 import AdviceContextProvider from './contexts/AdviceContext';
@@ -19,18 +18,16 @@ function App() {
         placement="bottom-right"
       >
         <CurrentUserContextProvider>
-          <DeviceContextProvider>
-            <ResultsContextProvider>
-              <AdviceContextProvider>
-                <FoodContextProvider>
-                  <DrawerContextProvider>
-                    <Header />
-                    <Main />
-                  </DrawerContextProvider>
-                </FoodContextProvider>
-              </AdviceContextProvider>
-            </ResultsContextProvider>
-          </DeviceContextProvider>
+          <ResultsContextProvider>
+            <AdviceContextProvider>
+              <FoodContextProvider>
+                <DrawerContextProvider>
+                  <Header />
+                  <Main />
+                </DrawerContextProvider>
+              </FoodContextProvider>
+            </AdviceContextProvider>
+          </ResultsContextProvider>
         </CurrentUserContextProvider>
       </ToastProvider>
     </div>

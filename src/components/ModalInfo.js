@@ -1,13 +1,9 @@
 /* eslint-disable */
 import { useState } from 'react';
-import { useHistory, useParams } from 'react-router';
 import ProductInfo from './ProductInfo';
-import ResultsProducts from './ResultsProducts';
 
 export default function ModalInfo() {
-  const history = useHistory();
   const [showModalInfo, setShowModalInfo] = useState(false);
-  const { id } = useParams();
   const handleToggleModal = () => {
     setShowModalInfo(!showModalInfo);
   };
