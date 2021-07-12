@@ -78,22 +78,23 @@ export default function Header() {
                 {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
               </NavLink>
             </li>
-            {isLoggedIn && profile.role === 'admin' && (
-              <li>
-                <NavLink
-                  exact
-                  to="/dashboard"
-                  className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
-                >
-                  {burger ? (
-                    'Statistiques'
-                  ) : (
-                    <FontAwesomeIcon icon={faChartLine} />
-                  )}
-                </NavLink>
-              </li>
-            )}
-            {isLoggedIn && profile.role === 'admin' && (
+            {isLoggedIn &&
+              (profile.role === 'admin' || profile.role === 'superAdmin') && (
+                <li>
+                  <NavLink
+                    exact
+                    to="/dashboard"
+                    className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                  >
+                    {burger ? (
+                      'Statistiques'
+                    ) : (
+                      <FontAwesomeIcon icon={faChartLine} />
+                    )}
+                  </NavLink>
+                </li>
+              )}
+            {isLoggedIn && profile.role === 'superAdmin' && (
               <li>
                 <NavLink
                   exact

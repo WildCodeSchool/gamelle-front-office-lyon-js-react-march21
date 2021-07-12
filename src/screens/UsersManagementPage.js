@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { useEffect, useContext, useState } from 'react';
 import Switch from '@material-ui/core/Switch';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
@@ -27,8 +28,10 @@ export default function Dashboard() {
   }, [profile, usersInfos]);
 
   const handleChange = (event) => {
-    const role = event.target.checked ? 'admin' : 'user';
-    const id = parseInt(event.target.name, 10);
+    const role = event.target.name.split('-')[0];
+    const id = parseInt(event.target.name.split('-')[1], 10);
+    console.log(role);
+    console.log(id);
     API.post(`/users/updateRole`, { id, role })
       .then(() => {
         setUsersInfos({
@@ -57,7 +60,7 @@ export default function Dashboard() {
                     <div className="font-semibold text-center">email</div>
                   </th>
                   <th className="p-2 text-center">
-                    <div className="font-semibold text-center">Admin ?</div>
+                    <div className="font-semibold text-center">Rôle</div>
                   </th>
                   <th className="p-2">
                     <div className="font-semibold text-center">
@@ -73,24 +76,54 @@ export default function Dashboard() {
                       <tr key={user.id}>
                         <td className="p-2">
                           <div className="flex items-center">
-                            <div className="text-gray-800">{`${user.firstname} ${user.lastname}`}</div>
+                            <div className="text-gray-800">{`${user.lastname} ${user.firstname}`}</div>
                           </div>
                         </td>
                         <td className="p-2">
                           <div className="text-center">{user.email}</div>
                         </td>
                         <td className="p-2 text-center">
-                          <FormControlLabel
-                            control={
-                              <Switch
-                                checked={user.role === 'admin'}
-                                onChange={handleChange}
-                                name={user.id.toString()}
-                                disabled={user.id === profile.id}
-                              />
-                            }
-                            label="Admin"
-                          />
+                          <FormGroup row className="flex justify-center">
+                            <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={user.role === 'user'}
+                                  size="small"
+                                  onChange={handleChange}
+                                  name={`user-${user.id.toString()}`}
+                                  disabled={user.id === profile.id}
+                                />
+                              }
+                              label="user"
+                              labelPlacement="top"
+                            />
+                            <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={user.role === 'admin'}
+                                  size="small"
+                                  onChange={handleChange}
+                                  name={`admin-${user.id.toString()}`}
+                                  disabled={user.id === profile.id}
+                                />
+                              }
+                              label="admin"
+                              labelPlacement="top"
+                            />
+                            <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={user.role === 'superAdmin'}
+                                  size="small"
+                                  onChange={handleChange}
+                                  name={`superAdmin-${user.id.toString()}`}
+                                  disabled={user.id === profile.id}
+                                />
+                              }
+                              label="superAdmin"
+                              labelPlacement="top"
+                            />
+                          </FormGroup>
                         </td>
                         <td className="p-2">
                           <div className="text-center">
