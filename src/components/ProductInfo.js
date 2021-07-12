@@ -7,6 +7,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { DeviceContext } from '../contexts/DeviceContext';
 import Rating from '@material-ui/lab/Rating';
 import { NavLink } from 'react-router-dom';
+import TotalRating from './TotalRating';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
@@ -128,7 +129,7 @@ export default function ProductInfo() {
                   <div className="font-bold text-4xl">{foodDetails.brand}</div>
                   <div className="text-base">{foodDetails.name}</div>
                 </div>
-                <div className="flex flex-col w-full right-0 bg-danger items-end">
+                <div className="flex flex-col w-full right-0 items-end">
                   <div className="w-2/3">
                     <div className="ml-3">
                       <h4>Appetance :</h4>
@@ -140,7 +141,7 @@ export default function ProductInfo() {
                       <h4>Qualitée des selles :</h4>
                       <Rating name="read-only" value={selle} readOnly />
                     </div>
-                    <NavLink to="/give-advice">
+                    <NavLink to={`/give-advice/?id=${id}`}>
                       <button
                         className="btn btn-primary btn-primary:hover"
                         type="type"

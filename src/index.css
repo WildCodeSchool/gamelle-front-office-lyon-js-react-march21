@@ -20,7 +20,6 @@
 :root {
   --dark-grey: #dbedf3;
   --darker-grey: #a0d3e4;
-
   --bg-primary: var(--darker-grey);
   --bg-secondary: var(--dark-grey);
 }

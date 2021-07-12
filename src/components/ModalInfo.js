@@ -14,11 +14,13 @@ export default function ModalInfo() {
 
   return (
     <div>
-      <div
-        className=" px-3 py-2 bg-primary text-white font-bold uppercase text-xs cursor-pointer hover:opacity-75"
-        onClick={handleToggleModal}
-      >
-        Show more
+      <div>
+        <button
+          className=" btn btn-primary hover:btn-secondary flex justify-center"
+          onClick={handleToggleModal}
+        >
+          Show more
+        </button>
       </div>
       {showModalInfo ? (
         <div>
