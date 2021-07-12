@@ -21,7 +21,7 @@ export default function Avis() {
   const { id } = qs.parse(window.location.search);
 
   const { handleSubmit } = useForm();
-  console.log(selle);
+
   // eslint-disable-next-line no-console
   useEffect(() => {
     API.get(`/foods/${id}`)
