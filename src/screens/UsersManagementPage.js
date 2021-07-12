@@ -1,11 +1,14 @@
 /* eslint-disable no-console */
 import { useEffect, useContext, useState } from 'react';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
 
 export default function Dashboard() {
   const { profile } = useContext(CurrentUserContext);
   const [listAllUsers, setListAllUsers] = useState(null);
+  const [usersInfos, setUsersInfos] = useState(null);
 
   useEffect(async () => {
     if (profile) {
@@ -21,17 +24,27 @@ export default function Dashboard() {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [profile, usersInfos]);
+
+  const handleChange = (event) => {
+    const role = event.target.checked ? 'admin' : 'user';
+    const id = parseInt(event.target.name, 10);
+    API.post(`/users/updateRole`, { id, role })
+      .then(() => {
+        setUsersInfos({
+          ...usersInfos,
+          id: role,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
       <header className="px-5 py-4 border-b border-gray-100">
-        <h2 className="font-semibold text-gray-800">
-          10 derniers utilisateurs inscrits
-        </h2>
+        <h2 className="font-semibold text-gray-800">Liste des utilisateurs</h2>
       </header>
-      {console.log(listAllUsers)}
-      {listAllUsers && (
+      {profile && listAllUsers && (
         <div className="p-3">
           <div className="overflow-x-auto">
             <table className="table-auto w-full">
@@ -43,8 +56,8 @@ export default function Dashboard() {
                   <th className="p-2">
                     <div className="font-semibold text-center">email</div>
                   </th>
-                  <th className="p-2">
-                    <div className="font-semibold text-center">role</div>
+                  <th className="p-2 text-center">
+                    <div className="font-semibold text-center">Admin ?</div>
                   </th>
                   <th className="p-2">
                     <div className="font-semibold text-center">
@@ -66,10 +79,18 @@ export default function Dashboard() {
                         <td className="p-2">
                           <div className="text-center">{user.email}</div>
                         </td>
-                        <td className="p-2">
-                          <div className="text-center text-green-500">
-                            {user.role}
-                          </div>
+                        <td className="p-2 text-center">
+                          <FormControlLabel
+                            control={
+                              <Switch
+                                checked={user.role === 'admin'}
+                                onChange={handleChange}
+                                name={user.id.toString()}
+                                disabled={user.id === profile.id}
+                              />
+                            }
+                            label="Admin"
+                          />
                         </td>
                         <td className="p-2">
                           <div className="text-center">

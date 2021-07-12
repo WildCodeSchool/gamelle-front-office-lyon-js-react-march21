@@ -19,7 +19,7 @@ import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Header() {
-  const { isLoggedIn = true } = useContext(CurrentUserContext);
+  const { isLoggedIn = true, profile } = useContext(CurrentUserContext);
   const [burger, setBurger] = useState(false);
   const handleBurgerToggle = () => {
     setBurger(!burger);
@@ -78,7 +78,7 @@ export default function Header() {
                 {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
               </NavLink>
             </li>
-            {isLoggedIn && (
+            {isLoggedIn && profile.role === 'admin' && (
               <li>
                 <NavLink
                   exact
@@ -93,7 +93,7 @@ export default function Header() {
                 </NavLink>
               </li>
             )}
-            {isLoggedIn && (
+            {isLoggedIn && profile.role === 'admin' && (
               <li>
                 <NavLink
                   exact
