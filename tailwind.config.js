@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 const colors = require('tailwindcss/colors');
 
 module.exports = {
@@ -42,7 +40,6 @@ module.exports = {
       info: '#0769ea',
       warning: '#f4e404',
       danger: '#e01d1d',
-      white: '#ffffff',
       opaque: ' #00000059',
       transparent: 'transparent',
       current: 'currentColor',
@@ -57,10 +54,6 @@ module.exports = {
       grey: '#dbedf3',
       lightGrey: '#f2f9fc',
       darkblue: '#283149',
-      // 'gray-200': '#E4E4E7',
-      // 'gray-500': '#6B7280',
-      // 'gray-800': '#1F2937',
-      // 'indigo-300': '#C4B5FD',
       darkpurple: '#9370DB',
       googleblue: '#4285F4',
       googlered: '#EA4335',

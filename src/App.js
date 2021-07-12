@@ -8,6 +8,7 @@ import FoodContextProvider from './contexts/FoodContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 import DrawerContextProvider from './contexts/DrawerContext';
 import AdviceContextProvider from './contexts/AdviceContext';
+import StatsContextProvider from './contexts/StatsContext';
 
 function App() {
   return (
@@ -21,10 +22,12 @@ function App() {
           <ResultsContextProvider>
             <AdviceContextProvider>
               <FoodContextProvider>
-                <DrawerContextProvider>
-                  <Header />
-                  <Main />
-                </DrawerContextProvider>
+                <StatsContextProvider>
+                  <DrawerContextProvider>
+                    <Header />
+                    <Main />
+                  </DrawerContextProvider>
+                </StatsContextProvider>
               </FoodContextProvider>
             </AdviceContextProvider>
           </ResultsContextProvider>

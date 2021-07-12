@@ -7,7 +7,7 @@ import SignUp from './SignUp';
 import GetResetPasswordMailPage from '../screens/GetResetPasswordMailPage';
 import ResetPasswordPage from '../screens/ResetPasswordPage';
 import ConfirmEmail from '../screens/ConfirmEmail';
-import ModalInfo from './ModalInfo';
+
 import Favorites from '../screens/FavoritesPage';
 import Dashboard from '../screens/DashboardPage';
 import ProductInfoPage from '../screens/ProductInfoPage';
@@ -36,7 +36,6 @@ export default function Main() {
         <Route exact path="/product-info-page" component={ProductInfoPage} />
         <Route exact path="/give-advice" component={Avis} />
       </Switch>
-      {background && <Route path="/product-info/" component={ModalInfo} />}
     </main>
   );
 }

@@ -1,23 +1,25 @@
-/* eslint-disable */
-import { useForm } from 'react-hook-form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import PasswordStrengthBar from 'react-password-strength-bar';
 import { useState, useContext } from 'react';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faExclamationTriangle,
+  faEye,
+  faEyeSlash,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PasswordStrengthBar from 'react-password-strength-bar';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function SignUp() {
   const { addToast } = useToasts();
-  const { createProfile /*, confirmedPassword, setConfirmedPassword */ } =
-    useContext(CurrentUserContext);
+  const { createProfile } = useContext(CurrentUserContext);
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
+
     formState: { errors },
   } = useForm();
 
@@ -27,8 +29,8 @@ export default function SignUp() {
         appearance: 'error',
       });
     } else {
-      form = { ...form, registeredAt: new Date() };
-      createProfile(form);
+      const newForm = { ...form, registeredAt: new Date() };
+      createProfile(newForm);
     }
   };
 
@@ -56,87 +58,87 @@ export default function SignUp() {
             <div className="w-1/2 mr-1 mb-3">
               <label htmlFor="firstname" className="dark:text-white">
                 Prénom<span style={{ color: 'red' }}>*</span>
+                <input
+                  type="text"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+                  placeholder="Croc"
+                  {...register('firstname')}
+                />
               </label>
-              <input
-                type="text"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
-                placeholder="Croc"
-                {...register('firstname')}
-              />
             </div>
             <div className="w-1/2 ml-1">
               <label htmlFor="lastname" className="dark:text-white">
                 Nom<span style={{ color: 'red' }}>*</span>
+                <input
+                  type="text"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+                  placeholder="Blanc"
+                  {...register('lastname')}
+                />
               </label>
-              <input
-                type="text"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
-                placeholder="Blanc"
-                {...register('lastname')}
-              />
             </div>
           </div>
           <div className="mb-3">
             <label htmlFor="phoneNumber" className="dark:text-white">
               Numero de téléphone
+              <input
+                type="text"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+                placeholder="0610203040"
+                {...register('phone')}
+              />
             </label>
-            <input
-              type="text"
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
-              placeholder="0610203040"
-              {...register('phone')}
-            />
           </div>
           <div className="mb-3">
             <label htmlFor="email-address" className="dark:text-white">
               Adresse Email<span style={{ color: 'red' }}>*</span>
+              <input
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+                placeholder="croc.blanc@exemple.com"
+                {...register('email')}
+              />
             </label>
-            <input
-              name="email"
-              type="email"
-              autoComplete="email"
-              required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
-              placeholder="croc.blanc@exemple.com"
-              {...register('email')}
-            />
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="dark:text-white">
               Mot de passe<span style={{ color: 'red' }}>*</span>
+              <input
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                required
+                placeholder="********"
+                {...register('password', {
+                  required: 'this is a required',
+                  minLength: {
+                    value: 8,
+                  },
+                })}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </label>
-            <input
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              required
-              placeholder="********"
-              {...register('password', {
-                required: 'this is a required',
-                minLength: {
-                  value: 8,
-                },
-              })}
-              onChange={(e) => setPassword(e.target.value)}
-            />
           </div>
           <div className="mb-3">
             <label htmlFor="confirmedPassword" className="dark:text-white">
               Veuillez confirmer votre mot de passe
               <span style={{ color: 'red' }}>*</span>
+              <input
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+                name="confirmedPassword"
+                type={showPassword ? 'text' : 'password'}
+                value={confirmedPassword}
+                required
+                placeholder="********"
+                onChange={(e) => setConfirmedPassword(e.target.value)}
+              />
             </label>
-            <input
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
-              name="confirmedPassword"
-              type={showPassword ? 'text' : 'password'}
-              value={confirmedPassword}
-              required
-              placeholder="********"
-              onChange={(e) => setConfirmedPassword(e.target.value)}
-            />
           </div>
           <FontAwesomeIcon
             className="cursor-pointer dark:text-white"
@@ -154,7 +156,7 @@ export default function SignUp() {
                 'Fort',
                 'Très fort',
               ]}
-              shortScoreWord={'Trop court'}
+              shortScoreWord={['Trop court']}
             />
             {errors.password && (
               <div className="text-danger mb-2">
