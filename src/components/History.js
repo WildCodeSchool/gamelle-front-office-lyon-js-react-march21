@@ -24,7 +24,7 @@ export default function History() {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [profile]);
 
   useEffect(() => {
     if (profile && statsInfos) {

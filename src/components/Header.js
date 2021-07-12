@@ -11,8 +11,9 @@ import {
   faHistory,
   faHeart,
   faChartLine,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/logo_gamelle_toque_blanche.png';
 import ModalSignIn from './modalSignIn';
 import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -82,13 +83,24 @@ export default function Header() {
                 <NavLink
                   exact
                   to="/dashboard"
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                 >
                   {burger ? (
                     'Statistiques'
                   ) : (
                     <FontAwesomeIcon icon={faChartLine} />
                   )}
+                </NavLink>
+              </li>
+            )}
+            {isLoggedIn && (
+              <li>
+                <NavLink
+                  exact
+                  to="/users"
+                  className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                >
+                  {burger ? 'Utilisateurs' : <FontAwesomeIcon icon={faUsers} />}
                 </NavLink>
               </li>
             )}
