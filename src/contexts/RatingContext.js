@@ -33,8 +33,9 @@ export default function RatingContextProvider({ children }) {
     return Math.floor((digestion + selle + appetance) / 3);
   };
 
-  const loadRating = () => {
-    API.get(`/ratings/${id}`, { selle, digestion, appetance }).then((res) =>
+  const loadRating = (foodId) => {
+    // const foodId = id;
+    API.get(`/ratings/${foodId}`, { selle, digestion, appetance }).then((res) =>
       setGlobal(res.data)
     );
   };

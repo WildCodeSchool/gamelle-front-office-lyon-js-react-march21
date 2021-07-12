@@ -3,12 +3,12 @@ import PetsIcon from '@material-ui/icons/Pets';
 import { useContext, useEffect, Fragment } from 'react';
 import { RatingContext } from '../contexts/RatingContext';
 
-export default function TotalRating() {
+export default function TotalRating({ foodId }) {
   // eslint-disable-next-line no-unused-vars
   const { global, loadRating, generalRating } = useContext(RatingContext);
 
   useEffect(() => {
-    loadRating();
+    loadRating(foodId);
   }, []);
 
   return (
