@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
 import qs from 'query-string';
 import { NavLink } from 'react-router-dom';
 import API from '../APIClient';
@@ -12,6 +13,7 @@ export default function ProductInfo() {
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
     useContext(CurrentUserContext);
   const [statsInfos, setStatsInfos] = useState(null);
+  const { addToast } = useToasts();
 
   useEffect(async () => {
     API.get(`/foods/${id}`)
@@ -61,32 +63,46 @@ export default function ProductInfo() {
   const handleClickFavorite = async () => {
     const isFavorite = !!favoritesIdsList[id];
     const foodId = parseInt(id, 10);
-
-    if (isFavorite) {
-      API.delete(`/favorites/${foodId}`)
-        .then(async () => {
-          toggleFoodInFavorites(foodId);
-          setStatsInfos({
-            ...statsInfos,
-            foodId,
-            requestInfo: 'removeFavorite',
-            requestSentAt: new Date(),
-          });
-        })
-        .catch((err) => console.log(err));
+    if (profile) {
+      if (isFavorite) {
+        API.delete(`/favorites/${foodId}`)
+          .then(async () => {
+            toggleFoodInFavorites(foodId);
+            setStatsInfos({
+              ...statsInfos,
+              foodId,
+              requestInfo: 'removeFavorite',
+              requestSentAt: new Date(),
+            });
+          })
+          .catch((err) => console.log(err));
+      } else {
+        API.post(`/favorites`, { foodId })
+          .then(async () => {
+            toggleFoodInFavorites(foodId);
+            setStatsInfos({
+              ...statsInfos,
+              foodId,
+              requestInfo: 'addFavorite',
+              requestSentAt: new Date(),
+            });
+          })
+          .catch((err) => console.log(err));
+      }
     } else {
-      API.post(`/favorites`, { foodId })
-        .then(async () => {
-          toggleFoodInFavorites(foodId);
-          setStatsInfos({
-            ...statsInfos,
-            foodId,
-            requestInfo: 'addFavorite',
-            requestSentAt: new Date(),
-          });
-        })
-        .catch((err) => console.log(err));
+      addToast('Vous devez être connecté pour mettre un aliment en favori !', {
+        appearance: 'error',
+      });
     }
+  };
+
+  const handleNotConnected = () => {
+    addToast(
+      'Vous devez être connecté pour donner votre avis sur un aliment !',
+      {
+        appearance: 'error',
+      }
+    );
   };
 
   return (
@@ -121,7 +137,10 @@ export default function ProductInfo() {
                 </div>
                 <div className="flex flex-col w-full right-0 items-end">
                   <div className="w-2/3">
-                    <NavLink to={`/give-advice/?id=${id}`}>
+                    <NavLink
+                      to={profile ? `/give-advice/?id=${id}` : '#'}
+                      onClick={!profile && handleNotConnected}
+                    >
                       <button
                         className="btn btn-primary btn-primary:hover"
                         type="button"
