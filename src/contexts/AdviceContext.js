@@ -13,7 +13,7 @@ export default function AdviceContextProvider({ children }) {
   const [digestion, setDigestion] = useState(3);
   const [selle, setSelle] = useState(3);
   const [appetance, setAppetance] = useState(3);
-
+  const [global, setGlobal] = useState(null);
   const submitAdvice = async () => {
     try {
       await API.post(`/ratings/${id}`, { selle, digestion, appetance });
@@ -28,6 +28,11 @@ export default function AdviceContextProvider({ children }) {
       }
     }
   };
+
+  const generalRating = () => {
+    return (digestion + selle + appetance) / 3;
+  };
+
   return (
     <AdviceContext.Provider
       value={{
@@ -38,6 +43,9 @@ export default function AdviceContextProvider({ children }) {
         setAppetance,
         digestion,
         appetance,
+        generalRating,
+        global,
+        setGlobal,
       }}
     >
       {children}
