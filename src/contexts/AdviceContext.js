@@ -14,8 +14,6 @@ export default function AdviceContextProvider({ children }) {
   const [selle, setSelle] = useState(3);
   const [appetance, setAppetance] = useState(3);
 
-  console.log(id);
-
   const submitAdvice = async () => {
     try {
       await API.post(`/ratings/${id}`, { selle, digestion, appetance });
