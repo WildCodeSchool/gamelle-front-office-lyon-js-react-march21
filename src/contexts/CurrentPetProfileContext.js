@@ -10,20 +10,7 @@ export default function CurrentPetProfileContextProvider({ children }) {
   const { addToast } = useToasts();
   const [profilePet, setProfilePet] = useState();
   const [loadingProfilePet, setLoadingProfilePet] = useState(false);
-  const [savingProfilePet, setSavingProfilePet] = useState(false);
-
-  const createPetProfile = useCallback(async (form) => {
-    try {
-      await API.post('/animal', form);
-      addToast('Votre animal a bien été ajouté', {
-        appearance: 'success',
-      });
-    } catch (err) {
-      addToast('Il y a eu une erreur lors de la création de votre animal.', {
-        appearance: 'error',
-      });
-    }
-  });
+  // const [savingProfilePet, setSavingProfilePet] = useState(false);
 
   // ------------------------------------------ //
   const getProfilePet = useCallback(async () => {
@@ -41,71 +28,90 @@ export default function CurrentPetProfileContextProvider({ children }) {
     return data;
   }, []);
 
+  // ------------------------------------------ //
+
   useEffect(() => {
     getProfilePet();
   }, []);
 
-  const updateProfilePet = useCallback(
-    async (attributes) => {
-      setSavingProfilePet(true);
-      const formData = new FormData();
-      Object.keys(attributes).forEach((prop) => {
-        formData.append(prop, attributes[prop]);
+  // ------------------------------------------ //
+
+  const createPetProfile = useCallback(async (form) => {
+    try {
+      await API.post('/pets', form);
+      addToast('Votre animal a bien été ajouté', {
+        appearance: 'success',
       });
-      try {
-        const updatedProfilePet = await API.patch(
-          `/animal/${profilePet.id}`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        ).then((res) => res.data);
-        setProfilePet(updatedProfilePet);
-        addToast('Votre profil a bien été mis à jour !', {
-          appearance: 'success',
-        });
-      } catch (err) {
-        window.console.error(err);
-        addToast('Il ya eu un problème lors de la mise à jour', {
-          appearance: 'error',
-        });
-      } finally {
-        setSavingProfilePet(false);
-      }
-    },
-    [profilePet]
-  );
+    } catch (err) {
+      addToast('Il y a eu une erreur lors de la création de votre animal.', {
+        appearance: 'error',
+      });
+    }
+  });
 
   // ------------------------------------------ //
-  const deletePet = (id) => {
-    // eslint-disable-next-line
-    if (window.confirm('Are you sure ?')) {
-      setLoadingProfilePet(true);
-      API.delete(`/animal/${profilePet.id}`)
-        .then(() => {
-          setProfilePet(
-            Object.values((profilPet) => profilPet.filter((n) => n.id !== id))
-          );
-          addToast('Votre animal a bien été supprimé !', {
-            appearance: 'success',
-          });
-        })
-        .catch((err) => {
-          window.console.error(err);
-          addToast(
-            'Il u a eu une erreur lors de la supression de votre animal !',
-            {
-              appearance: 'error',
-            }
-          );
-        })
-        .finally(() => {
-          setLoadingProfilePet(false);
-        });
-    }
-  };
+
+  // const updateProfilePet = useCallback(
+  //   async (attributes) => {
+  //     setSavingProfilePet(true);
+  //     const formData = new FormData();
+  //     Object.keys(attributes).forEach((prop) => {
+  //       formData.append(prop, attributes[prop]);
+  //     });
+  //     try {
+  //       const updatedProfilePet = await API.patch(
+  //         `/pets/${profilePet.id}`,
+  //         formData,
+  //         {
+  //           headers: {
+  //             'Content-Type': 'multipart/form-data',
+  //           },
+  //         }
+  //       ).then((res) => res.data);
+  //       setProfilePet(updatedProfilePet);
+  //       addToast('Votre profil a bien été mis à jour !', {
+  //         appearance: 'success',
+  //       });
+  //     } catch (err) {
+  //       window.console.error(err);
+  //       addToast('Il ya eu un problème lors de la mise à jour', {
+  //         appearance: 'error',
+  //       });
+  //     } finally {
+  //       setSavingProfilePet(false);
+  //     }
+  //   },
+  //   [profilePet]
+  // );
+
+  // -----------------SUPPRIMER UN ANIMAL------------------------- //
+  // const deletePet = (id) => {
+  //   // eslint-disable-next-line
+  //   if (window.confirm('Are you sure ?')) {
+  //     setLoadingProfilePet(true);
+  //     API.delete(`/pets/${profilePet.id}`)
+  //       .then(() => {
+  //         setProfilePet(
+  //           Object.values((profilPet) => profilPet.filter((n) => n.id !== id))
+  //         );
+  //         addToast('Votre animal a bien été supprimé !', {
+  //           appearance: 'success',
+  //         });
+  //       })
+  //       .catch((err) => {
+  //         window.console.error(err);
+  //         addToast(
+  //           'Il u a eu une erreur lors de la supression de votre animal !',
+  //           {
+  //             appearance: 'error',
+  //           }
+  //         );
+  //       })
+  //       .finally(() => {
+  //         setLoadingProfilePet(false);
+  //       });
+  //   }
+  // };
 
   // ------------------------------------------ //
 
@@ -125,10 +131,10 @@ export default function CurrentPetProfileContextProvider({ children }) {
       value={{
         profilePet,
         loadingProfilePet,
-        savingProfilePet,
+        // savingProfilePet,
         getProfilePet,
-        updateProfilePet,
-        deletePet,
+        // updateProfilePet,
+        // deletePet,
         createPetProfile,
       }}
     >

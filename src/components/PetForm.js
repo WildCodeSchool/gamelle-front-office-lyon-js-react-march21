@@ -4,8 +4,11 @@ import { useForm } from 'react-hook-form';
 import { CurrentPetProfileContext } from '../contexts/CurrentPetProfileContext';
 import AvatarPet from './AvatarPet';
 // import DeleteProfilePet from './DeleteProfilePet';
+import API from '../APIClient';
 
 export default function PetForm() {
+  const [breedList, setBreedList] = useState(null);
+  const [animalCategoryList, setAnimalCategoryList] = useState(null);
   const avatarUploadRef = useRef();
   const { profilePet, getProfilePet, createPetProfile, updateProfilePet } =
     useContext(CurrentPetProfileContext);
@@ -16,11 +19,8 @@ export default function PetForm() {
     },
   });
 
-  const [changeInput, setChangeInput] = useState(true);
+  // const [changeInput, setChangeInput] = useState(true);
 
-  const onSubmit = (data) => {
-    createPetProfile(data);
-  };
   const name = watch('name');
   const image = watch('image');
 
@@ -32,7 +32,7 @@ export default function PetForm() {
     if (profilePet) {
       const { name, imagePet } = profilePet;
       const valuesToUpdate = {
-        name: '',
+        name,
         image: imagePet || '',
       };
       reset(valuesToUpdate);
@@ -48,6 +48,24 @@ export default function PetForm() {
       setValue('image', URL.createObjectURL(e.target.files[0]));
     }
   };
+
+  useEffect(() => {
+    API.get(`/pets`)
+      .then((res) => {
+        setBreedList(res.data[0]);
+        setAnimalCategoryList(res.data[1]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const onSubmit = (form) => {
+    API.post(`/pets`, form)
+      .then(async (res) => {
+        createPetProfile(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="flex items-center flex-col justify-center p-5">
       <div className="titre ">
@@ -87,11 +105,53 @@ export default function PetForm() {
             </label>
             <input
               type="text"
-              required
+              // required
               className="bg-grey appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
               placeholder="Croc Blanc"
               {...register('name')}
             />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="animalCategoryId">
+              Catgéorie de votre animal :
+              <select
+                {...register('animalCategoryId')}
+                defaultValue=""
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              >
+                <option key="title" value="" disabled>
+                  Sélectionnez une catégorie
+                </option>
+                {animalCategoryList &&
+                  animalCategoryList.map((element) => (
+                    <option key={element.name} value={element.id}>
+                      {element.name}
+                    </option>
+                  ))}
+              </select>
+            </label>
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="breedId">
+              Race de votre animal <span className="text-danger">*</span> :
+              <select
+                {...register('breedId')}
+                defaultValue=""
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              >
+                <option key="title" value="" disabled>
+                  Sélectionnez une race
+                </option>
+                {breedList &&
+                  breedList.map((element) => (
+                    <option key={element.id} value={element.id}>
+                      {element.name}
+                    </option>
+                  ))}
+              </select>
+            </label>
           </div>
 
           <div className="flex flex-col">
