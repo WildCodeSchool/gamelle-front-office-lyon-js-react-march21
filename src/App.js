@@ -7,7 +7,7 @@ import ResultsContextProvider from './contexts/ResultsContext';
 import FoodContextProvider from './contexts/FoodContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
 import DrawerContextProvider from './contexts/DrawerContext';
-import AdviceContextProvider from './contexts/AdviceContext';
+import RatingContextProvider from './contexts/RatingContext';
 import StatsContextProvider from './contexts/StatsContext';
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
       >
         <CurrentUserContextProvider>
           <ResultsContextProvider>
-            <AdviceContextProvider>
+            <RatingContextProvider>
               <FoodContextProvider>
                 <StatsContextProvider>
                   <DrawerContextProvider>
@@ -29,7 +29,7 @@ function App() {
                   </DrawerContextProvider>
                 </StatsContextProvider>
               </FoodContextProvider>
-            </AdviceContextProvider>
+            </RatingContextProvider>
           </ResultsContextProvider>
         </CurrentUserContextProvider>
       </ToastProvider>

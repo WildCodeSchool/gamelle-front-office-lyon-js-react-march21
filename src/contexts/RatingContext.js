@@ -5,15 +5,15 @@ import qs from 'query-string';
 import API from '../APIClient';
 // import history from '../history';
 
-export const AdviceContext = createContext();
+export const RatingContext = createContext();
 
-export default function AdviceContextProvider({ children }) {
+export default function RatingContextProvider({ children }) {
   const { addToast } = useToasts();
   const { id } = qs.parse(window.location.search);
   const [digestion, setDigestion] = useState(3);
-  const [selle, setSelle] = useState(3);
-  const [appetance, setAppetance] = useState(3);
-  const [global, setGlobal] = useState(null);
+  const [selle, setSelle] = useState(1);
+  const [appetance, setAppetance] = useState(1);
+  const [global, setGlobal] = useState([]);
   const submitAdvice = async () => {
     try {
       await API.post(`/ratings/${id}`, { selle, digestion, appetance });
@@ -30,11 +30,17 @@ export default function AdviceContextProvider({ children }) {
   };
 
   const generalRating = () => {
-    return (digestion + selle + appetance) / 3;
+    return Math.floor((digestion + selle + appetance) / 3);
+  };
+
+  const loadRating = () => {
+    API.get(`/ratings/${id}`, { selle, digestion, appetance }).then((res) =>
+      setGlobal(res.data)
+    );
   };
 
   return (
-    <AdviceContext.Provider
+    <RatingContext.Provider
       value={{
         submitAdvice,
         selle,
@@ -46,9 +52,10 @@ export default function AdviceContextProvider({ children }) {
         generalRating,
         global,
         setGlobal,
+        loadRating,
       }}
     >
       {children}
-    </AdviceContext.Provider>
+    </RatingContext.Provider>
   );
 }

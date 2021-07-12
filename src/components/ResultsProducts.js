@@ -37,7 +37,7 @@ export default function ResultsProducts() {
                     />
                     <p className="text-xs w-full text-center font-bold">
                       {result.name}
-                    </p>{' '}
+                    </p>
                     <br />
                     <div className="flex justify-center">
                       <TotalRating />

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import PetsIcon from '@material-ui/icons/Pets';
 import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
-import { AdviceContext } from '../contexts/AdviceContext';
+import { RatingContext } from '../contexts/RatingContext';
 
 export default function Avis() {
   const {
@@ -16,7 +16,7 @@ export default function Avis() {
     setDigestion,
     appetance,
     setAppetance,
-  } = useContext(AdviceContext);
+  } = useContext(RatingContext);
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
 
