@@ -1,12 +1,14 @@
 import { ToastProvider } from 'react-toast-notifications';
 import './index.css';
+import './components/button.css';
 import Header from './components/Header';
 import Main from './components/Main';
 import ResultsContextProvider from './contexts/ResultsContext';
 import FoodContextProvider from './contexts/FoodContext';
 import CurrentUserContextProvider from './contexts/CurrentUserContext';
-import StatsContextProvider from './contexts/StatsContext';
 import DrawerContextProvider from './contexts/DrawerContext';
+import RatingContextProvider from './contexts/RatingContext';
+import StatsContextProvider from './contexts/StatsContext';
 
 function App() {
   return (
@@ -18,14 +20,16 @@ function App() {
       >
         <CurrentUserContextProvider>
           <ResultsContextProvider>
-            <FoodContextProvider>
-              <StatsContextProvider>
-                <DrawerContextProvider>
-                  <Header />
-                  <Main />
-                </DrawerContextProvider>
-              </StatsContextProvider>
-            </FoodContextProvider>
+            <RatingContextProvider>
+              <FoodContextProvider>
+                <StatsContextProvider>
+                  <DrawerContextProvider>
+                    <Header />
+                    <Main />
+                  </DrawerContextProvider>
+                </StatsContextProvider>
+              </FoodContextProvider>
+            </RatingContextProvider>
           </ResultsContextProvider>
         </CurrentUserContextProvider>
       </ToastProvider>

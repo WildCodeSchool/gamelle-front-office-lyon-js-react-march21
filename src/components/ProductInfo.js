@@ -1,6 +1,7 @@
-/* eslint-disable */
+/* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
 import qs from 'query-string';
+import { NavLink } from 'react-router-dom';
 import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -93,7 +94,7 @@ export default function ProductInfo() {
       {foodDetails && (
         <>
           <div className="flex items-center flex-col justify-center md:p-5">
-            <div className="relative md:flex md:flex-col md:shadow-lg lg:w-7/12 md:w-10/12 md:m-10 bg-white dark:bg-darkpurple">
+            <div className="relative md:flex md:flex-col md:shadow-lg lg:w-10/12 md:w-10/12 md:m-10 bg-white">
               <div className="absolute right-0 mr-5 mt-3">
                 <button
                   type="button"
@@ -117,6 +118,18 @@ export default function ProductInfo() {
                 <div className="titre">
                   <div className="font-bold text-4xl">{foodDetails.brand}</div>
                   <div className="text-base">{foodDetails.name}</div>
+                </div>
+                <div className="flex flex-col w-full right-0 items-end">
+                  <div className="w-2/3">
+                    <NavLink to={`/give-advice/?id=${id}`}>
+                      <button
+                        className="btn btn-primary btn-primary:hover"
+                        type="button"
+                      >
+                        Je donne mon avis
+                      </button>
+                    </NavLink>
+                  </div>
                 </div>
               </div>
 

@@ -1,11 +1,10 @@
-/* eslint-disable */
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { NavLink } from 'react-router-dom';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function SignIn() {
   const { login, setShowModal } = useContext(CurrentUserContext);
@@ -21,7 +20,7 @@ export default function SignIn() {
       <div className="flex justify-center mt-4">
         <a
           className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-googleblue hover:via-googlered hover:to-googleyellow"
-          href="http://localhost:5000/auth/google"
+          href={`${process.env.REACT_APP_API_BASE_URL}/auth/google`}
         >
           <FontAwesomeIcon
             className="flex items-center cursor-pointer mx-2 mt-1"
@@ -33,7 +32,7 @@ export default function SignIn() {
       <div className="flex justify-center mt-4">
         <a
           className="border flex justify-center border rounded-lg bg-gradient-to-r hover:from-facebookdarkblue hover:via-facebookblue hover:to-white"
-          href="http://localhost:5000/auth/facebook"
+          href={`${process.env.REACT_APP_API_BASE_URL}/auth/facebook`}
         >
           <FontAwesomeIcon
             className="flex items-center cursor-pointer mx-2 mt-1"
@@ -51,29 +50,32 @@ export default function SignIn() {
         <input type="hidden" name="remember" defaultValue="true" />
 
         <div className="mb-3">
-          <label htmlFor="email-address">Adresse Email</label>
-          <input
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="croc.blanc@exemple.com"
-            {...register('email')}
-          />
+          <label htmlFor="email-address">
+            Adresse Email
+            <input
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="croc.blanc@exemple.com"
+              {...register('email')}
+            />
+          </label>
         </div>
         <div className="mb-5">
-          <label htmlFor="password">Mot de passe</label>
-          <input
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            required
-            type={showPassword ? 'text' : 'password'}
-            className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="********"
-            {...register('password')}
-          />
+          <label htmlFor="password">
+            Mot de passe
+            <input
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              autoComplete="current-password"
+              required
+              className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="********"
+              {...register('password')}
+            />
+          </label>
           <FontAwesomeIcon
             className="cursor-pointer flex mt-3"
             icon={showPassword ? faEye : faEyeSlash}
@@ -84,13 +86,16 @@ export default function SignIn() {
           Mot de passe oublié ?
         </NavLink>
         <br />
-        <input
-          name="stayConnected"
-          className="mr-3"
-          type="checkbox"
-          {...register('stayConnected')}
-        />
-        <label>Maintenir la connexion</label>
+
+        <label htmlFor="stayConnected">
+          Maintenir la connexion
+          <input
+            name="stayConnected"
+            className="mr-3"
+            type="checkbox"
+            {...register('stayConnected')}
+          />
+        </label>
         <div>
           <button
             type="submit"

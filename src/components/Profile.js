@@ -1,7 +1,5 @@
-/* eslint-disable */
 import { useEffect, useContext, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
 import DeleteProfile from './DeleteProfile';
@@ -66,6 +64,7 @@ export default function Profile() {
           <br />
           <div className="flex items-center object-center bg-primary rounded shadow-lg p-3">
             <div
+              role="none"
               className="flex justify-center items-center"
               onClick={handleAvatarClick}
             >
