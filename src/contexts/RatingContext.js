@@ -1,9 +1,7 @@
 import { createContext, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import qs from 'query-string';
-
 import API from '../APIClient';
-// import history from '../history';
 
 export const RatingContext = createContext();
 
@@ -34,9 +32,13 @@ export default function RatingContextProvider({ children }) {
   };
 
   const loadRating = (foodId) => {
-    // const foodId = id;
-    API.get(`/ratings/${foodId}`, { selle, digestion, appetance }).then((res) =>
-      setGlobal(res.data)
+    API.get(`/ratings/${foodId}`, { selle, digestion, appetance }).then(
+      (res) => {
+        console.log(res.data);
+        // const ratingsWithMean=""
+        console.log(foodId);
+        setGlobal(res.data);
+      }
     );
   };
 
