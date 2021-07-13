@@ -11,8 +11,6 @@ export default function TotalRating({ foodId }) {
 
   useEffect(() => {
     API.get(`/ratings/${foodId}`).then((res) => {
-      console.log(res.data);
-      console.log(foodId);
       setRating(res.data);
     });
   }, []);

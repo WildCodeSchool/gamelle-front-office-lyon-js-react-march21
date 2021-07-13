@@ -79,6 +79,7 @@ export default function CurrentUserContextProvider({ children }) {
       Object.keys(attributes).forEach((prop) => {
         formData.append(prop, attributes[prop]);
       });
+
       try {
         const updatedProfile = await API.patch(
           `/users/${profile.id}`,
