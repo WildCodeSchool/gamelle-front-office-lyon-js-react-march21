@@ -6,6 +6,7 @@ import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
 import DeleteProfile from './DeleteProfile';
+import ProfilePet from './ProfilePet';
 
 export default function Profile() {
   const avatarUploadRef = useRef();
@@ -56,18 +57,18 @@ export default function Profile() {
     }
   };
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center flex-col justify-center p-5">
-          <div className="titre ">
-            <h1 className="mt-6 text-center text-3xl font-extrabold dark:text-white">
-              Votre profil
-            </h1>
-          </div>
-          <br />
-          <div className="flex items-center object-center bg-primary rounded shadow-lg p-3 dark:bg-darkpurple">
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex items-center flex-col justify-center p-5">
+        <div className="titre ">
+          <h1 className="mt-6 text-center text-3xl font-extrabold ">
+            Votre profil
+          </h1>
+        </div>
+        <br />
+        <div className="flex items-center">
+          <div className="flex items-center object-center bg-primary rounded shadow-lg p-3">
             <div
-              className="flex justify-center items-center"
+              className="flex flex-col justify-center items-center"
               onClick={handleAvatarClick}
             >
               <input
@@ -78,7 +79,7 @@ export default function Profile() {
                 style={{ display: 'none' }}
               />
               <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
-              <button type="button" className="border">
+              <button type="button" className="border m-5">
                 Change ta photo
               </button>
             </div>
@@ -141,47 +142,46 @@ export default function Profile() {
             </div>
           </div>
           <br />
-          <div className="flex flex-col">
-            {changeInput ? (
-              <button
-                type="button"
-                className="font-bold"
-                onClick={() => setChangeInput(!changeInput)}
-              >
-                Modifier votre profil
-              </button>
-            ) : null}
-            {changeInput ? null : (
-              <button
-                disabled={changeInput}
-                type="submit"
-                className="font-bold"
-              >
-                Sauvegarder
-              </button>
-            )}
+        </div>
 
-            <div className="flex items-center mt-10">
-              <div className="flex items-center">
-                <div className="flex w-full md:w-full">
-                  <NavLink
-                    to="/petform/"
-                    type="button"
-                    className="flex justify-center items-center font-bold rounded bg-primary
+        <br />
+        <div className="flex flex-col">
+          {changeInput ? (
+            <button
+              type="button"
+              className="font-bold"
+              onClick={() => setChangeInput(!changeInput)}
+            >
+              Modifier votre profil
+            </button>
+          ) : null}
+          {changeInput ? null : (
+            <button disabled={changeInput} type="submit" className="font-bold">
+              Sauvegarder
+            </button>
+          )}
+
+          <div className="flex items-center mt-10">
+            <div className="flex items-center">
+              <div className="flex w-full md:w-full">
+                <NavLink
+                  to="/petform/"
+                  type="button"
+                  className="flex justify-center items-center font-bold rounded bg-primary
                 hover:bg-secondary text-white
                 m-5 p-2"
-                  >
-                    Ajouter un animal
-                  </NavLink>
-                </div>
-                <DeleteProfile />
-
-                <Logout />
+                >
+                  Ajouter un animal
+                </NavLink>
               </div>
+              <DeleteProfile />
+
+              <Logout />
             </div>
           </div>
         </div>
-      </form>
-    </>
+        <ProfilePet />
+      </div>
+    </form>
   );
 }

@@ -9,8 +9,9 @@ export default function PetForm() {
   const [breedList, setBreedList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
   const avatarUploadRef = useRef();
-  const { profilePet, getProfilePet, createPetProfile, updateProfilePet } =
-    useContext(CurrentPetProfileContext);
+  const { profilePet, getProfilePet, createPetProfile } = useContext(
+    CurrentPetProfileContext
+  );
   const { handleSubmit, watch, reset, register, setValue } = useForm({
     defaultValues: {
       name: '',
