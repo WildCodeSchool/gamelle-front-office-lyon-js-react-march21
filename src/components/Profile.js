@@ -20,7 +20,7 @@ export default function Profile() {
   const [changeInput, setChangeInput] = useState(true);
 
   const onSubmit = (data) => {
-    console.log('dans onSubmit');
+    // console.log('dans onSubmit');
     updateProfile({ ...data, avatar: avatarUploadRef.current.files[0] });
     setChangeInput(!changeInput);
   };
