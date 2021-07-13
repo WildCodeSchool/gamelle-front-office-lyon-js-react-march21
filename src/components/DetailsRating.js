@@ -16,7 +16,7 @@ export default function DetailsRating() {
 
   return (
     <div className="ml-3">
-      <h4>Appetance :</h4>
+      <h4>Appétance :</h4>
       <Rating
         name="Appetance"
         value={avgRating ? avgRating.appetance : null}
@@ -32,7 +32,7 @@ export default function DetailsRating() {
         readOnly
       />
       <br />
-      <h4>Qualitée des selles :</h4>
+      <h4>Qualité des selles :</h4>
       <Rating
         name="selle"
         value={avgRating ? avgRating.selle : null}

@@ -92,9 +92,6 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        // disabled={
-                        //   changeInput ? true : savingProfile || loadingProfile
-                        // }
                         label="Firstname"
                         autoComplete="off"
                       />
@@ -109,9 +106,6 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        // disabled={
-                        //   changeInput ? true : savingProfile || loadingProfile
-                        // }
                         label="Lastname"
                         autoComplete="off"
                       />
@@ -126,9 +120,6 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        // disabled={
-                        //   changeInput ? true : savingProfile || loadingProfile
-                        // }
                         label="Email"
                         autoComplete="off"
                       />
@@ -151,7 +142,6 @@ export default function Profile() {
               </button>
             </div>
             <button
-              // disabled={changeInput}
               type="submit"
               className="font-bold rounded bg-primary
               hover:bg-secondary text-white
