@@ -1,9 +1,12 @@
-/* eslint-disable */
+/* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
 import qs from 'query-string';
+import { NavLink } from 'react-router-dom';
 import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import DetailsRating from './DetailsRating';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
@@ -11,6 +14,7 @@ export default function ProductInfo() {
   const { profile, toggleFoodInFavorites, favoritesIdsList } =
     useContext(CurrentUserContext);
   const [statsInfos, setStatsInfos] = useState(null);
+  const { addToast } = useToasts();
 
   useEffect(async () => {
     API.get(`/foods/${id}`)
@@ -60,31 +64,47 @@ export default function ProductInfo() {
   const handleClickFavorite = async () => {
     const isFavorite = !!favoritesIdsList[id];
     const foodId = parseInt(id, 10);
-
-    if (isFavorite) {
-      API.delete(`/favorites/${foodId}`)
-        .then(async () => {
-          toggleFoodInFavorites(foodId);
-          setStatsInfos({
-            ...statsInfos,
-            foodId,
-            requestInfo: 'removeFavorite',
-            requestSentAt: new Date(),
-          });
-        })
-        .catch((err) => console.log(err));
+    if (profile) {
+      if (isFavorite) {
+        API.delete(`/favorites/${foodId}`)
+          .then(async () => {
+            toggleFoodInFavorites(foodId);
+            setStatsInfos({
+              ...statsInfos,
+              foodId,
+              requestInfo: 'removeFavorite',
+              requestSentAt: new Date(),
+            });
+          })
+          .catch((err) => console.log(err));
+      } else {
+        API.post(`/favorites`, { foodId })
+          .then(async () => {
+            toggleFoodInFavorites(foodId);
+            setStatsInfos({
+              ...statsInfos,
+              foodId,
+              requestInfo: 'addFavorite',
+              requestSentAt: new Date(),
+            });
+          })
+          .catch((err) => console.log(err));
+      }
     } else {
-      API.post(`/favorites`, { foodId })
-        .then(async () => {
-          toggleFoodInFavorites(foodId);
-          setStatsInfos({
-            ...statsInfos,
-            foodId,
-            requestInfo: 'addFavorite',
-            requestSentAt: new Date(),
-          });
-        })
-        .catch((err) => console.log(err));
+      addToast('Vous devez être connecté pour mettre un aliment en favori !', {
+        appearance: 'error',
+      });
+    }
+  };
+
+  const handleNotConnected = () => {
+    if (!profile) {
+      addToast(
+        'Vous devez être connecté pour donner votre avis sur un aliment !',
+        {
+          appearance: 'error',
+        }
+      );
     }
   };
 
@@ -93,7 +113,7 @@ export default function ProductInfo() {
       {foodDetails && (
         <>
           <div className="flex items-center flex-col justify-center md:p-5">
-            <div className="relative md:flex md:flex-col md:shadow-lg lg:w-7/12 md:w-10/12 md:m-10 bg-white dark:bg-darkpurple">
+            <div className="relative md:flex md:flex-col md:shadow-lg lg:w-10/12 md:w-10/12 md:m-10 bg-white">
               <div className="absolute right-0 mr-5 mt-3">
                 <button
                   type="button"
@@ -117,6 +137,22 @@ export default function ProductInfo() {
                 <div className="titre">
                   <div className="font-bold text-4xl">{foodDetails.brand}</div>
                   <div className="text-base">{foodDetails.name}</div>
+                </div>
+                <div className="flex flex-col w-full right-0 items-end">
+                  <div className="w-2/3">
+                    <DetailsRating />
+                    <NavLink
+                      to={profile ? `/give-advice/?id=${id}` : '#'}
+                      onClick={handleNotConnected}
+                    >
+                      <button
+                        className="btn btn-primary btn-primary:hover"
+                        type="button"
+                      >
+                        Je donne mon avis
+                      </button>
+                    </NavLink>
+                  </div>
                 </div>
               </div>
 

@@ -1,8 +1,7 @@
-/* eslint-disable */
 import { useEffect, useContext, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { NavLink } from 'react-router-dom';
-import Logout from './Logout';
+// import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
 import DeleteProfile from './DeleteProfile';
@@ -10,8 +9,7 @@ import ProfilePet from './ProfilePet';
 
 export default function Profile() {
   const avatarUploadRef = useRef();
-  const { profile, getProfile, savingProfile, loadingProfile, updateProfile } =
-    useContext(CurrentUserContext);
+  const { profile, getProfile, updateProfile } = useContext(CurrentUserContext);
   const { control, handleSubmit, watch, reset, setValue } = useForm({
     defaultValues: {
       firstname: '',
@@ -27,6 +25,7 @@ export default function Profile() {
     updateProfile({ ...data, avatar: avatarUploadRef.current.files[0] });
     setChangeInput(!changeInput);
   };
+
   const firstName = watch('firstname');
   const avatar = watch('avatarUrl');
 
@@ -65,10 +64,11 @@ export default function Profile() {
           </h1>
         </div>
         <br />
-        <div className="flex items-center">
+        <div className="flex flex-col items-center">
           <div className="flex items-center object-center bg-primary rounded shadow-lg p-3">
             <div
-              className="flex flex-col justify-center items-center"
+              role="none"
+              className="flex justify-center items-center"
               onClick={handleAvatarClick}
             >
               <input
@@ -95,9 +95,9 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        disabled={
-                          changeInput ? true : savingProfile || loadingProfile
-                        }
+                        // disabled={
+                        //   changeInput ? true : savingProfile || loadingProfile
+                        // }
                         label="Firstname"
                         autoComplete="off"
                       />
@@ -112,9 +112,9 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        disabled={
-                          changeInput ? true : savingProfile || loadingProfile
-                        }
+                        // disabled={
+                        //   changeInput ? true : savingProfile || loadingProfile
+                        // }
                         label="Lastname"
                         autoComplete="off"
                       />
@@ -129,9 +129,9 @@ export default function Profile() {
                       <input
                         className="bg-transparent"
                         {...field}
-                        disabled={
-                          changeInput ? true : savingProfile || loadingProfile
-                        }
+                        // disabled={
+                        //   changeInput ? true : savingProfile || loadingProfile
+                        // }
                         label="Email"
                         autoComplete="off"
                       />
@@ -142,46 +142,33 @@ export default function Profile() {
             </div>
           </div>
           <br />
-        </div>
 
-        <br />
-        <div className="flex flex-col">
-          {changeInput ? (
+          <div className="flex">
+            <div className="flex w-full md:w-full">
+              <NavLink
+                to="/petform/"
+                className="font-bold rounded bg-blue-500
+                hover:bg-blue-800 text-white
+                m-5 p-2"
+              >
+                Ajouter un animal
+              </NavLink>
+            </div>
+
             <button
-              type="button"
-              className="font-bold"
-              onClick={() => setChangeInput(!changeInput)}
+              // disabled={changeInput}
+              type="submit"
+              className="font-bold rounded bg-primary
+              hover:bg-secondary text-white
+              m-5 p-2"
             >
-              Modifier votre profil
-            </button>
-          ) : null}
-          {changeInput ? null : (
-            <button disabled={changeInput} type="submit" className="font-bold">
               Sauvegarder
             </button>
-          )}
-
-          <div className="flex items-center mt-10">
-            <div className="flex items-center">
-              <div className="flex w-full md:w-full">
-                <NavLink
-                  to="/petform/"
-                  type="button"
-                  className="flex justify-center items-center font-bold rounded bg-primary
-                hover:bg-secondary text-white
-                m-5 p-2"
-                >
-                  Ajouter un animal
-                </NavLink>
-              </div>
-              <DeleteProfile />
-
-              <Logout />
-            </div>
+            <DeleteProfile />
           </div>
         </div>
-        <ProfilePet />
       </div>
+      <ProfilePet />
     </form>
   );
 }
