@@ -20,6 +20,7 @@ export default function Profile() {
   const [changeInput, setChangeInput] = useState(true);
 
   const onSubmit = (data) => {
+    console.log('dans onSubmit');
     updateProfile({ ...data, avatar: avatarUploadRef.current.files[0] });
     setChangeInput(!changeInput);
   };
@@ -143,13 +144,22 @@ export default function Profile() {
             <div className="flex w-full md:w-full">
               <button
                 type="button"
-                className="font-bold rounded bg-primary
-                hover:bg-secondary text-white
+                className="font-bold rounded bg-blue-500
+                hover:bg-blue-800 text-white
                 m-5 p-2"
               >
                 Ajouter un animal
               </button>
             </div>
+            <button
+              disabled={changeInput}
+              type="submit"
+              className="font-bold rounded bg-primary
+              hover:bg-secondary text-white
+              m-5 p-2"
+            >
+              Sauvegarder
+            </button>
             <DeleteProfile />
           </div>
         </div>

@@ -6,7 +6,7 @@ function DeleteProfile() {
   return (
     <div className="flex w-full md:w-full">
       <button
-        className="font-bold rounded bg-danger hover:bg-danger text-white dark:bg-darkpurple dark:text-white m-5 p-2"
+        className="font-bold rounded bg-danger hover:bg-red-800 text-white dark:bg-darkpurple dark:text-white m-5 p-2"
         type="button"
         onClick={() => deleteUser(profile.id)}
       >
