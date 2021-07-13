@@ -1,8 +1,11 @@
 import { useEffect, useContext, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { NavLink } from 'react-router-dom';
+// import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
 import DeleteProfile from './DeleteProfile';
+import ProfilePet from './ProfilePet';
 
 export default function Profile() {
   const avatarUploadRef = useRef();
@@ -53,15 +56,15 @@ export default function Profile() {
     }
   };
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex items-center flex-col justify-center p-5">
-          <div className="titre ">
-            <h1 className="mt-6 text-center text-3xl font-extrabold ">
-              Votre profil
-            </h1>
-          </div>
-          <br />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="flex items-center flex-col justify-center p-5">
+        <div className="titre ">
+          <h1 className="mt-6 text-center text-3xl font-extrabold ">
+            Votre profil
+          </h1>
+        </div>
+        <br />
+        <div className="flex flex-col items-center">
           <div className="flex items-center object-center bg-primary rounded shadow-lg p-3">
             <div
               role="none"
@@ -76,7 +79,7 @@ export default function Profile() {
                 style={{ display: 'none' }}
               />
               <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
-              <button type="button" className="border">
+              <button type="button" className="border m-5">
                 Change ta photo
               </button>
             </div>
@@ -130,17 +133,19 @@ export default function Profile() {
             </div>
           </div>
           <br />
+
           <div className="flex">
             <div className="flex w-full md:w-full">
-              <button
-                type="button"
+              <NavLink
+                to="/petform/"
                 className="font-bold rounded bg-blue-500
                 hover:bg-blue-800 text-white
                 m-5 p-2"
               >
                 Ajouter un animal
-              </button>
+              </NavLink>
             </div>
+
             <button
               type="submit"
               className="font-bold rounded bg-primary
@@ -152,7 +157,8 @@ export default function Profile() {
             <DeleteProfile />
           </div>
         </div>
-      </form>
-    </>
+      </div>
+      <ProfilePet />
+    </form>
   );
 }
