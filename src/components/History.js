@@ -12,6 +12,7 @@ export default function History() {
     useContext(CurrentUserContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const [showModalInfo, setShowModalInfo] = useState(false);
+
   const handleToggleModal = () => {
     setShowModalInfo(!showModalInfo);
   };
