@@ -55,7 +55,6 @@ export default function CurrentUserContextProvider({ children }) {
   useEffect(() => {
     getProfile();
   }, []);
-
   // ------------------------------------------ //
 
   const createProfile = useCallback(async (form) => {
@@ -72,6 +71,7 @@ export default function CurrentUserContextProvider({ children }) {
   });
 
   // ------------------------------------------ //
+
   const updateProfile = useCallback(
     async (attributes) => {
       setSavingProfile(true);

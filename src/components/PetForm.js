@@ -3,7 +3,6 @@ import { useEffect, useContext, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { CurrentPetProfileContext } from '../contexts/CurrentPetProfileContext';
 import AvatarPet from './AvatarPet';
-// import DeleteProfilePet from './DeleteProfilePet';
 import API from '../APIClient';
 
 export default function PetForm() {
@@ -18,8 +17,6 @@ export default function PetForm() {
       image: '',
     },
   });
-
-  // const [changeInput, setChangeInput] = useState(true);
 
   const name = watch('name');
   const image = watch('image');
@@ -59,11 +56,14 @@ export default function PetForm() {
   }, []);
 
   const onSubmit = (form) => {
-    API.post(`/pets`, form)
-      .then(async (res) => {
-        createPetProfile(res.data);
-      })
-      .catch((err) => console.log(err));
+    if (profilePet === '') {
+      addToast('Les champs sont vides', {
+        appearance: 'error',
+      });
+    } else {
+      form = { ...form, registeredAt: new Date() };
+      createPetProfile(form);
+    }
   };
 
   return (
@@ -105,7 +105,7 @@ export default function PetForm() {
             </label>
             <input
               type="text"
-              // required
+              required
               className="bg-grey appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
               placeholder="Croc Blanc"
               {...register('name')}
@@ -114,9 +114,9 @@ export default function PetForm() {
 
           <div className="mb-3">
             <label htmlFor="animalCategoryId">
-              Catgéorie de votre animal :
+              Catgéorie de votre animal <span className="text-danger">*</span>
               <select
-                {...register('animalCategoryId')}
+                {...register('animalCategoryId', { required: true })}
                 defaultValue=""
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
@@ -135,9 +135,9 @@ export default function PetForm() {
 
           <div className="mb-3">
             <label htmlFor="breedId">
-              Race de votre animal <span className="text-danger">*</span> :
+              Race de votre animal <span className="text-danger">*</span>
               <select
-                {...register('breedId')}
+                {...register('breedId', { required: true })}
                 defaultValue=""
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
