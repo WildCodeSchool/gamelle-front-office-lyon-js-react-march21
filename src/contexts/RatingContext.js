@@ -13,9 +13,16 @@ export default function RatingContextProvider({ children }) {
   const [selle, setSelle] = useState(null);
   const [appetance, setAppetance] = useState(null);
   const [global, setGlobal] = useState([]);
+  const [reviews, setReviews] = useState(null);
+
   const submitAdvice = async () => {
     try {
-      await API.post(`/ratings/${id}`, { selle, digestion, appetance });
+      await API.post(`/ratings/${id}`, {
+        selle,
+        digestion,
+        appetance,
+        reviews,
+      });
       addToast('Votre avis à bien été pris en compte', {
         appearance: 'success',
       });
@@ -40,6 +47,8 @@ export default function RatingContextProvider({ children }) {
         appetance,
         global,
         setGlobal,
+        reviews,
+        setReviews,
       }}
     >
       {children}

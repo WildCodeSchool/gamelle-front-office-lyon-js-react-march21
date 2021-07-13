@@ -16,6 +16,8 @@ export default function Avis() {
     setDigestion,
     appetance,
     setAppetance,
+    reviews,
+    setReviews,
   } = useContext(RatingContext);
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
@@ -61,11 +63,11 @@ export default function Avis() {
       </div>
       <form
         onSubmit={handleSubmit(submitAdvice)}
-        className="mt-8 space-y-6"
+        className="mt-8 space-y-6 flex flex-col"
         action="send"
         method="POST"
       >
-        <div className="ml-3">
+        <div className="ml-3 flex flex-col items-center">
           <h4>Appetance :</h4>
           <Rating
             name="Appetance"
@@ -73,7 +75,6 @@ export default function Avis() {
             onChange={(event, value) => {
               setAppetance(value);
             }}
-            size="large"
             icon={<PetsIcon fontSize="inherit" />}
           />
           <br />
@@ -101,6 +102,20 @@ export default function Avis() {
             }}
             icon={<PetsIcon fontSize="inherit" />}
           />
+        </div>
+        <div className="pl-3 flex w-max">
+          <label htmlFor="reviews">
+            Vos commentaires sur le produit/service :<br />
+            <input
+              value={reviews}
+              onChange={(event) => {
+                setReviews(event.target.value);
+              }}
+              className="w-max"
+              type="textarea"
+              name="reviews"
+            />
+          </label>
         </div>
         <div>
           <button type="submit" className="btn btn-primary hover:btn-secondary">

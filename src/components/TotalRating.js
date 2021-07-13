@@ -14,10 +14,11 @@ export default function TotalRating({ foodId }) {
   }, []);
 
   return (
-    rating && (
+    rating &&
+    rating.length >= 5 && (
       <>
         <Rating
-          name="global"
+          name="ratingMean"
           value={rating.ratingMean}
           readOnly
           icon={<PetsIcon fontSize="inherit" />}

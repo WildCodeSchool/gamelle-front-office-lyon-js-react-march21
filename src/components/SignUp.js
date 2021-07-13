@@ -81,7 +81,7 @@ export default function SignUp() {
             </div>
           </div>
           <div className="mb-3">
-            <label htmlFor="phoneNumber" className="dark:text-white">
+            <label htmlFor="phoneNumber">
               Numero de téléphone
               <input
                 type="text"
@@ -92,7 +92,7 @@ export default function SignUp() {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="email-address" className="dark:text-white">
+            <label htmlFor="email-address">
               Adresse Email<span style={{ color: 'red' }}>*</span>
               <input
                 name="email"
@@ -106,7 +106,7 @@ export default function SignUp() {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="password" className="dark:text-white">
+            <label htmlFor="password">
               Mot de passe<span style={{ color: 'red' }}>*</span>
               <input
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
@@ -126,7 +126,7 @@ export default function SignUp() {
             </label>
           </div>
           <div className="mb-3">
-            <label htmlFor="confirmedPassword" className="dark:text-white">
+            <label htmlFor="confirmedPassword">
               Veuillez confirmer votre mot de passe
               <span style={{ color: 'red' }}>*</span>
               <input
@@ -141,7 +141,7 @@ export default function SignUp() {
             </label>
           </div>
           <FontAwesomeIcon
-            className="cursor-pointer dark:text-white"
+            className="cursor-pointer"
             icon={showPassword ? faEye : faEyeSlash}
             onClick={() => setShowPassword(!showPassword)}
           />
@@ -168,7 +168,7 @@ export default function SignUp() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-darkpurple"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Créer
             </button>
