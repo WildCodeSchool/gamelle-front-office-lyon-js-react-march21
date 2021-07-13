@@ -35,90 +35,114 @@ export default function Avis() {
   }, []);
 
   return (
-    <div>
-      <div>
-        <h1>Rédiger un avis</h1>
-        <ul className="list-disc">
-          <li>- Vous ne pouvez donner qu’un seul avis par produit</li>
-          <li>
-            - Assurez-vous d’avoir personnellement testé ou utilisé le produit
-            ou service
-          </li>
-        </ul>
-        <p>- Merci pour votre contribution !</p>
-      </div>
+    <div className="flex flex-wrap">
       <br />
-      <div className="flex inline-block justify-center">
-        <div className="h-96 px-24">
+      <div className="flex inline-block">
+        <div className="h-96 px-10">
           <img
             src={foodDetails.image_aws_url}
             alt={foodDetails.name}
-            className="h-full rounded"
+            className="h-full rounded border-2 border-black"
           />
         </div>
-        <div className="flex flex-row items-center justify-center font-bold ">
+        <div className="flex flex-row items-center justify-center font-bold">
           <h5>{foodDetails.name}</h5>
         </div>
         <br />
       </div>
       <form
         onSubmit={handleSubmit(submitAdvice)}
-        className="mt-8 space-y-6 flex flex-col"
+        className="mt-3 flex flex-col w-screen"
         action="send"
         method="POST"
       >
-        <div className="ml-3 flex flex-col items-center">
-          <h4>Appetance :</h4>
-          <Rating
-            name="Appetance"
-            value={appetance}
-            onChange={(event, value) => {
-              setAppetance(value);
-            }}
-            icon={<PetsIcon fontSize="inherit" />}
-          />
-          <br />
+        <div className="ml-3 flex justify-evenly mt-10">
+          <div className="pl-3 flex flex-col items-center">
+            <h1 className="font-bold mb-3">Rédiger un avis</h1>
+            <ul className="list-disc">
+              <li>Vous ne pouvez donner qu’un seul avis par produit</li>
+              <li>
+                Si vous laissez un second avis, votre avis précédent sera
+                remplacé
+              </li>
+              <li>
+                Assurez-vous d’avoir personnellement testé ou utilisé le produit
+              </li>
+            </ul>
+            <p className="text-opaque">Merci pour votre contribution !</p>
+          </div>
+          <div className="flex flex-col">
+            <div className="mb-3 flex">
+              <div className="w-1/2 font-bold">
+                <h4>Appetance </h4>
+              </div>
 
-          <h4>Digestion :</h4>
-
-          <Rating
-            name="Digestion"
-            value={digestion}
-            onChange={(event, value) => {
-              setDigestion(value);
-            }}
-            icon={<PetsIcon fontSize="inherit" />}
-          />
-
-          <br />
-
-          <h4>Qualitée des selles :</h4>
-
-          <Rating
-            name="selle"
-            value={selle}
-            onChange={(event, value) => {
-              setSelle(value);
-            }}
-            icon={<PetsIcon fontSize="inherit" />}
-          />
+              <Rating
+                name="Appetance"
+                value={appetance}
+                onChange={(event, value) => {
+                  setAppetance(value);
+                }}
+                icon={<PetsIcon fontSize="inherit" />}
+              />
+            </div>
+            <div className="mb-3 flex">
+              <div className="w-1/2 font-bold">
+                <h4>Digestion </h4>
+              </div>
+              <Rating
+                name="Digestion"
+                value={digestion}
+                onChange={(event, value) => {
+                  setDigestion(value);
+                }}
+                icon={<PetsIcon fontSize="inherit" />}
+              />
+            </div>
+            <div className="mb-3 flex">
+              <div className="w-1/2 font-bold">
+                <h4>Qualitée des selles </h4>
+              </div>
+              <Rating
+                name="selle"
+                value={selle}
+                onChange={(event, value) => {
+                  setSelle(value);
+                }}
+                icon={<PetsIcon fontSize="inherit" />}
+              />
+            </div>
+            <div>
+              <h1 className="text-xs italic">
+                Votre évaluation du produit (5 = meilleure note){' '}
+              </h1>
+            </div>
+          </div>
         </div>
-        <div className="pl-3 flex w-max">
-          <label htmlFor="reviews">
-            Vos commentaires sur le produit/service :<br />
-            <input
+        <div className="pl-3 flex mt-10">
+          <label
+            htmlFor="reviews"
+            className="w-screen flex justify-center items-center flex-col"
+          >
+            <div className="flex justify-start w-2/3 mb-3">
+              Vos commentaires sur le produit
+            </div>
+
+            <textarea
               value={reviews}
               onChange={(event) => {
                 setReviews(event.target.value);
               }}
-              className="w-max"
-              type="textarea"
+              className="w-2/3 h-40 border border-black"
               name="reviews"
             />
           </label>
         </div>
-        <div>
-          <button type="submit" className="btn btn-primary hover:btn-secondary">
+        <div className="mt-5 flex justify-center">
+          <button
+            type="submit"
+            className="btn btn-primary hover:btn-secondary flex justify-end mt-3"
+          >
             Soumettre
           </button>
         </div>
