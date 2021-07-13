@@ -97,12 +97,14 @@ export default function ProductInfo() {
   };
 
   const handleNotConnected = () => {
-    addToast(
-      'Vous devez être connecté pour donner votre avis sur un aliment !',
-      {
-        appearance: 'error',
-      }
-    );
+    if (!profile) {
+      addToast(
+        'Vous devez être connecté pour donner votre avis sur un aliment !',
+        {
+          appearance: 'error',
+        }
+      );
+    }
   };
 
   return (
@@ -139,7 +141,7 @@ export default function ProductInfo() {
                   <div className="w-2/3">
                     <NavLink
                       to={profile ? `/give-advice/?id=${id}` : '#'}
-                      onClick={!profile && handleNotConnected}
+                      onClick={handleNotConnected}
                     >
                       <button
                         className="btn btn-primary btn-primary:hover"

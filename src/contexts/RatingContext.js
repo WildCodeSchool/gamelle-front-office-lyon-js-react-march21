@@ -36,7 +36,6 @@ export default function RatingContextProvider({ children }) {
     API.get(`/ratings/${foodId}`, { selle, digestion, appetance }).then(
       (res) => {
         console.log(res.data);
-        // const ratingsWithMean=""
         console.log(foodId);
         setGlobal(res.data);
       }

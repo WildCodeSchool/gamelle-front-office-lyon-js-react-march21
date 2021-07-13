@@ -6,8 +6,7 @@ import { RatingContext } from '../contexts/RatingContext';
 import API from '../APIClient';
 
 export default function TotalRating({ foodId }) {
-  // eslint-disable-next-line no-unused-vars
-  const { global, loadRating, generalRating } = useContext(RatingContext);
+  const { global } = useContext(RatingContext);
   const [rating, setRating] = useState(null);
 
   useEffect(() => {
@@ -21,7 +20,6 @@ export default function TotalRating({ foodId }) {
   return (
     rating && (
       <>
-        {console.log(rating)}
         <Rating
           name="global"
           value={rating.ratingMean}
