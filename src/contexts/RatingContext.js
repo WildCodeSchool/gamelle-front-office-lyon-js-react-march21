@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createContext, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import qs from 'query-string';

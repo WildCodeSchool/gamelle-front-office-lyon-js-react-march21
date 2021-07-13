@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Rating from '@material-ui/lab/Rating';
 import PetsIcon from '@material-ui/icons/Pets';
 import { useContext, useEffect, useState, Fragment } from 'react';
