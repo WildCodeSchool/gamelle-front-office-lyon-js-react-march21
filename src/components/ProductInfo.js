@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import DetailsRating from './DetailsRating';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
@@ -139,6 +140,7 @@ export default function ProductInfo() {
                 </div>
                 <div className="flex flex-col w-full right-0 items-end">
                   <div className="w-2/3">
+                    <DetailsRating />
                     <NavLink
                       to={profile ? `/give-advice/?id=${id}` : '#'}
                       onClick={handleNotConnected}

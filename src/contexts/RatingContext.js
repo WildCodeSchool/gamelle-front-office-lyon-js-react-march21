@@ -9,9 +9,9 @@ export const RatingContext = createContext();
 export default function RatingContextProvider({ children }) {
   const { addToast } = useToasts();
   const { id } = qs.parse(window.location.search);
-  const [digestion, setDigestion] = useState(3);
-  const [selle, setSelle] = useState(1);
-  const [appetance, setAppetance] = useState(1);
+  const [digestion, setDigestion] = useState(null);
+  const [selle, setSelle] = useState(null);
+  const [appetance, setAppetance] = useState(null);
   const [global, setGlobal] = useState([]);
   const submitAdvice = async () => {
     try {
@@ -28,20 +28,6 @@ export default function RatingContextProvider({ children }) {
     }
   };
 
-  const generalRating = () => {
-    return Math.floor((digestion + selle + appetance) / 3);
-  };
-
-  const loadRating = (foodId) => {
-    API.get(`/ratings/${foodId}`, { selle, digestion, appetance }).then(
-      (res) => {
-        console.log(res.data);
-        console.log(foodId);
-        setGlobal(res.data);
-      }
-    );
-  };
-
   return (
     <RatingContext.Provider
       value={{
@@ -52,10 +38,8 @@ export default function RatingContextProvider({ children }) {
         setAppetance,
         digestion,
         appetance,
-        generalRating,
         global,
         setGlobal,
-        loadRating,
       }}
     >
       {children}
