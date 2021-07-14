@@ -122,19 +122,11 @@ export default function ProductInfo() {
     <>
       {foodDetails && (
         <>
-          <div className="flex items-center flex-col justify-center md:p-5">
-            <div className="relative md:flex md:flex-col md:shadow-lg lg:w-10/12 md:w-10/12 md:m-10 bg-white">
-              <div className="absolute right-0 mr-5 mt-3">
-                <button
-                  type="button"
-                  aria-label="Favorite"
-                  onClick={() => handleClickFavorite(foodDetails)}
-                  className={
-                    // eslint-disable-next-line no-extra-boolean-cast
-                    !!favoritesIdsList[id] ? 'isFavorite' : 'notFavorite'
-                  }
-                />
-              </div>
+          {/* Global Container */}
+          <div className="flex items-center flex-col">
+            {/* <div className="relative md:flex md:flex-col md:shadow-lg lg:w-10/12 md:w-10/12 md:m-10 bg-white"> */}
+            <div className="relative md:flex md:flex-col lg:w-10/12 md:w-10/12 md:m-10 bg-white">
+              {/* Header Container */}
               <div className="flex items-center  border border-grey">
                 <div key={foodDetails.id} className="m-5">
                   <img
@@ -143,14 +135,31 @@ export default function ProductInfo() {
                     alt={foodDetails.image_aws_url}
                   />
                 </div>
-
+                {/* Top or Left Container */}
                 <div className="titre">
+                  {/* Brand Section */}
                   <div className="font-bold text-4xl">{foodDetails.brand}</div>
+                  {/* ProductName Section */}
                   <div className="text-base">{foodDetails.name}</div>
                 </div>
+                {/* Favorite Section */}
+                <div className="absolute right-0 mr-3 mt-3">
+                  <button
+                    type="button"
+                    aria-label="Favorite"
+                    onClick={() => handleClickFavorite(foodDetails)}
+                    className={
+                      // eslint-disable-next-line no-extra-boolean-cast
+                      !!favoritesIdsList[id] ? 'isFavorite' : 'notFavorite'
+                    }
+                  />
+                </div>
+                {/* Rating Section */}
                 <div className="flex flex-col w-full right-0 items-end">
                   <div className="w-2/3 flex justify-center flex-col items-center">
+                    {/* Stats Section */}
                     <DetailsRating />
+                    {/* GiveAdvice Section */}
                     <NavLink
                       to={profile ? `/give-advice/?id=${id}` : '#'}
                       onClick={handleNotConnected}
@@ -162,8 +171,10 @@ export default function ProductInfo() {
                         Je donne mon avis
                       </button>
                     </NavLink>
+                    {/* Social Section */}
                     <div className="flex mt-3 justify-center">
                       <div className="mr-3">
+                        {/* SocialButtons Section */}
                         <TwitterShareButton
                           url={shareUrl}
                           title={title}
@@ -193,6 +204,7 @@ export default function ProductInfo() {
                   </div>
                 </div>
               </div>
+              {/* B Section */}
               <div className="container">
                 <p className="h-auto border border-grey p-5">
                   <span className="text-xl">Composition : </span>
