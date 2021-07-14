@@ -31,7 +31,7 @@ export default function PetForm() {
   const image = watch('image');
 
   useEffect(async () => {
-    setId(1);
+    // setId(1);
     await API.get(`/pets`)
       .then((res) => {
         setBreedList(res.data[0]);
@@ -98,13 +98,11 @@ export default function PetForm() {
   };
 
   const onSubmit = (form) => {
-    console.log('form', form);
     form = { ...form, id };
 
     if (id) {
       API.patch(`/pets/${id}`, form)
         .then((res) => {
-          console.log('res.data add', res.data);
           API.get(`/pets/${res.data.id}`)
             .then((res) => {
               setPetProfile(res.data);
@@ -125,7 +123,6 @@ export default function PetForm() {
     } else {
       API.post('/pets', form)
         .then((res) => {
-          console.log(res.data);
           setId(res.data.id);
           addToast('Votre animal a bien été ajouté', {
             appearance: 'success',

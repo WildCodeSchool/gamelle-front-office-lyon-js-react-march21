@@ -11,10 +11,11 @@ export default function ResultsProducts() {
   const handleToggleModal = () => {
     setShowModalInfo(!showModalInfo);
   };
+
   return (
     resultsList.length !== 0 && (
       <div className="flex flex-col justify-center items-center w-full">
-        <h1 className="m-6">{`Les $[resul} résultats de votre recherche`}</h1>
+        <h1 className="m-6">{`Les ${resultsList.length} résultats de votre recherche`}</h1>
         <div className="w-1/2">
           <ul>
             {resultsList.map((result) => (
