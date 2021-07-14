@@ -32,7 +32,7 @@ export default function UserTableCard({ userList }) {
                 {userList &&
                   userList.map((user) => {
                     return (
-                      <tr key={user.userId}>
+                      <tr key={user.id}>
                         <td className="p-2">
                           <div className="flex items-center">
                             <div className="text-gray-800">{`${user.firstname} ${user.lastname}`}</div>

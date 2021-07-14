@@ -163,7 +163,7 @@ export default function Dashboard() {
         })
         .catch((err) => console.log(err));
 
-      API.post(`/statistics/usersOrderDesc`)
+      API.get(`/users`)
         .then((res) => {
           setListUsers(res.data);
         })
@@ -404,6 +404,7 @@ export default function Dashboard() {
                   title={`${chartDataOS.datasets[0].label} - Total : ${totalOS}`}
                 />
               </div>
+              {console.log(listTenLastUsers)}
               <UserTableCard userList={listTenLastUsers} />
             </div>
           )}

@@ -7,18 +7,20 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import AvatarPet from './AvatarPet';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
+import qs from 'query-string';
 
 export default function PetForm() {
   const { addToast } = useToasts();
-  const { profile } = useContext(CurrentUserContext);
   const [favoritesList, setFavoritesList] = useState([]);
   const [petFavoritesList, setPetFavoritesList] = useState([]);
-  const [petFavoritesIdsList, setPetFavoritesIdsList] = useState({});
   const [filteredFavoriteList, setFilteredFavoriteList] = useState([]);
   const [breedList, setBreedList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
   const [petProfile, setPetProfile] = useState(null);
-  const [id, setId] = useState(null);
+  // const URLId = qs.parse(window.location.search).id ? ;
+  const [id, setId] = useState(
+    parseInt(qs.parse(window.location.search).id, 10) || null
+  );
   const avatarUploadRef = useRef();
   const { handleSubmit, watch, reset, register, setValue } = useForm({
     defaultValues: {
@@ -83,6 +85,7 @@ export default function PetForm() {
         breedId,
         animalCategoryId,
       };
+
       reset(valuesToUpdate);
     }
   }, [petProfile]);
@@ -99,7 +102,6 @@ export default function PetForm() {
 
   const onSubmit = (form) => {
     form = { ...form, id };
-
     if (id) {
       API.patch(`/pets/${id}`, form)
         .then((res) => {
@@ -223,7 +225,7 @@ export default function PetForm() {
                 </option>
                 {animalCategoryList &&
                   animalCategoryList.map((element) => (
-                    <option key={element.name} value={element.id}>
+                    <option key={element.id} value={element.id}>
                       {element.name}
                     </option>
                   ))}
