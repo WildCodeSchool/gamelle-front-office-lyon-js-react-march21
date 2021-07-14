@@ -38,7 +38,7 @@ export default function Avis() {
   return (
     <div className="flex flex-wrap pt-5 px-3 md:flex md:flex-wrap md:px-56 md:pt-10 lg:flex lg:flex-wrap lg:px-56 lg:pt-10 xl:flex xl:flex-wrap xl:px-56 xl:pt-10">
       <div className=" flex flex-col md:flex md:w-full md:flex-row md:justify-between lg:flex lg:flex-row lg:w-full lg:justify-between xl:flex xl:flex-row xl:w-full xl:justify-between">
-        <div className="h-40 md:h-60 lg:h-96 xl:h-96">
+        <div className="h-40 flex justify-center md:h-60 lg:h-96 xl:h-96">
           <img
             src={foodDetails.image_aws_url}
             alt={foodDetails.name}
