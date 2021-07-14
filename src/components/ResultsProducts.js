@@ -26,7 +26,7 @@ export default function ResultsProducts() {
                   }}
                 >
                   <div
-                    className="bg-white rounded-lg w-full flex flex-col md:flex-row lg:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
+                    className="bg-white rounded-lg w-full flex flex-col p-2 md:flex-row lg:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
                     onClick={handleToggleModal}
                     role="presentation"
                   >
@@ -39,7 +39,7 @@ export default function ResultsProducts() {
                       {result.name}
                     </p>
                     <br />
-                    <div className="flex justify-center">
+                    <div className="flex justify-center p">
                       <TotalRating foodId={result.id} />
                     </div>
                   </div>
