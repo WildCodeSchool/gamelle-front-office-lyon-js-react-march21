@@ -14,8 +14,7 @@ export default function TotalRating({ foodId }) {
   }, []);
 
   return (
-    rating &&
-    rating.length >= 5 && (
+    rating && (
       <>
         <Rating
           name="ratingMean"
