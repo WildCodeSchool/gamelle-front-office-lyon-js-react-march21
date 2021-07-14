@@ -15,12 +15,11 @@ export default function PetForm() {
   const [petFavoritesList, setPetFavoritesList] = useState([]);
   const [filteredFavoriteList, setFilteredFavoriteList] = useState([]);
   const [breedList, setBreedList] = useState(null);
+  const [filteredBreedList, setFilteredBreedList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
   const [petProfile, setPetProfile] = useState(null);
-  // const URLId = qs.parse(window.location.search).id ? ;
-  const [id, setId] = useState(
-    parseInt(qs.parse(window.location.search).id, 10) || null
-  );
+  const URLId = parseInt(qs.parse(window.location.search).id, 10);
+  const [id, setId] = useState(URLId || null);
   const avatarUploadRef = useRef();
   const { handleSubmit, watch, reset, register, setValue } = useForm({
     defaultValues: {
@@ -31,6 +30,7 @@ export default function PetForm() {
 
   const name = watch('name');
   const image = watch('image');
+  const chosenAnimalCategory = watch('animalCategoryId');
 
   useEffect(async () => {
     // setId(1);
@@ -90,6 +90,23 @@ export default function PetForm() {
     }
   }, [petProfile]);
 
+  useEffect(() => {
+    if (breedList) {
+      const filterBreed = breedList.filter((breed) => {
+        if (
+          parseInt(chosenAnimalCategory, 10) === 0 ||
+          ([1, 3, 5].includes(parseInt(chosenAnimalCategory, 10)) &&
+            breed.speciesId === 1) ||
+          ([2, 4, 6].includes(parseInt(chosenAnimalCategory, 10)) &&
+            breed.speciesId === 2)
+        ) {
+          return breed;
+        }
+      });
+      setFilteredBreedList(filterBreed);
+    }
+  }, [chosenAnimalCategory, breedList]);
+
   const handleAvatarClick = () => {
     avatarUploadRef.current.click();
   };
@@ -126,6 +143,8 @@ export default function PetForm() {
       API.post('/pets', form)
         .then((res) => {
           setId(res.data.id);
+          // redirection à ajouter
+          window.location.replace(`/petform/?id=${res.data.id}`);
           addToast('Votre animal a bien été ajouté', {
             appearance: 'success',
           });
@@ -155,7 +174,7 @@ export default function PetForm() {
   const handleClickDeleteFavorite = (petFav) => {
     if (id) {
       API.delete(`/pets/favorites/${petFav.id}`)
-        .then((fav) => {
+        .then(() => {
           API.get(`/pets/favorites/${id}`)
             .then((res) => {
               setPetFavoritesList(res.data);
@@ -217,10 +236,10 @@ export default function PetForm() {
               Catgéorie de votre animal <span className="text-danger">*</span>
               <select
                 {...register('animalCategoryId', { required: true })}
-                defaultValue=""
+                defaultValue="0"
                 className="appearance-none rounded-none relative block w-96 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option key="title" value="" disabled>
+                <option key="title" value="0" disabled>
                   Sélectionnez une catégorie
                 </option>
                 {animalCategoryList &&
@@ -238,14 +257,14 @@ export default function PetForm() {
               Race de votre animal <span className="text-danger">*</span>
               <select
                 {...register('breedId', { required: true })}
-                defaultValue=""
+                defaultValue="0"
                 className="appearance-none rounded-none relative block w-96 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option key="title" value="" disabled>
+                <option key="title" value="0" disabled>
                   Sélectionnez une race
                 </option>
-                {breedList &&
-                  breedList.map((element) => (
+                {filteredBreedList &&
+                  filteredBreedList.map((element) => (
                     <option key={element.id} value={element.id}>
                       {element.name}
                     </option>
@@ -260,7 +279,7 @@ export default function PetForm() {
               className="text-center font-bold rounded bg-primary
                 hover:bg-secondary text-white  p-3 m-5 md:bg-white md:text-primary md:hover:bg-grey"
             >
-              Ajouter ou modifier un animal
+              {URLId ? 'Modifier cet animal' : 'Ajouter un animal'}
             </button>
           </div>
         </form>
@@ -270,6 +289,11 @@ export default function PetForm() {
         <h2 className="my-6 text-center text-3xl font-extrabold">
           Les aliments favoris de mon animal
         </h2>
+        {!URLId ? (
+          <p>
+            Veuillez d'abord ajouter cet animal avant de lui ajouter des favoris
+          </p>
+        ) : null}
         {petFavoritesList.length !== 0 && (
           <ul>
             {petFavoritesList.map((fav) => {
