@@ -139,7 +139,7 @@ export default function Profile() {
             <div className="flex w-full md:w-full">
               <NavLink
                 to="/petform/"
-                className="font-bold rounded bg-blue-500
+                className="flex items-center font-bold rounded bg-blue-500
                 hover:bg-blue-800 text-white
                 m-5 p-2"
               >
