@@ -124,10 +124,9 @@ export default function ProductInfo() {
         <>
           {/* Global Container */}
           <div className="flex items-center flex-col">
-            {/* <div className="relative md:flex md:flex-col md:shadow-lg lg:w-10/12 md:w-10/12 md:m-10 bg-white"> */}
             <div className="relative md:flex md:flex-col lg:w-10/12 md:w-10/12 md:m-10 bg-white">
               {/* Header Container */}
-              <div className="flex items-center  border border-grey">
+              <div className="flex items-center">
                 <div key={foodDetails.id} className="m-5">
                   <img
                     className="flex-none h-40 object-cover rounded-xl mr-5 md:h-96 md:w-72"
@@ -136,69 +135,72 @@ export default function ProductInfo() {
                   />
                 </div>
                 {/* Top or Left Container */}
-                <div className="titre">
+                <div>
                   {/* Brand Section */}
-                  <div className="font-bold text-4xl">{foodDetails.brand}</div>
+                  <div className="font-bold text-3xl">{foodDetails.brand}</div>
                   {/* ProductName Section */}
                   <div className="text-base">{foodDetails.name}</div>
                 </div>
-                {/* Favorite Section */}
-                <div className="absolute right-0 mr-3 mt-3">
-                  <button
-                    type="button"
-                    aria-label="Favorite"
-                    onClick={() => handleClickFavorite(foodDetails)}
-                    className={
-                      // eslint-disable-next-line no-extra-boolean-cast
-                      !!favoritesIdsList[id] ? 'isFavorite' : 'notFavorite'
-                    }
-                  />
-                </div>
-                {/* Rating Section */}
-                <div className="flex flex-col w-full right-0 items-end">
-                  <div className="w-2/3 flex justify-center flex-col items-center">
-                    {/* Stats Section */}
-                    <DetailsRating />
-                    {/* GiveAdvice Section */}
-                    <NavLink
-                      to={profile ? `/give-advice/?id=${id}` : '#'}
-                      onClick={handleNotConnected}
-                    >
-                      <button
-                        className="btn btn-primary btn-primary:hover"
-                        type="button"
+                {/* TODO Adjust the display by reducing the gaps between mobile and laptop by being as responsive as possible */}
+                <div className="border border-red-700">
+                  {/* Favorite Section */}
+                  <div className="absolute top-0 right-0 mr-3 mt-3">
+                    <button
+                      type="button"
+                      aria-label="Favorite"
+                      onClick={() => handleClickFavorite(foodDetails)}
+                      className={
+                        // eslint-disable-next-line no-extra-boolean-cast
+                        !!favoritesIdsList[id] ? 'isFavorite' : 'notFavorite'
+                      }
+                    />
+                  </div>
+                  {/* Rating Section */}
+                  <div className="flex flex-col w-full right-0 items-end">
+                    <div className="w-2/3 flex justify-center flex-col items-center">
+                      {/* Stats Section */}
+                      <DetailsRating />
+                      {/* GiveAdvice Section */}
+                      <NavLink
+                        to={profile ? `/give-advice/?id=${id}` : '#'}
+                        onClick={handleNotConnected}
                       >
-                        Je donne mon avis
-                      </button>
-                    </NavLink>
-                    {/* Social Section */}
-                    <div className="flex mt-3 justify-center">
-                      <div className="mr-3">
-                        {/* SocialButtons Section */}
-                        <TwitterShareButton
-                          url={shareUrl}
-                          title={title}
-                          className="Demo__some-network__share-button"
+                        <button
+                          className="btn btn-primary btn-primary:hover"
+                          type="button"
                         >
-                          <TwitterIcon size={32} round />
-                        </TwitterShareButton>
-                      </div>
-                      <div>
-                        <FacebookShareButton
-                          url={shareUrl}
-                          title={title}
-                          className="Demo__some-network__share-button"
-                        >
-                          <FacebookIcon size={32} round />
-                          <div>
-                            <FacebookShareCount
-                              url={shareUrl}
-                              className="Demo__some-network__share-count"
-                            >
-                              {(count) => count}
-                            </FacebookShareCount>
-                          </div>
-                        </FacebookShareButton>
+                          Je donne mon avis
+                        </button>
+                      </NavLink>
+                      {/* Social Section */}
+                      <div className="flex mt-3 justify-center">
+                        <div className="mr-3">
+                          {/* SocialButtons Section */}
+                          <TwitterShareButton
+                            url={shareUrl}
+                            title={title}
+                            className="Demo__some-network__share-button"
+                          >
+                            <TwitterIcon size={32} round />
+                          </TwitterShareButton>
+                        </div>
+                        <div>
+                          <FacebookShareButton
+                            url={shareUrl}
+                            title={title}
+                            className="Demo__some-network__share-button"
+                          >
+                            <FacebookIcon size={32} round />
+                            <div>
+                              <FacebookShareCount
+                                url={shareUrl}
+                                className="Demo__some-network__share-count"
+                              >
+                                {(count) => count}
+                              </FacebookShareCount>
+                            </div>
+                          </FacebookShareButton>
+                        </div>
                       </div>
                     </div>
                   </div>
