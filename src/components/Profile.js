@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
 import DeleteProfile from './DeleteProfile';
-import ProfilePet from './ProfilePet';
+// import ProfilePet from './ProfilePet';
 
 export default function Profile() {
   const avatarUploadRef = useRef();
@@ -55,6 +55,7 @@ export default function Profile() {
       setValue('avatarUrl', URL.createObjectURL(e.target.files[0]));
     }
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center flex-col justify-center p-5">
@@ -158,7 +159,7 @@ export default function Profile() {
           </div>
         </div>
       </div>
-      <ProfilePet />
+      {/* <ProfilePet /> */}
     </form>
   );
 }

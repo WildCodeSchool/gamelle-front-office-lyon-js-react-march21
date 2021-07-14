@@ -1,17 +1,25 @@
 /* eslint-disable */
 import { useEffect, useContext, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CurrentPetProfileContext } from '../contexts/CurrentPetProfileContext';
+import { useToasts } from 'react-toast-notifications';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import AvatarPet from './AvatarPet';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
 
 export default function PetForm() {
+  const { addToast } = useToasts();
+  const { profile } = useContext(CurrentUserContext);
+  const [favoritesList, setFavoritesList] = useState([]);
+  const [petFavoritesList, setPetFavoritesList] = useState([]);
+  const [petFavoritesIdsList, setPetFavoritesIdsList] = useState({});
+  const [filteredFavoriteList, setFilteredFavoriteList] = useState([]);
   const [breedList, setBreedList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
+  const [petProfile, setPetProfile] = useState(null);
+  const [id, setId] = useState(null);
   const avatarUploadRef = useRef();
-  const { profilePet, getProfilePet, createPetProfile } = useContext(
-    CurrentPetProfileContext
-  );
   const { handleSubmit, watch, reset, register, setValue } = useForm({
     defaultValues: {
       name: '',
@@ -22,20 +30,62 @@ export default function PetForm() {
   const name = watch('name');
   const image = watch('image');
 
-  useEffect(() => {
-    getProfilePet();
+  useEffect(async () => {
+    setId(1);
+    await API.get(`/pets`)
+      .then((res) => {
+        setBreedList(res.data[0]);
+        setAnimalCategoryList(res.data[1]);
+      })
+      .catch((err) => console.log(err));
+    await API.get(`/favorites`)
+      .then((res) => {
+        setFavoritesList(res.data);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
-    if (profilePet) {
-      const { name, imagePet } = profilePet;
+    if (petFavoritesList) {
+      const filteredFavorites = favoritesList.filter((fav) => {
+        if (
+          !petFavoritesList.find((obj) => {
+            return obj.Favorites.id === fav.id;
+          })
+        )
+          return fav;
+      });
+      setFilteredFavoriteList(filteredFavorites);
+    }
+  }, [petFavoritesList, favoritesList]);
+
+  useEffect(() => {
+    if (id) {
+      API.get(`/pets/${id}`)
+        .then((res) => {
+          setPetProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+      API.get(`/pets/favorites/${id}`)
+        .then((res) => {
+          setPetFavoritesList(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (petProfile) {
+      const { name, image, breedId, animalCategoryId } = petProfile;
       const valuesToUpdate = {
         name,
-        image: imagePet || '',
+        image: image || '',
+        breedId,
+        animalCategoryId,
       };
       reset(valuesToUpdate);
     }
-  }, [profilePet]);
+  }, [petProfile]);
 
   const handleAvatarClick = () => {
     avatarUploadRef.current.click();
@@ -47,23 +97,73 @@ export default function PetForm() {
     }
   };
 
-  useEffect(() => {
-    API.get(`/pets`)
-      .then((res) => {
-        setBreedList(res.data[0]);
-        setAnimalCategoryList(res.data[1]);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   const onSubmit = (form) => {
-    if (profilePet === '') {
-      addToast('Les champs sont vides', {
-        appearance: 'error',
-      });
+    console.log('form', form);
+    form = { ...form, id };
+
+    if (id) {
+      API.patch(`/pets/${id}`, form)
+        .then((res) => {
+          console.log('res.data add', res.data);
+          API.get(`/pets/${res.data.id}`)
+            .then((res) => {
+              setPetProfile(res.data);
+            })
+            .catch((err) => console.log(err));
+          addToast('Votre animal a bien été mis à jour', {
+            appearance: 'success',
+          });
+        })
+        .catch(() => {
+          addToast(
+            'Il y a eu une erreur lors de la mise à jour de votre animal.',
+            {
+              appearance: 'error',
+            }
+          );
+        });
     } else {
-      form = { ...form, registeredAt: new Date() };
-      createPetProfile(form);
+      API.post('/pets', form)
+        .then((res) => {
+          console.log(res.data);
+          setId(res.data.id);
+          addToast('Votre animal a bien été ajouté', {
+            appearance: 'success',
+          });
+        })
+        .catch(() => {
+          addToast("Il y a eu une erreur lors de l'ajout de votre animal.", {
+            appearance: 'error',
+          });
+        });
+    }
+  };
+
+  const handleClickFilteredFavorite = (fav) => {
+    if (id) {
+      API.post(`/pets/favorites`, { animalId: id, favoriteId: fav.id })
+        .then(() => {
+          API.get(`/pets/favorites/${id}`)
+            .then((res) => {
+              setPetFavoritesList(res.data);
+            })
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
+  const handleClickDeleteFavorite = (petFav) => {
+    if (id) {
+      API.delete(`/pets/favorites/${petFav.id}`)
+        .then((fav) => {
+          API.get(`/pets/favorites/${id}`)
+            .then((res) => {
+              setPetFavoritesList(res.data);
+            })
+            .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -119,7 +219,7 @@ export default function PetForm() {
               <select
                 {...register('animalCategoryId', { required: true })}
                 defaultValue=""
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-96 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
                 <option key="title" value="" disabled>
                   Sélectionnez une catégorie
@@ -140,7 +240,7 @@ export default function PetForm() {
               <select
                 {...register('breedId', { required: true })}
                 defaultValue=""
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-96 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
                 <option key="title" value="" disabled>
                   Sélectionnez une race
@@ -158,13 +258,94 @@ export default function PetForm() {
           <div className="flex flex-col">
             <button
               type="submit"
-              className=" text-center	font-bold rounded bg-primary
+              className="text-center font-bold rounded bg-primary
                 hover:bg-secondary text-white  p-3 m-5 md:bg-white md:text-primary md:hover:bg-grey"
             >
-              Ajouter un animal
+              Ajouter ou modifier un animal
             </button>
           </div>
         </form>
+      </div>
+
+      <div className="flex items-center flex-col justify-center m-5">
+        <h2 className="my-6 text-center text-3xl font-extrabold">
+          Les aliments favoris de mon animal
+        </h2>
+        {petFavoritesList.length !== 0 && (
+          <ul>
+            {petFavoritesList.map((fav) => {
+              return (
+                <li
+                  key={fav.id}
+                  className="relative bg-white mb-6 rounded-lg w-full p-2"
+                >
+                  <button
+                    type="button"
+                    aria-label="Favorite"
+                    onClick={() => handleClickDeleteFavorite(fav)}
+                    className="absolute right-5 top-5"
+                  >
+                    <FontAwesomeIcon
+                      className="text-3xl text-red-500"
+                      icon={faTimesCircle}
+                    />
+                  </button>
+                  <div className="flex items-center">
+                    <img
+                      className="w-40 h-40 bg-auto rounded-xl mr-5"
+                      src={fav.Favorites.Foods.image}
+                      alt="imageproduit"
+                    />
+                    <div>
+                      <p className="font-bold text-xl">
+                        {fav.Favorites.Foods.name}
+                      </p>
+                      <p className="text-base">{fav.Favorites.Foods.brand}</p>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+
+      <div className="flex items-center flex-col justify-center m-5">
+        <h2 className="my-6 text-center text-3xl font-extrabold">
+          Ma liste de favoris
+        </h2>
+        {filteredFavoriteList.length !== 0 && (
+          <ul>
+            {filteredFavoriteList.map((fav) => {
+              return (
+                <li
+                  key={fav.id}
+                  className="relative bg-white mb-6 rounded-lg w-full p-2"
+                >
+                  <button
+                    type="button"
+                    aria-label="FilteredFavorites"
+                    onClick={() => handleClickFilteredFavorite(fav)}
+                  >
+                    <div className="absolute right-5 top-5 notPetFavorite" />
+
+                    <div className="flex items-center">
+                      <img
+                        className="w-40 h-40 bg-auto rounded-xl mr-5"
+                        src={fav.Foods.image}
+                        alt="imageproduit"
+                      />
+                      <div>
+                        <p className="font-bold text-xl">{fav.Foods.name}</p>
+                        <p className="text-base">{fav.Foods.brand}</p>
+                      </div>
+                    </div>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );

@@ -17,6 +17,23 @@
   background-size: 100%;
   background-repeat: no-repeat;
 }
+
+.isPetFavorite {
+  width: 40px;
+  height: 40px;
+  background-image: url('./assets/red-heart-paw.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.notPetFavorite {
+  width: 40px;
+  height: 40px;
+  background-image: url('./assets/empty-heart-paw.png');
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
 :root {
   --dark-grey: #dbedf3;
   --darker-grey: #a0d3e4;
