@@ -7,12 +7,11 @@ import SignUp from './SignUp';
 import GetResetPasswordMailPage from '../screens/GetResetPasswordMailPage';
 import ResetPasswordPage from '../screens/ResetPasswordPage';
 import ConfirmEmail from '../screens/ConfirmEmail';
-
 import Favorites from '../screens/FavoritesPage';
 import Dashboard from '../screens/DashboardPage';
 import ProductInfoPage from '../screens/ProductInfoPage';
 import UsersManagementPage from '../screens/UsersManagementPage';
-import Avis from './Avis';
+import RatingPage from '../screens/RatingPage';
 
 export default function Main() {
   const location = useLocation();
@@ -36,7 +35,7 @@ export default function Main() {
         <Route path="/dashboard" component={Dashboard} />
         <Route exact path="/product-info-page" component={ProductInfoPage} />
         <Route exact path="/users" component={UsersManagementPage} />
-        <Route exact path="/give-advice" component={Avis} />
+        <Route exact path="/give-advice" component={RatingPage} />
       </Switch>
     </main>
   );

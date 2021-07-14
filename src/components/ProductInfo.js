@@ -3,6 +3,13 @@ import { useContext, useEffect, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import qs from 'query-string';
 import { NavLink } from 'react-router-dom';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  FacebookShareCount,
+} from 'react-share';
 import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -108,6 +115,9 @@ export default function ProductInfo() {
     }
   };
 
+  const shareUrl = `${process.env.REACT_APP_FRONT_BASE_URL}/product-info-page/?id=${id}`;
+  const title = 'Gamelle : ';
+
   return (
     <>
       {foodDetails && (
@@ -139,7 +149,7 @@ export default function ProductInfo() {
                   <div className="text-base">{foodDetails.name}</div>
                 </div>
                 <div className="flex flex-col w-full right-0 items-end">
-                  <div className="w-2/3">
+                  <div className="w-2/3 flex justify-center flex-col items-center">
                     <DetailsRating />
                     <NavLink
                       to={profile ? `/give-advice/?id=${id}` : '#'}
@@ -152,10 +162,37 @@ export default function ProductInfo() {
                         Je donne mon avis
                       </button>
                     </NavLink>
+                    <div className="flex mt-3 justify-center">
+                      <div className="mr-3">
+                        <TwitterShareButton
+                          url={shareUrl}
+                          title={title}
+                          className="Demo__some-network__share-button"
+                        >
+                          <TwitterIcon size={32} round />
+                        </TwitterShareButton>
+                      </div>
+                      <div>
+                        <FacebookShareButton
+                          url={shareUrl}
+                          title={title}
+                          className="Demo__some-network__share-button"
+                        >
+                          <FacebookIcon size={32} round />
+                          <div>
+                            <FacebookShareCount
+                              url={shareUrl}
+                              className="Demo__some-network__share-count"
+                            >
+                              {(count) => count}
+                            </FacebookShareCount>
+                          </div>
+                        </FacebookShareButton>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
               <div className="container">
                 <p className="h-auto border border-grey p-5">
                   <span className="text-xl">Composition : </span>
