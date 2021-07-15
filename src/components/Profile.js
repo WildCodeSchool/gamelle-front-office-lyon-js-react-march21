@@ -21,7 +21,13 @@ export default function Profile() {
   const [changeInput, setChangeInput] = useState(true);
 
   const onSubmit = (data) => {
-    updateProfile({ ...data, avatar: avatarUploadRef.current.files[0] });
+    const { Animals } = profile;
+
+    updateProfile({
+      ...data,
+      Animals,
+      avatar: avatarUploadRef.current.files[0],
+    });
     setChangeInput(!changeInput);
   };
 
@@ -163,7 +169,6 @@ export default function Profile() {
           </div>
         </div>
       </form>
-
       <div className="flex items-center flex-col justify-center m-5">
         <h2 className="my-6 text-center text-3xl font-extrabold">
           Mes animaux
