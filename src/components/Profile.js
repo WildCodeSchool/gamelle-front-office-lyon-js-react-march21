@@ -3,7 +3,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { NavLink } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
-import AvatarPet from './AvatarPet';
 import DeleteProfile from './DeleteProfile';
 
 export default function Profile() {
@@ -21,7 +20,10 @@ export default function Profile() {
   const [changeInput, setChangeInput] = useState(true);
 
   const onSubmit = (data) => {
-    updateProfile({ ...data, avatar: avatarUploadRef.current.files[0] });
+    updateProfile({
+      ...data,
+      avatar: avatarUploadRef.current.files[0],
+    });
     setChangeInput(!changeInput);
   };
 
@@ -164,36 +166,45 @@ export default function Profile() {
         </div>
       </form>
 
-      <div className="flex items-center flex-col justify-center m-5">
-        <h2 className="my-6 text-center text-3xl font-extrabold">
-          Mes animaux
-        </h2>
-        {profile && profile.Animals.length !== 0 && (
-          <ul>
-            {profile.Animals.map((pet) => {
-              return (
-                <li
-                  key={pet.id}
-                  className="relative bg-white mb-6 rounded-lg w-full p-2"
-                >
+      {profile && profile.Animals.length !== 0 && (
+        <div className="flex flex-col items-center w-full">
+          <h2 className="my-6 text-center text-3xl font-extrabold">
+            Mes animaux
+          </h2>
+          <div className="w-4/12  min-w-1/4">
+            <ul>
+              {profile.Animals.map((pet) => (
+                <li key={pet.id} className="mb-6 rounded-lg w-full">
                   <NavLink to={`/petform/?id=${pet.id}`}>
-                    <div className="flex items-center">
-                      <AvatarPet
-                        imagePet={pet.images}
-                        alt={`${pet.name} avatarPet`}
+                    <div
+                      className="bg-white rounded-lg w-full flex flex-col p-2 md:flex-row lg:flex-row items-center"
+                      role="presentation"
+                    >
+                      <img
+                        className="h-20 w-20 rounded-full object-cover md:h-32 md:w-32 lg:h-40 lg:w-40 m-2"
+                        src={
+                          pet.image ||
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW-vlzxatqDVDAQu4jpEfVlxcT_HXgembwISZjeZMdt2mm2fJv'
+                        }
+                        alt={pet.name}
                       />
-                      <div>
-                        <p className="font-bold text-xl">{pet.name}</p>
-                        <p className="text-base">{pet.Breeds.name}</p>
+                      <div className="flex flex-col p-2 ">
+                        <p className="text-sm font-bold lg:text-xl text-center md:text-left">
+                          {pet.name}
+                        </p>
+                        <p className="text-xs lg:text-base text-center md:text-left ">
+                          {pet.Breeds.name}
+                        </p>
                       </div>
+                      <br />
                     </div>
                   </NavLink>
                 </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   );
 }
