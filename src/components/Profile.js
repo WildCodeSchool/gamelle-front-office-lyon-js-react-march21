@@ -60,7 +60,7 @@ export default function Profile() {
       setValue('avatarUrl', URL.createObjectURL(e.target.files[0]));
     }
   };
-  console.log(profile);
+
   return profile ? (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
