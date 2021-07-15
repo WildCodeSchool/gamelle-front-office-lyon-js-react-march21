@@ -404,7 +404,6 @@ export default function Dashboard() {
                   title={`${chartDataOS.datasets[0].label} - Total : ${totalOS}`}
                 />
               </div>
-              {console.log(listTenLastUsers)}
               <UserTableCard userList={listTenLastUsers} />
             </div>
           )}

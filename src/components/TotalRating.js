@@ -15,7 +15,7 @@ export default function TotalRating({ foodId }) {
   console.log(rating);
   return (
     <>
-      {rating && rating.count >= 5 ? (
+      {rating && rating.count >= 1 ? (
         <div className="flex flex-col items-center">
           <Rating
             name="ratingMean"
