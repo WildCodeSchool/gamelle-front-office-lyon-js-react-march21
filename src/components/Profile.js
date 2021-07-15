@@ -60,8 +60,8 @@ export default function Profile() {
       setValue('avatarUrl', URL.createObjectURL(e.target.files[0]));
     }
   };
-
-  return (
+  console.log(profile);
+  return profile ? (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center flex-col justify-center p-5">
@@ -173,7 +173,7 @@ export default function Profile() {
         <h2 className="my-6 text-center text-3xl font-extrabold">
           Mes animaux
         </h2>
-        {profile && profile.Animals.length !== 0 && (
+        {profile.Animals && profile.Animals.length !== 0 && (
           <ul>
             {profile.Animals.map((pet) => {
               return (
@@ -200,5 +200,5 @@ export default function Profile() {
         )}
       </div>
     </>
-  );
+  ) : null;
 }
