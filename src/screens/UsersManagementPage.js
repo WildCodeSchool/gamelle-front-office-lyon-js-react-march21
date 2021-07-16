@@ -41,7 +41,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
+    <div className="col-span-full bg-white shadow-lg rounded-sm border border-gray-200 mt-3 md:mt-0 xl:col-span-8 ">
       <header className="px-5 py-4 border-b border-gray-100">
         <h2 className="font-semibold text-gray-800">Liste des utilisateurs</h2>
       </header>

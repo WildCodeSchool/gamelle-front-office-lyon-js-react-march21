@@ -328,10 +328,10 @@ export default function Dashboard() {
   }, [listUsers]);
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex overflow-hidden">
       <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
         <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-          <div className="flex justify-between bg-primary p-4 pr-20 rounded-sm mb-8 text-white">
+          <div className="flex flex-col md:justify-between md:flex-row bg-primary p-4 pr-20 rounded-sm mb-8 text-white">
             <div
               className="absolute right-0 top-0 -mt-4 mr-16 pointer-events-none hidden xl:block"
               aria-hidden="true"
@@ -341,14 +341,14 @@ export default function Dashboard() {
               <p>Voici les dernières statistiques :</p>
             </div>
             <div className="sm:flex sm:justify-end sm:items-center mb-8">
-              <div className="grid justify-start sm:justify-end gap-2">
+              <div className="flex md:grid justify-start sm:justify-end gap-2">
                 <Datepicker />
               </div>
             </div>
           </div>
           {nbReqBetweenDates && (
-            <div className="grid grid-cols-12 gap-6">
-              <div className="flex flex-col col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+            <div className="flex flex-col w-full md:grid md:grid-cols-12 md:gap-6">
+              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataRequestByType}
                   width={389}
@@ -356,7 +356,7 @@ export default function Dashboard() {
                   title={`${chartDataRequestByType.datasets[0].label} - Total : ${totalRequests}`}
                 />
               </div>
-              <div className="flex flex-col col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataMostViewedFoods}
                   width={788}
@@ -364,7 +364,7 @@ export default function Dashboard() {
                   title={`${chartDataMostViewedFoods.datasets[0].label} - Total : ${totalMostViewedFoods}`}
                 />
               </div>
-              <div className="flex flex-col col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataMostFavoriteFoods}
                   width={788}
@@ -372,7 +372,7 @@ export default function Dashboard() {
                   title={`${chartDataMostFavoriteFoods.datasets[0].label} - Total : ${totalCurrentMostFavoriteFoods}`}
                 />
               </div>
-              <div className="flex flex-col col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataFoodTypes}
                   width={389}
@@ -380,7 +380,7 @@ export default function Dashboard() {
                   title={`${chartDataFoodTypes.datasets[0].label} - Total : ${totalFoodType}`}
                 />
               </div>
-              <div className="flex flex-col col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataAnimalCategories}
                   width={389}
@@ -388,7 +388,7 @@ export default function Dashboard() {
                   title={`${chartDataAnimalCategories.datasets[0].label} - Total : ${totalAnimalCategories}`}
                 />
               </div>
-              <div className="flex flex-col col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="fflex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataDevices}
                   width={389}
@@ -396,7 +396,7 @@ export default function Dashboard() {
                   title={`${chartDataDevices.datasets[0].label} - Total : ${totalDevices}`}
                 />
               </div>
-              <div className="flex flex-col col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataOS}
                   width={389}
