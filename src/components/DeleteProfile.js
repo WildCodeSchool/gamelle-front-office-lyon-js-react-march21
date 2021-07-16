@@ -4,9 +4,9 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 function DeleteProfile() {
   const { profile, deleteUser } = useContext(CurrentUserContext);
   return (
-    <div className="flex w-full md:w-full">
+    <div className="flex">
       <button
-        className="font-bold rounded bg-danger hover:bg-red-800 text-white dark:bg-darkpurple dark:text-white m-5 p-2"
+        className="w-24 md:w-28 text-xs font-bold md:text-base rounded bg-gray500 hover:bg-black text-white m-5 p-2"
         type="button"
         onClick={() => deleteUser(profile.id)}
       >

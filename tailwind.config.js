@@ -61,9 +61,13 @@ module.exports = {
       googlegreen: '#34A853',
       facebookdarkblue: '#4267B2',
       facebookblue: '#1877F2',
+      gray500: '#6B7280',
     },
     textOpacity: ['dark'],
     extend: {
+      dropShadow: {
+        '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
+      },
       keyframes: {
         wiggle: {
           '0%, 100%': {
