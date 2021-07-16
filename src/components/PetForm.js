@@ -1,12 +1,12 @@
-/* eslint-disable */
-import { useEffect, useContext, useRef, useState } from 'react';
+/* eslint-disable no-console */
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useToasts } from 'react-toast-notifications';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import qs from 'query-string';
 import AvatarPet from './AvatarPet';
 import API from '../APIClient';
-import qs from 'query-string';
 
 export default function PetForm() {
   const { addToast } = useToasts();
@@ -20,25 +20,16 @@ export default function PetForm() {
   const URLId = parseInt(qs.parse(window.location.search).id, 10);
   const [id, setId] = useState(URLId || null);
   const avatarUploadRef = useRef();
-  const { handleSubmit, watch, reset, register, setValue } = useForm({
+  const { handleSubmit, watch, register, setValue } = useForm({
     defaultValues: {
       name: '',
       image: '',
     },
   });
 
-  // const [defaultAnimalCategoryId, setDefaultAnimalCategoryId] = useState('');
-  // const [defaultBreedId, setDefaultBreedId] = useState('');
-
   const name = watch('name');
   const image = watch('image');
   const chosenAnimalCategory = watch('animalCategoryId');
-  // const chosenBreed = watch('breedId');
-  // console.log('chosenAnimalCategory', chosenAnimalCategory);
-  // console.log('chosenBreed', chosenBreed);
-
-  // console.log('defaultBreedId', defaultBreedId);
-  // console.log('defaultAnimalCategoryId', defaultAnimalCategoryId);
 
   useEffect(async () => {
     await API.get(`/pets`)
@@ -57,14 +48,17 @@ export default function PetForm() {
 
   useEffect(() => {
     if (petFavoritesList) {
-      const filteredFavorites = favoritesList.filter((fav) => {
-        if (
+      const filteredFavorites = favoritesList.filter(
+        (fav) =>
+          // {
+          //   if (
           !petFavoritesList.find((obj) => {
             return obj.Favorites.id === fav.id;
           })
-        )
-          return fav;
-      });
+        //   )
+        //     return fav;
+        // }
+      );
       setFilteredFavoriteList(filteredFavorites);
     }
   }, [petFavoritesList, favoritesList]);
@@ -86,29 +80,9 @@ export default function PetForm() {
 
   useEffect(() => {
     if (petProfile) {
-      // const { name, image, breedId, animalCategoryId } = petProfile;
-      // const valuesToUpdate = {
-      //   name,
-      //   image: image || '',
-      //   breedId,
-      //   animalCategoryId,
-      // };
-
-      // reset(valuesToUpdate);
       console.log(petProfile.animalCategoryId);
-
-      // setTimeout(() => {
-      //   setValue('animalCategoryId', petProfile.animalCategoryId);
-      //   setValue('breedId', petProfile.breedId);
-      //   setValue('name', petProfile.name);
-      // }, 2000);
     }
   }, [petProfile]);
-
-  // useEffect(() => {
-  //   setDefaultAnimalCategoryId(chosenAnimalCategory);
-  //   setDefaultBreedId(chosenBreed);
-  // }, [chosenAnimalCategory, chosenBreed]);
 
   useEffect(() => {
     if (breedList && animalCategoryList) {
@@ -118,16 +92,13 @@ export default function PetForm() {
         const category = animalCategoryList.find(
           (categ) => categ.id === parseInt(chosenAnimalCategory, 10)
         );
-        const filterBreed = breedList.filter((breed) => {
-          if (
+        const filterBreed = breedList.filter(
+          (breed) =>
             ((category.name.includes('chien') ||
               category.name.includes('chiot')) &&
               breed.speciesId === 1) ||
             (category.name.includes('chat') && breed.speciesId === 2)
-          ) {
-            return breed;
-          }
-        });
+        );
         setFilteredBreedList(filterBreed);
       }
     }
@@ -152,17 +123,14 @@ export default function PetForm() {
   };
 
   const onSubmit = (form) => {
-    form = { ...form, id };
-    console.log('form', form);
-    // setDefaultAnimalCategoryId(form.animalCategoryId);
-    // setDefaultBreedId(form.breedId);
+    const updatedForm = { ...form, id };
 
     if (id) {
-      API.patch(`/pets/${id}`, form)
+      API.patch(`/pets/${id}`, updatedForm)
         .then((res) => {
           API.get(`/pets/${res.data.id}`)
-            .then((res) => {
-              setPetProfile(res.data);
+            .then((resP) => {
+              setPetProfile(resP.data);
             })
             .catch((err) => console.log(err));
           addToast('Votre animal a bien été mis à jour', {
@@ -239,6 +207,7 @@ export default function PetForm() {
         <div
           className="flex flex-col items-center m-5"
           onClick={handleAvatarClick}
+          aria-hidden="true"
         >
           <input
             type="file"
@@ -262,14 +231,14 @@ export default function PetForm() {
           <div className="w-full mr-1 mb-3">
             <label htmlFor="name">
               Nom de votre animal<span style={{ color: 'red' }}>*</span>
+              <input
+                type="text"
+                required
+                className="bg-grey appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+                placeholder="Croc Blanc"
+                {...register('name')}
+              />
             </label>
-            <input
-              type="text"
-              required
-              className="bg-grey appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
-              placeholder="Croc Blanc"
-              {...register('name')}
-            />
           </div>
 
           <div className="mb-3">
