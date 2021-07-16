@@ -14,12 +14,17 @@ import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import DetailsRating from './DetailsRating';
+import ModalSignIn from './modalSignIn';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
-  const { profile, toggleFoodInFavorites, favoritesIdsList } =
-    useContext(CurrentUserContext);
+  const {
+    profile,
+    toggleFoodInFavorites,
+    favoritesIdsList,
+    isLoggedIn = true,
+  } = useContext(CurrentUserContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const { addToast } = useToasts();
 
@@ -151,17 +156,21 @@ export default function ProductInfo() {
                 <div className="flex flex-col w-full right-0 items-end">
                   <div className="w-2/3 flex justify-center flex-col items-center">
                     <DetailsRating />
-                    <NavLink
-                      to={profile ? `/give-advice/?id=${id}` : '#'}
-                      onClick={handleNotConnected}
-                    >
-                      <button
-                        className="btn btn-primary btn-primary:hover"
-                        type="button"
+                    {isLoggedIn && (
+                      <NavLink
+                        to={profile ? `/give-advice/?id=${id}` : '#'}
+                        onClick={handleNotConnected}
                       >
-                        Je donne mon avis
-                      </button>
-                    </NavLink>
+                        <button
+                          className="btn btn-primary btn-primary:hover"
+                          type="button"
+                        >
+                          Je donne mon avis
+                        </button>
+                      </NavLink>
+                    )}
+                    {!isLoggedIn && <ModalSignIn />}
+
                     <div className="flex mt-3 justify-center">
                       <div className="mr-3">
                         <TwitterShareButton

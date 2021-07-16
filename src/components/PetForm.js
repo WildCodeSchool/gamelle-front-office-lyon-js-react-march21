@@ -50,14 +50,9 @@ export default function PetForm() {
     if (petFavoritesList) {
       const filteredFavorites = favoritesList.filter(
         (fav) =>
-          // {
-          //   if (
           !petFavoritesList.find((obj) => {
             return obj.Favorites.id === fav.id;
           })
-        //   )
-        //     return fav;
-        // }
       );
       setFilteredFavoriteList(filteredFavorites);
     }
@@ -77,12 +72,6 @@ export default function PetForm() {
         .catch((err) => console.log(err));
     }
   }, [id]);
-
-  useEffect(() => {
-    if (petProfile) {
-      console.log(petProfile.animalCategoryId);
-    }
-  }, [petProfile]);
 
   useEffect(() => {
     if (breedList && animalCategoryList) {
@@ -150,10 +139,13 @@ export default function PetForm() {
         .then((res) => {
           setId(res.data.id);
           window.location.replace(`/petform/?id=${res.data.id}`);
-          console.log(form);
           addToast('Votre animal a bien été ajouté', {
             appearance: 'success',
           });
+          setTimeout(() => {
+            setId(res.data.id);
+            window.location.replace(`/petform/?id=${res.data.id}`);
+          }, 500);
         })
         .catch(() => {
           addToast("Il y a eu une erreur lors de l'ajout de votre animal.", {
@@ -191,9 +183,6 @@ export default function PetForm() {
     }
   };
 
-  console.log(filteredBreedList);
-  console.log(animalCategoryList);
-
   return (
     <div className="flex items-center flex-col justify-center p-5">
       <div className="titre ">
@@ -217,9 +206,6 @@ export default function PetForm() {
             style={{ display: 'none' }}
           />
           <AvatarPet imagePet={image} alt={`${name} image`} />
-          <button type="button" className="border mt-1">
-            Parcourir
-          </button>
         </div>
         <br />
         <form

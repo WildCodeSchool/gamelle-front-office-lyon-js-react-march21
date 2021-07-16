@@ -15,30 +15,60 @@ export default function DetailsRating() {
   }, []);
 
   return (
-    <div className="ml-3">
-      <h4>Appétance :</h4>
-      <Rating
-        name="Appetance"
-        value={avgRating ? avgRating.appetance : null}
-        icon={<PetsIcon fontSize="inherit" />}
-        readOnly
-      />
-      <br />
-      <h4>Digestion :</h4>
-      <Rating
-        name="Digestion"
-        value={avgRating ? avgRating.digestion : null}
-        icon={<PetsIcon fontSize="inherit" />}
-        readOnly
-      />
-      <br />
-      <h4>Qualité des selles :</h4>
-      <Rating
-        name="selle"
-        value={avgRating ? avgRating.selle : null}
-        icon={<PetsIcon fontSize="inherit" />}
-        readOnly
-      />
-    </div>
+    <>
+      {avgRating && avgRating.count >= 5 ? (
+        <div className="ml-3">
+          <h4>Appétance :</h4>
+          <Rating
+            name="Appetance"
+            value={avgRating ? avgRating.appetance : null}
+            icon={<PetsIcon fontSize="inherit" />}
+            readOnly
+          />
+          <br />
+          <h4>Digestion :</h4>
+          <Rating
+            name="Digestion"
+            value={avgRating ? avgRating.digestion : null}
+            icon={<PetsIcon fontSize="inherit" />}
+            readOnly
+          />
+          <br />
+          <h4>Qualité des selles :</h4>
+          <Rating
+            name="selle"
+            value={avgRating ? avgRating.selle : null}
+            icon={<PetsIcon fontSize="inherit" />}
+            readOnly
+          />
+        </div>
+      ) : (
+        <div>
+          <h4>Appétance :</h4>
+          <Rating
+            name="Appetance"
+            value={0}
+            icon={<PetsIcon fontSize="inherit" />}
+            readOnly
+          />
+          <br />
+          <h4>Digestion :</h4>
+          <Rating
+            name="Digestion"
+            value={0}
+            icon={<PetsIcon fontSize="inherit" />}
+            readOnly
+          />
+          <br />
+          <h4>Qualité des selles :</h4>
+          <Rating
+            name="selle"
+            value={0}
+            icon={<PetsIcon fontSize="inherit" />}
+            readOnly
+          />
+        </div>
+      )}
+    </>
   );
 }

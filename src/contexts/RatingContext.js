@@ -23,6 +23,7 @@ export default function RatingContextProvider({ children }) {
         digestion,
         appetance,
         reviews,
+        postedAt: new Date(),
       });
       setTimeout(() => {
         history.push('/');

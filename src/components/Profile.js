@@ -3,7 +3,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { NavLink } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import Avatar from './Avatar';
-import AvatarPet from './AvatarPet';
 import DeleteProfile from './DeleteProfile';
 
 export default function Profile() {
@@ -65,81 +64,87 @@ export default function Profile() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center flex-col justify-center p-5">
-          <div className="titre ">
+          <div>
             <h1 className="mt-6 text-center text-3xl font-extrabold ">
               Votre profil
             </h1>
           </div>
           <br />
           <div className="flex flex-col items-center">
-            <div className="flex items-center object-center bg-primary rounded shadow-lg p-3">
-              <div
-                role="none"
-                className="flex justify-center items-center"
-                onClick={handleAvatarClick}
-              >
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg, image/jpg"
-                  ref={avatarUploadRef}
-                  onChange={handleAvatarFileInputChange}
-                  style={{ display: 'none' }}
+            <div className="shadow-lg rounded overflow-hidden m-5 w-full">
+              <div className="top-0 bg-gray-500 w-full h-40 shadow-sm">
+                <img
+                  className="h-full w-full object-cover"
+                  src="https://picsum.photos/1000/1000?random"
+                  alt="random"
                 />
-                <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
-                <button
-                  type="button"
-                  className="font-bold rounded bg-secondary hover:bg-green-700 text-white m-5 p-2"
-                >
-                  Changer la photo
-                </button>
               </div>
-              <br />
+              <div className="bg-white flex flex-col items-center -mt-24">
+                <div role="none" onClick={handleAvatarClick}>
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg"
+                    ref={avatarUploadRef}
+                    onChange={handleAvatarFileInputChange}
+                    style={{ display: 'none' }}
+                  />
+                  <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
+                </div>
 
-              <div className="flex items-center w-96 m-4">
-                <ul className="w-full">
-                  <li className="bg-gray-200 w-full text-center p-10">
+                <div className="bg-white m-5">
+                  <p className="text-gray-800 text-xl ">
                     <Controller
                       name="firstname"
                       control={control}
                       render={({ field }) => (
                         <input
-                          className="bg-transparent w-full"
+                          className="bg-transparent w-full font-semibold text-center"
                           {...field}
                           label="Firstname"
                           autoComplete="off"
                         />
                       )}
                     />
-                  </li>
-                  <li className="bg-white w-full text-center p-10">
+                  </p>
+                  <p className="text-gray-800 text-xl">
                     <Controller
                       name="lastname"
                       control={control}
                       render={({ field }) => (
                         <input
-                          className="bg-transparent w-full"
+                          className="bg-transparent w-full font-semibold text-center"
                           {...field}
                           label="Lastname"
                           autoComplete="off"
                         />
                       )}
                     />
-                  </li>
-                  <li className="bg-gray-200 w-full text-center p-10">
+                  </p>
+                  <p className="text-gray-800 font-normal text-xs">
                     <Controller
                       name="email"
                       control={control}
                       render={({ field }) => (
                         <input
-                          className="bg-transparent w-full"
+                          className="bg-transparent w-full text-center"
                           {...field}
                           label="Email"
                           autoComplete="off"
                         />
                       )}
                     />
-                  </li>
-                </ul>
+                  </p>
+                </div>
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="w-24 md:w-28 text-xs font-bold md:text-base rounded bg-primary hover:bg-secondary text-white m-5 p-2"
+                  >
+                    Sauvegarder
+                  </button>
+
+                  <DeleteProfile />
+                </div>
               </div>
             </div>
             <br />
@@ -155,50 +160,54 @@ export default function Profile() {
                   Ajouter un animal
                 </NavLink>
               </div>
-
-              <button
-                type="submit"
-                className="font-bold rounded bg-primary
-              hover:bg-secondary text-white
-              m-5 p-2"
-              >
-                Sauvegarder
-              </button>
-              <DeleteProfile />
             </div>
           </div>
         </div>
       </form>
-      <div className="flex items-center flex-col justify-center m-5">
-        <h2 className="my-6 text-center text-3xl font-extrabold">
-          Mes animaux
-        </h2>
-        {profile.Animals && profile.Animals.length !== 0 && (
-          <ul>
-            {profile.Animals.map((pet) => {
-              return (
+
+      {profile && profile.Animals.length !== 0 && (
+        <div className="flex flex-col items-center w-full">
+          <div>
+            <h1 className="mt-6 text-center text-3xl font-extrabold ">
+              Mes animaux
+            </h1>
+          </div>
+          <br />
+          <div className=" w-10/12 md:w-5/12 lg:w-2/6 ">
+            <ul>
+              {profile.Animals.map((pet) => (
                 <li
                   key={pet.id}
-                  className="relative bg-white mb-6 rounded-lg w-full p-2"
+                  className="bg-white m-5 rounded shadow-lg md:transform transition duration-500 hover:scale-105"
                 >
                   <NavLink to={`/petform/?id=${pet.id}`}>
-                    <div className="flex items-center">
-                      <AvatarPet
-                        imagePet={pet.images}
-                        alt={`${pet.name} avatarPet`}
-                      />
-                      <div>
-                        <p className="font-bold text-xl">{pet.name}</p>
-                        <p className="text-base">{pet.Breeds.name}</p>
+                    <div className="flex flex-col md:flex-row items-center ">
+                      <div className="m-2">
+                        <img
+                          className="h-20 w-20 md:w-32 md:h-32 lg:h-40 lg:w-40 rounded-full"
+                          src={
+                            pet.image ||
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW-vlzxatqDVDAQu4jpEfVlxcT_HXgembwISZjeZMdt2mm2fJv'
+                          }
+                          alt={pet.name}
+                        />
+                      </div>
+                      <div className="m-2 md:ml-5">
+                        <p className="text-sm font-bold lg:text-xl text-center md:text-left">
+                          {pet.name}
+                        </p>
+                        <p className="text-xs lg:text-base text-center md:text-left ">
+                          {pet.Breeds.name}
+                        </p>
                       </div>
                     </div>
                   </NavLink>
                 </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   ) : null;
 }
