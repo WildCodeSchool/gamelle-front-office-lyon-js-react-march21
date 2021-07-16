@@ -30,8 +30,6 @@ export default function Dashboard() {
   const handleChange = (event) => {
     const role = event.target.name.split('-')[0];
     const id = parseInt(event.target.name.split('-')[1], 10);
-    console.log(role);
-    console.log(id);
     API.post(`/users/updateRole`, { id, role })
       .then(() => {
         setUsersInfos({
