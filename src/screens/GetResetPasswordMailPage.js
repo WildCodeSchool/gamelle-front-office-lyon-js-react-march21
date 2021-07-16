@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -21,17 +20,17 @@ export default function GetResetPasswordMailPage() {
       >
         <div className="mb-3">
           <label htmlFor="email-address" className="dark:text-white">
-            Adresse Email <span style={{ color: 'red' }}>*</span>
+            Adresse Email <span style={{ color: 'red' }}>*</span>{' '}
+            <input
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              placeholder="croc.blanc@exemple.com"
+              {...register('email')}
+            />
           </label>
-          <input
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-            placeholder="croc.blanc@exemple.com"
-            {...register('email')}
-          />
         </div>
         <div className="flex justify-center items-center">
           <button

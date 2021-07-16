@@ -1,18 +1,14 @@
 /* eslint-disable */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faArrowLeft,
-  faArrowRight,
-  faArrowAltCircleLeft,
-  faArrowAltCircleRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 import ProductSearch from './ProductSearch';
 import { DrawerContext } from '../contexts/DrawerContext';
+import './SwipToTheLeft.css';
 
-export default function SwipDrawer() {
+export default function SwipToTheLeft() {
   const { drawer, toggleDrawer, leaveDrawer } = useContext(DrawerContext);
 
   const list = (anchor) => (
@@ -22,9 +18,9 @@ export default function SwipDrawer() {
   );
 
   return (
-    <div className="w-screen min-h-screen flex justify-between fixed">
+    <>
       {['left'].map((anchor) => (
-        <div key={anchor} className="flex">
+        <div key={anchor} className="min-h-screen flex fixed z-50" id="drawer">
           <Button
             style={{ backgroundColor: 'transparent' }}
             onClick={toggleDrawer(anchor, true)}
@@ -32,7 +28,7 @@ export default function SwipDrawer() {
           >
             <FontAwesomeIcon
               icon={faArrowAltCircleRight}
-              className="animate-wiggle"
+              className="animate-wiggle z-50"
             />
           </Button>
           <SwipeableDrawer
@@ -45,28 +41,6 @@ export default function SwipDrawer() {
           </SwipeableDrawer>
         </div>
       ))}
-      {['right'].map((anchor) => (
-        <div key={anchor} className="flex">
-          <Button
-            style={{ backgroundColor: 'transparent' }}
-            onClick={toggleDrawer(anchor, true)}
-            title="Cliquer ici pour ouvrir la barre de recherche"
-          >
-            <FontAwesomeIcon
-              icon={faArrowAltCircleLeft}
-              className="animate-reverseWiggle"
-            />
-          </Button>
-          <SwipeableDrawer
-            anchor={anchor}
-            open={drawer[anchor] || false}
-            onClose={toggleDrawer(anchor, false)}
-            onOpen={toggleDrawer(anchor, true)}
-          >
-            {list(anchor)}
-          </SwipeableDrawer>
-        </div>
-      ))}
-    </div>
+    </>
   );
 }

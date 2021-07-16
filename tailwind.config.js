@@ -1,11 +1,14 @@
-/* eslint-disable */
-
 const colors = require('tailwindcss/colors');
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
+    listStyleType: {
+      none: 'none',
+      disc: 'disc',
+      decimal: 'decimal',
+    },
     screens: {
       sm: '640px',
       // => @media (min-width: 640px) { ... }
@@ -37,7 +40,6 @@ module.exports = {
       info: '#0769ea',
       warning: '#f4e404',
       danger: '#e01d1d',
-      white: '#ffffff',
       opaque: ' #00000059',
       transparent: 'transparent',
       current: 'currentColor',
@@ -52,10 +54,6 @@ module.exports = {
       grey: '#dbedf3',
       lightGrey: '#f2f9fc',
       darkblue: '#283149',
-      // 'gray-200': '#E4E4E7',
-      // 'gray-500': '#6B7280',
-      // 'gray-800': '#1F2937',
-      // 'indigo-300': '#C4B5FD',
       darkpurple: '#9370DB',
       googleblue: '#4285F4',
       googlered: '#EA4335',
@@ -63,9 +61,13 @@ module.exports = {
       googlegreen: '#34A853',
       facebookdarkblue: '#4267B2',
       facebookblue: '#1877F2',
+      gray500: '#6B7280',
     },
     textOpacity: ['dark'],
     extend: {
+      dropShadow: {
+        '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
+      },
       keyframes: {
         wiggle: {
           '0%, 100%': {
