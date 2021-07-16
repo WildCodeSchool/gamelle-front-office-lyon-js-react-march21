@@ -5,8 +5,7 @@ import { useToasts } from 'react-toast-notifications';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import AvatarPet from './AvatarPet';
-import history from '../history';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
 import API from '../APIClient';
 import qs from 'query-string';
 
@@ -149,7 +148,8 @@ export default function PetForm() {
             appearance: 'success',
           });
           setTimeout(() => {
-            history.push('/profile');
+            setId(res.data.id);
+            window.location.replace(`/petform/?id=${res.data.id}`);
           }, 500);
         })
         .catch(() => {
