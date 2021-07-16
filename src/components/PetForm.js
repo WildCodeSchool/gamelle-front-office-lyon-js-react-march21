@@ -5,7 +5,6 @@ import { useToasts } from 'react-toast-notifications';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import AvatarPet from './AvatarPet';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
 import qs from 'query-string';
 
@@ -28,14 +27,24 @@ export default function PetForm() {
     },
   });
 
+  // const [defaultAnimalCategoryId, setDefaultAnimalCategoryId] = useState('');
+  // const [defaultBreedId, setDefaultBreedId] = useState('');
+
   const name = watch('name');
   const image = watch('image');
   const chosenAnimalCategory = watch('animalCategoryId');
+  // const chosenBreed = watch('breedId');
+  // console.log('chosenAnimalCategory', chosenAnimalCategory);
+  // console.log('chosenBreed', chosenBreed);
+
+  // console.log('defaultBreedId', defaultBreedId);
+  // console.log('defaultAnimalCategoryId', defaultAnimalCategoryId);
 
   useEffect(async () => {
     await API.get(`/pets`)
       .then((res) => {
         setBreedList(res.data[0]);
+        setFilteredBreedList(res.data[0]);
         setAnimalCategoryList(res.data[1]);
       })
       .catch((err) => console.log(err));
@@ -77,37 +86,60 @@ export default function PetForm() {
 
   useEffect(() => {
     if (petProfile) {
-      const { name, image, breedId, animalCategoryId } = petProfile;
-      const valuesToUpdate = {
-        name,
-        image: image || '',
-        breedId,
-        animalCategoryId,
-      };
+      // const { name, image, breedId, animalCategoryId } = petProfile;
+      // const valuesToUpdate = {
+      //   name,
+      //   image: image || '',
+      //   breedId,
+      //   animalCategoryId,
+      // };
 
-      reset(valuesToUpdate);
+      // reset(valuesToUpdate);
+      console.log(petProfile.animalCategoryId);
+
+      // setTimeout(() => {
+      //   setValue('animalCategoryId', petProfile.animalCategoryId);
+      //   setValue('breedId', petProfile.breedId);
+      //   setValue('name', petProfile.name);
+      // }, 2000);
     }
   }, [petProfile]);
 
+  // useEffect(() => {
+  //   setDefaultAnimalCategoryId(chosenAnimalCategory);
+  //   setDefaultBreedId(chosenBreed);
+  // }, [chosenAnimalCategory, chosenBreed]);
+
   useEffect(() => {
     if (breedList && animalCategoryList) {
-      const category = animalCategoryList.find(
-        (categ) => categ.id === parseInt(chosenAnimalCategory, 10)
-      );
-      const filterBreed = breedList.filter((breed) => {
-        if (
-          parseInt(chosenAnimalCategory, 10) === 0 ||
-          ((category.name.includes('chien') ||
-            category.name.includes('chiot')) &&
-            breed.speciesId === 1) ||
-          (category.name.includes('chat') && breed.speciesId === 2)
-        ) {
-          return breed;
-        }
-      });
-      setFilteredBreedList(filterBreed);
+      if (chosenAnimalCategory === '') {
+        setFilteredBreedList(breedList);
+      } else {
+        const category = animalCategoryList.find(
+          (categ) => categ.id === parseInt(chosenAnimalCategory, 10)
+        );
+        const filterBreed = breedList.filter((breed) => {
+          if (
+            ((category.name.includes('chien') ||
+              category.name.includes('chiot')) &&
+              breed.speciesId === 1) ||
+            (category.name.includes('chat') && breed.speciesId === 2)
+          ) {
+            return breed;
+          }
+        });
+        setFilteredBreedList(filterBreed);
+      }
     }
   }, [chosenAnimalCategory, breedList]);
+
+  useEffect(() => {
+    if (filteredBreedList && id && petProfile) {
+      setValue('animalCategoryId', petProfile.animalCategoryId);
+      setValue('breedId', petProfile.breedId);
+      setValue('name', petProfile.name);
+    }
+  }, [filteredBreedList, id, petProfile]);
 
   const handleAvatarClick = () => {
     avatarUploadRef.current.click();
@@ -121,6 +153,10 @@ export default function PetForm() {
 
   const onSubmit = (form) => {
     form = { ...form, id };
+    console.log('form', form);
+    // setDefaultAnimalCategoryId(form.animalCategoryId);
+    // setDefaultBreedId(form.breedId);
+
     if (id) {
       API.patch(`/pets/${id}`, form)
         .then((res) => {
@@ -146,6 +182,7 @@ export default function PetForm() {
         .then((res) => {
           setId(res.data.id);
           window.location.replace(`/petform/?id=${res.data.id}`);
+          console.log(form);
           addToast('Votre animal a bien été ajouté', {
             appearance: 'success',
           });
@@ -185,6 +222,9 @@ export default function PetForm() {
         .catch((err) => console.log(err));
     }
   };
+
+  console.log(filteredBreedList);
+  console.log(animalCategoryList);
 
   return (
     <div className="flex items-center flex-col justify-center p-5">
@@ -237,10 +277,10 @@ export default function PetForm() {
               Catgéorie de votre animal <span className="text-danger">*</span>
               <select
                 {...register('animalCategoryId', { required: true })}
-                defaultValue="0"
+                defaultValue=""
                 className="appearance-none rounded-none relative block w-96 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option key="title" value="0" disabled>
+                <option key="title" value="" disabled>
                   Sélectionnez une catégorie
                 </option>
                 {animalCategoryList &&
@@ -258,10 +298,10 @@ export default function PetForm() {
               Race de votre animal <span className="text-danger">*</span>
               <select
                 {...register('breedId', { required: true })}
-                defaultValue="0"
+                defaultValue=""
                 className="appearance-none rounded-none relative block w-96 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
               >
-                <option key="title" value="0" disabled>
+                <option key="title" value="" disabled>
                   Sélectionnez une race
                 </option>
                 {filteredBreedList &&
