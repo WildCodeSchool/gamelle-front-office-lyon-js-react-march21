@@ -16,10 +16,7 @@ export default function SwipToTheBot() {
   return (
     <>
       {['bottom'].map((anchor) => (
-        <div
-          key={anchor}
-          className="min-h-screen w-screen flex fixed justify-end z-40"
-        >
+        <div key={anchor} className="w-screen flex fixed justify-end z-40">
           <div className="w-full">
             <section className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow h-10 flex justify-center items-center">
               <div className="flex flex-col items-center">

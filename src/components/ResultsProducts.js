@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { ResultsContext } from '../contexts/ResultsContext';
 import TotalRating from './TotalRating';
 import ProductInfo from './ProductInfo';
+import './ResultsProducts.css';
 
 export default function ResultsProducts() {
   const location = useLocation();
@@ -14,7 +15,10 @@ export default function ResultsProducts() {
 
   // eslint-disable-next-line no-nested-ternary
   return !hasSearched ? (
-    <div className="flex flex-col justify-center items-center w-full h-screen">
+    <div
+      className="flex flex-col justify-center items-center w-full"
+      id="full-content"
+    >
       <p className="text-4xl">Bienvenue !</p>
       <p className="hidden italic md:flex md:text-base lg:flex lg:text-lg">
         Pour effectuer une recherche veuillez cliquer sur la fleche à gauche de
@@ -28,7 +32,7 @@ export default function ResultsProducts() {
   ) : resultsList.length !== 0 ? (
     <div className="flex flex-col justify-center items-center w-full">
       <h1 className="m-6">{`Les ${resultsList.length} résultats de votre recherche`}</h1>
-      <div className="w-1/2">
+      <div className="w-11/12">
         <ul>
           {resultsList.map((result) => (
             <li key={result.id} className="mb-6 rounded-lg w-full">
@@ -39,16 +43,17 @@ export default function ResultsProducts() {
                 }}
               >
                 <div
-                  className="bg-white rounded-lg w-full flex flex-col p-2 md:flex-row lg:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
+                  className="bg-white rounded-lg w-full flex flex-col p-5 md:flex-row lg:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
                   onClick={handleToggleModal}
                   role="presentation"
                 >
                   <img
                     src={result.image}
                     alt={result.name}
-                    className="p-1 w-full h-40 rounded-lg md:rounded-xl lg:rounded-lg object-cover md:h-40 md:w-40 lg:h-40 lg:w-40 " // Taille d'image à redéfinir !!
+                    className="p-1 w-full h-72 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 " // Taille d'image à redéfinir !!
                   />
-                  <p className="text-xs w-full text-center font-bold">
+
+                  <p className="pt-2 text-base w-full text-center font-bold">
                     {result.name}
                   </p>
                   <br />
