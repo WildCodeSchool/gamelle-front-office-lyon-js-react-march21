@@ -163,7 +163,7 @@ export default function Dashboard() {
         })
         .catch((err) => console.log(err));
 
-      API.post(`/statistics/usersOrderDesc`)
+      API.get(`/users`)
         .then((res) => {
           setListUsers(res.data);
         })

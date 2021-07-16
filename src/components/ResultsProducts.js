@@ -6,21 +6,20 @@ import ProductInfo from './ProductInfo';
 
 export default function ResultsProducts() {
   const location = useLocation();
-  const { resultsList } = useContext(ResultsContext);
+  const { resultsList, hasSearched } = useContext(ResultsContext);
   const [showModalInfo, setShowModalInfo] = useState(false);
   const handleToggleModal = () => {
     setShowModalInfo(!showModalInfo);
   };
-  // resultList.length !== 0 && ()
-  return resultsList ? (
-    <>
-      <h1 className="bg-white flex justify-center text-9xl font-bold">
-        Bienvenue à la maison
-      </h1>
-    </>
-  ) : (
+
+  // eslint-disable-next-line no-nested-ternary
+  return !hasSearched ? (
+    <div className="flex flex-col justify-center items-center w-full h-screen">
+      <p className="text-4xl">Bienvenue !</p>
+    </div>
+  ) : resultsList.length !== 0 ? (
     <div className="flex flex-col justify-center items-center w-full">
-      <h1 className="m-6">Les résultats de votre recherche</h1>
+      <h1 className="m-6">{`Les ${resultsList.length} résultats de votre recherche`}</h1>
       <div className="w-1/2">
         <ul>
           {resultsList.map((result) => (
@@ -76,6 +75,12 @@ export default function ResultsProducts() {
           </div>
         ) : null}
       </div>
+    </div>
+  ) : (
+    <div className="flex flex-col justify-center items-center w-full h-screen">
+      <p className="text-4xl">
+        Désolé, votre recherche n'a rendu aucun résultat
+      </p>
     </div>
   );
 }
