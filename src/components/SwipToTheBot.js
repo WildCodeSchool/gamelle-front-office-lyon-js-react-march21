@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-// import Button from '@material-ui/core/Button';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import ProductSearch from './ProductSearch';
 import { DrawerContext } from '../contexts/DrawerContext';
 
-export default function SwipToTheRight() {
+export default function SwipToTheBot() {
   const { drawer, toggleDrawer, leaveDrawer } = useContext(DrawerContext);
 
   const list = (anchor) => (
@@ -14,24 +13,24 @@ export default function SwipToTheRight() {
       <ProductSearch />
     </div>
   );
-
   return (
     <>
-      {['right'].map((anchor) => (
+      {['bottom'].map((anchor) => (
         <div
           key={anchor}
           className="min-h-screen w-screen flex fixed justify-end z-40"
         >
-          {/*   <Button
-            style={{ backgroundColor: 'transparent' }}
-            onClick={toggleDrawer(anchor, true)}
-            title="Cliquer ici pour ouvrir la barre de recherche"
-          >
-            <FontAwesomeIcon
-              icon={faArrowAltCircleLeft}
-              className="animate-reverseWiggle z-40"
-            />
-       </Button> */}
+          <div className="w-full">
+            <section className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow h-10 flex justify-center items-center">
+              <div className="flex flex-col items-center">
+                <FontAwesomeIcon
+                  icon={faSearch}
+                  onClick={toggleDrawer(anchor, true)}
+                />
+                <p className="text-xs">Recherche</p>
+              </div>
+            </section>
+          </div>
           <SwipeableDrawer
             anchor={anchor}
             open={drawer[anchor] || false}

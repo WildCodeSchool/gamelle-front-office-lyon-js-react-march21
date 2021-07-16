@@ -12,7 +12,7 @@ export default function TotalRating({ foodId }) {
       setRating(res.data);
     });
   }, []);
-  console.log(rating);
+
   return (
     <>
       {rating && rating.count >= 5 ? (
