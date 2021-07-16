@@ -64,14 +64,14 @@ export default function Profile() {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex items-center flex-col justify-center p-5">
-          <div className="titre ">
+          <div>
             <h1 className="mt-6 text-center text-3xl font-extrabold ">
               Votre profil
             </h1>
           </div>
           <br />
           <div className="flex flex-col items-center">
-            <div className="shadow-lg overflow-hidden m-5 w-2/2 md:w-1/2">
+            <div className="shadow-lg rounded overflow-hidden m-5 w-2/2 md:w-1/2">
               <div className="top-0 bg-gray-500 w-full h-40 shadow-sm">
                 <img
                   className="h-full w-full object-cover"
@@ -166,44 +166,42 @@ export default function Profile() {
       </form>
 
       {profile && profile.Animals.length !== 0 && (
-        <div className="flex items-center flex-col justify-center p-5">
-          <div className="titre ">
+        <div className="flex flex-col items-center w-full">
+          <div>
             <h1 className="mt-6 text-center text-3xl font-extrabold ">
               Mes animaux
             </h1>
           </div>
           <br />
-          <div className="flex flex-col items-center ">
-            <div className="toto ">
-              <ul>
-                {profile.Animals.map((pet) => (
-                  <li key={pet.id} className="mb-6">
-                    <NavLink to={`/petform/?id=${pet.id}`}>
-                      <div className="bg-white rounded-lg w-full flex flex-col p-2 md:flex-row lg:flex-row items-center">
-                        <div>
-                          <img
-                            className="h-20 w-20 rounded-full object-cover md:h-32 md:w-32 lg:h-40 lg:w-40 m-2"
-                            src={
-                              pet.image ||
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW-vlzxatqDVDAQu4jpEfVlxcT_HXgembwISZjeZMdt2mm2fJv'
-                            }
-                            alt={pet.name}
-                          />
-                        </div>
-                        <div className="flex flex-col p-2 ">
-                          <p className="text-sm font-bold lg:text-xl text-center md:text-left">
-                            {pet.name}
-                          </p>
-                          <p className="text-xs lg:text-base text-center md:text-left ">
-                            {pet.Breeds.name}
-                          </p>
-                        </div>
+          <div className=" w-10/12 md:w-5/12 lg:w-2/6 ">
+            <ul>
+              {profile.Animals.map((pet) => (
+                <li key={pet.id} className="bg-white m-5 rounded shadow-lg">
+                  <NavLink to={`/petform/?id=${pet.id}`}>
+                    <div className="flex flex-col md:flex-row items-center ">
+                      <div className="m-2">
+                        <img
+                          className="h-20 w-20 md:w-32 md:h-32 lg:h-40 lg:w-40 rounded-full"
+                          src={
+                            pet.image ||
+                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW-vlzxatqDVDAQu4jpEfVlxcT_HXgembwISZjeZMdt2mm2fJv'
+                          }
+                          alt={pet.name}
+                        />
                       </div>
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                      <div className="m-2 md:ml-5">
+                        <p className="text-sm font-bold lg:text-xl text-center md:text-left">
+                          {pet.name}
+                        </p>
+                        <p className="text-xs lg:text-base text-center md:text-left ">
+                          {pet.Breeds.name}
+                        </p>
+                      </div>
+                    </div>
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       )}
