@@ -12,11 +12,12 @@ export default function ProductSearch() {
   const [foodTypeList, setFoodTypeList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
   const { profile } = useContext(CurrentUserContext);
-  const { setResultsList } = useContext(ResultsContext);
+  const { setResultsList, setHasSearched } = useContext(ResultsContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const { setDrawer } = useContext(DrawerContext);
 
   useEffect(() => {
+    // setHasSearched(false);
     API.get(`/searches`)
       .then((res) => {
         setBrandList(res.data[0]);
@@ -34,11 +35,12 @@ export default function ProductSearch() {
   }, [statsInfos]);
 
   const { register, handleSubmit, watch } = useForm();
+
   const onSubmit = (form) => {
     API.post(`/searches`, form)
       .then(async (res) => {
         setResultsList(res.data);
-
+        setHasSearched(true);
         // update statistics
         const userId = profile ? profile.id : null;
         setStatsInfos({

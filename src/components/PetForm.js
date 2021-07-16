@@ -33,7 +33,6 @@ export default function PetForm() {
   const chosenAnimalCategory = watch('animalCategoryId');
 
   useEffect(async () => {
-    // setId(1);
     await API.get(`/pets`)
       .then((res) => {
         setBreedList(res.data[0]);
@@ -91,14 +90,17 @@ export default function PetForm() {
   }, [petProfile]);
 
   useEffect(() => {
-    if (breedList) {
+    if (breedList && animalCategoryList) {
+      const category = animalCategoryList.find(
+        (categ) => categ.id === parseInt(chosenAnimalCategory, 10)
+      );
       const filterBreed = breedList.filter((breed) => {
         if (
           parseInt(chosenAnimalCategory, 10) === 0 ||
-          ([1, 3, 5].includes(parseInt(chosenAnimalCategory, 10)) &&
+          ((category.name.includes('chien') ||
+            category.name.includes('chiot')) &&
             breed.speciesId === 1) ||
-          ([2, 4, 6].includes(parseInt(chosenAnimalCategory, 10)) &&
-            breed.speciesId === 2)
+          (category.name.includes('chat') && breed.speciesId === 2)
         ) {
           return breed;
         }
@@ -143,7 +145,6 @@ export default function PetForm() {
       API.post('/pets', form)
         .then((res) => {
           setId(res.data.id);
-          // redirection à ajouter
           window.location.replace(`/petform/?id=${res.data.id}`);
           addToast('Votre animal a bien été ajouté', {
             appearance: 'success',
