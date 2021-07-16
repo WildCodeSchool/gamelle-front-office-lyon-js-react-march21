@@ -5,6 +5,7 @@ import { useToasts } from 'react-toast-notifications';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import AvatarPet from './AvatarPet';
+import history from '../history';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import API from '../APIClient';
 import qs from 'query-string';
@@ -144,11 +145,12 @@ export default function PetForm() {
     } else {
       API.post('/pets', form)
         .then((res) => {
-          setId(res.data.id);
-          window.location.replace(`/petform/?id=${res.data.id}`);
           addToast('Votre animal a bien été ajouté', {
             appearance: 'success',
           });
+          setTimeout(() => {
+            history.push('/profile');
+          }, 500);
         })
         .catch(() => {
           addToast("Il y a eu une erreur lors de l'ajout de votre animal.", {
@@ -208,9 +210,6 @@ export default function PetForm() {
             style={{ display: 'none' }}
           />
           <AvatarPet imagePet={image} alt={`${name} image`} />
-          <button type="button" className="border mt-1">
-            Parcourir
-          </button>
         </div>
         <br />
         <form
