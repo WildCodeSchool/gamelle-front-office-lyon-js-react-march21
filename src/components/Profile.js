@@ -184,7 +184,7 @@ export default function Profile() {
                   <NavLink to={`/petform/?id=${pet.id}`}>
                     <div className="flex items-center">
                       <AvatarPet
-                        imagePet={pet.images}
+                        imagePet={pet.image}
                         alt={`${pet.name} avatarPet`}
                       />
                       <div>

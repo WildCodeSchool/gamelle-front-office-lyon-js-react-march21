@@ -16,6 +16,14 @@ export default function ResultsProducts() {
   return !hasSearched ? (
     <div className="flex flex-col justify-center items-center w-full h-screen">
       <p className="text-4xl">Bienvenue !</p>
+      <p className="hidden italic md:flex md:text-base lg:flex lg:text-lg">
+        Pour effectuer une recherche veuillez cliquer sur la fleche à gauche de
+        l'écran
+      </p>
+      <p className="flex md:hidden lg:hidden text-center text-xs italic">
+        Pour effectuer une recherche veuillez cliquer sur l'icône de recherche
+        en bas de votre écran
+      </p>
     </div>
   ) : resultsList.length !== 0 ? (
     <div className="flex flex-col justify-center items-center w-full">
