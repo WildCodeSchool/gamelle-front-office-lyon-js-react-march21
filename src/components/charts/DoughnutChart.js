@@ -27,7 +27,7 @@ function DoughnutChart({ data, width, height }) {
         },
         plugins: {
           legend: {
-            display: true,
+            display: false,
             position: 'right',
           },
         },
@@ -87,8 +87,9 @@ function DoughnutChart({ data, width, height }) {
               const box = document.createElement('span');
               box.classList.add(
                 'block',
-                'w-2',
+                'w-10',
                 'h-2',
+                'mr-2',
                 'rounded-sm',
                 'mr-1',
                 'pointer-events-none'
@@ -100,7 +101,7 @@ function DoughnutChart({ data, width, height }) {
               label.style.display = 'flex';
               label.style.alignItems = 'center';
               const labelText = document.createTextNode(
-                `${item.text} ${data.datasets[0].data[item.index]}`
+                `${item.text} : ${data.datasets[0].data[item.index]}`
               );
               label.appendChild(labelText);
               li.appendChild(button);

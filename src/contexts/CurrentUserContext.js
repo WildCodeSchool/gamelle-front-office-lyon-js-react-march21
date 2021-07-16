@@ -55,7 +55,6 @@ export default function CurrentUserContextProvider({ children }) {
   useEffect(() => {
     getProfile();
   }, []);
-
   // ------------------------------------------ //
 
   const createProfile = useCallback(async (form) => {
@@ -72,13 +71,17 @@ export default function CurrentUserContextProvider({ children }) {
   });
 
   // ------------------------------------------ //
+
   const updateProfile = useCallback(
     async (attributes) => {
       setSavingProfile(true);
       const formData = new FormData();
       Object.keys(attributes).forEach((prop) => {
-        formData.append(prop, attributes[prop]);
+        if (prop !== 'Animals') {
+          formData.append(prop, attributes[prop]);
+        }
       });
+
       try {
         const updatedProfile = await API.patch(
           `/users/${profile.id}`,
@@ -89,7 +92,8 @@ export default function CurrentUserContextProvider({ children }) {
             },
           }
         ).then((res) => res.data);
-        setProfile(updatedProfile);
+
+        setProfile({ ...updatedProfile, Animals: profile.Animals });
         addToast('Votre profil a bien été mis à jour !', {
           appearance: 'success',
         });

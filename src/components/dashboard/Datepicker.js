@@ -33,26 +33,6 @@ export default function Datepicker() {
     },
   };
 
-  useEffect(() => {
-    // console.log(chosenDates);
-    if (chosenDates) {
-      const tempStartDate = chosenDates[0];
-      const tempEndDate =
-        chosenDates.length === 2 ? chosenDates[1] : chosenDates[0];
-      setStatsStartDate(new Date(tempStartDate.setHours(0, 0, 0, 0)));
-      setStatsEndDate(
-        new Date(
-          new Date(tempEndDate.setDate(tempEndDate.getDate() + 1)).setHours(
-            0,
-            0,
-            0,
-            0
-          )
-        )
-      );
-    }
-  }, []);
-
   const handleClickDates = async () => {
     const tempStartDate = chosenDates[0];
     const tempEndDate =
@@ -69,6 +49,27 @@ export default function Datepicker() {
       )
     );
   };
+
+  useEffect(() => {
+    if (chosenDates) {
+      const tempStartDate = chosenDates[0];
+      const tempEndDate =
+        chosenDates.length === 2 ? chosenDates[1] : chosenDates[0];
+      setStatsStartDate(new Date(tempStartDate.setHours(0, 0, 0, 0)));
+      setStatsEndDate(
+        new Date(
+          new Date(tempEndDate.setDate(tempEndDate.getDate() + 1)).setHours(
+            0,
+            0,
+            0,
+            0
+          )
+        )
+      );
+
+      handleClickDates();
+    }
+  }, []);
 
   return (
     <div className="relative flex items-center">

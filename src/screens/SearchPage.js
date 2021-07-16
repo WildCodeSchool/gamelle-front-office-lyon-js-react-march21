@@ -1,12 +1,13 @@
-import SwipDrawer from '../components/SwipDrawer';
 import ResultsProducts from '../components/ResultsProducts';
-// import DrawerProductInfo from '../components/DrawerProductInfo';
+import SwipToTheBot from '../components/SwipToTheBot';
+import SwipToTheLeft from '../components/SwipToTheLeft';
 
 export default function SearchPage() {
   return (
     <>
-      <SwipDrawer />
+      <SwipToTheLeft />
       <ResultsProducts />
+      <SwipToTheBot />
     </>
   );
 }

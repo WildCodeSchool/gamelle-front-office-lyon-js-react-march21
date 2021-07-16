@@ -1,10 +1,10 @@
-/* eslint-disable */
 import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
 import { useToasts } from 'react-toast-notifications';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function ResetPasswordPage() {
   const { addToast } = useToasts();
@@ -35,43 +35,44 @@ export default function ResetPasswordPage() {
         <div className="mb-3">
           <label htmlFor="password" className="dark:text-white">
             Mot de passe<span style={{ color: 'red' }}>*</span>
+            <input
+              className="appearance-none rounded-none relative block px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm w-full"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              required
+              placeholder="********"
+              {...register('password', {
+                required: 'this is a required',
+                minLength: {
+                  value: 8,
+                },
+              })}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </label>
-          <input
-            className="appearance-none rounded-none relative block px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm w-full"
-            name="password"
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            required
-            placeholder="********"
-            {...register('password', {
-              required: 'this is a required',
-              minLength: {
-                value: 8,
-              },
-            })}
-            onChange={(e) => setPassword(e.target.value)}
-          />
         </div>
         <div className="mb-3">
           <label htmlFor="confirmedPassword" className="dark:text-white">
             Veuillez confirmer votre mot de passe
-            <span style={{ color: 'red' }}>*</span>
+            <span style={{ color: 'red' }}>*</span>{' '}
+            <input
+              className="flex appearance-none rounded-none relative px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm w-full"
+              name="confirmedPassword"
+              type={showPassword ? 'text' : 'password'}
+              value={confirmedPassword}
+              required
+              placeholder="********"
+              onChange={(e) => setConfirmedPassword(e.target.value)}
+            />
           </label>
-          <input
-            className="flex appearance-none rounded-none relative px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm w-full"
-            name="confirmedPassword"
-            type={showPassword ? 'text' : 'password'}
-            value={confirmedPassword}
-            required
-            placeholder="********"
-            onChange={(e) => setConfirmedPassword(e.target.value)}
+
+          <FontAwesomeIcon
+            className="cursor-pointer dark:text-white"
+            icon={showPassword ? faEye : faEyeSlash}
+            onClick={() => setShowPassword(!showPassword)}
           />
         </div>
-        <FontAwesomeIcon
-          className="cursor-pointer dark:text-white"
-          icon={showPassword ? faEye : faEyeSlash}
-          onClick={() => setShowPassword(!showPassword)}
-        />
         <div>
           <button
             type="submit"

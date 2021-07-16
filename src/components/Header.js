@@ -11,14 +11,15 @@ import {
   faHistory,
   faHeart,
   faChartLine,
+  faUsers,
 } from '@fortawesome/free-solid-svg-icons';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/logo_gamelle_toque_blanche.png';
 import ModalSignIn from './modalSignIn';
 import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Header() {
-  const { isLoggedIn = true } = useContext(CurrentUserContext);
+  const { isLoggedIn = true, profile } = useContext(CurrentUserContext);
   const [burger, setBurger] = useState(false);
   const handleBurgerToggle = () => {
     setBurger(!burger);
@@ -77,18 +78,30 @@ export default function Header() {
                 {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
               </NavLink>
             </li>
-            {isLoggedIn && (
+            {isLoggedIn &&
+              (profile.role === 'admin' || profile.role === 'superAdmin') && (
+                <li>
+                  <NavLink
+                    exact
+                    to="/dashboard"
+                    className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                  >
+                    {burger ? (
+                      'Statistiques'
+                    ) : (
+                      <FontAwesomeIcon icon={faChartLine} />
+                    )}
+                  </NavLink>
+                </li>
+              )}
+            {isLoggedIn && profile.role === 'superAdmin' && (
               <li>
                 <NavLink
                   exact
-                  to="/dashboard"
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
+                  to="/users"
+                  className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                 >
-                  {burger ? (
-                    'Statistiques'
-                  ) : (
-                    <FontAwesomeIcon icon={faChartLine} />
-                  )}
+                  {burger ? 'Utilisateurs' : <FontAwesomeIcon icon={faUsers} />}
                 </NavLink>
               </li>
             )}
