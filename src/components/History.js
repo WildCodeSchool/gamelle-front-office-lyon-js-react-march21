@@ -93,61 +93,52 @@ export default function History() {
   };
 
   return historyList.length !== 0 ? (
-    <div className="flex items-center flex-col justify-center p-5">
-      <div className="titre ">
-        <h1 className="mt-6 text-center text-3xl font-extrabold m-16">
-          Mon historique
-        </h1>
+    <div className="flex items-center flex-col justify-center">
+      <div className="mt-10 mb-16">
+        <h1 className="text-center text-3xl font-extrabold">Mon historique</h1>
       </div>
       <br />
-
-      <ul>
-        {historyList.map((hist) => {
-          const isFavorite = !!favoritesIdsList[hist.foodId];
-          return (
-            <li
-              key={hist.consultedAt}
-              className="relative mb-6 rounded-lg w-full"
-            >
-              <NavLink
-                to={{
-                  pathname: `/product-info-page/?id=${hist.foodId}`,
-                  state: { background: location },
-                }}
-              >
-                <div
-                  className="bg-white rounded-lg w-full flex flex-col md:flex-row lg:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
-                  onClick={handleToggleModal}
-                  role="presentation"
+      <div className="w-11/12">
+        <ul>
+          {historyList.map((hist) => {
+            const isFavorite = !!favoritesIdsList[hist.foodId];
+            return (
+              <li key={hist.consultedAt} className="relative mb-6">
+                <NavLink
+                  to={{
+                    pathname: `/product-info-page/?id=${hist.foodId}`,
+                    state: { background: location },
+                  }}
                 >
-                  <div className="absolute right-5 top-5">
-                    <button
-                      type="button"
-                      aria-label="Favorite"
-                      onClick={(event) => handleClickFavorite(event, hist)}
-                      className={isFavorite ? 'isFavorite' : 'notFavorite'}
-                    />
-                  </div>
-                  <div className="flex items-center">
+                  <div
+                    className="p-5  bg-white rounded-lg w-full flex flex-col items-center md:flex-row md:transform transition duration-500 hover:scale-95 lg:transform lg:hover:scale-105"
+                    onClick={handleToggleModal}
+                    role="presentation"
+                  >
                     <img
-                      className="flex-none h-20 w-20 object-cover rounded-xl mr-5 md:h-40 md:w-40"
+                      className="p-1 w-full h-72 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40"
                       src={hist.Foods.image}
                       alt="imageproduit"
                     />
 
-                    <div>
-                      <p className="font-bold text-base md:text-xl">
-                        {hist.Foods.name}
-                      </p>
-                      <p className="text-sm md:text-base">{hist.Foods.brand}</p>
+                    <p className="text-base w-full text-center font-bold">
+                      {hist.Foods.name}
+                    </p>
+                    <div className="absolute right-3 top-3">
+                      <button
+                        type="button"
+                        aria-label="Favorite"
+                        onClick={(event) => handleClickFavorite(event, hist)}
+                        className={isFavorite ? 'isFavorite' : 'notFavorite'}
+                      />
                     </div>
                   </div>
-                </div>
-              </NavLink>
-            </li>
-          );
-        })}
-      </ul>
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       {showModalInfo ? (
         <div>
           <div

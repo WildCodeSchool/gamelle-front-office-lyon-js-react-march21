@@ -21,7 +21,7 @@ export default function ResultsProducts() {
     >
       <p className="text-4xl">Bienvenue !</p>
       <p className="hidden italic md:flex md:text-base lg:flex lg:text-lg">
-        Pour effectuer une recherche veuillez cliquer sur la flèche à gauche de
+        Pour effectuer une recherche veuillez cliquer sur la fleche à gauche de
         l'écran
       </p>
       <p className="flex md:hidden lg:hidden text-center text-xs italic">
@@ -43,7 +43,7 @@ export default function ResultsProducts() {
                 }}
               >
                 <div
-                  className="bg-white rounded-lg w-full flex flex-col p-5 md:flex-row lg:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
+                  className="p-5 bg-white rounded-lg w-full flex flex-col md:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform lg:hover:scale-105"
                   onClick={handleToggleModal}
                   role="presentation"
                 >
@@ -53,11 +53,11 @@ export default function ResultsProducts() {
                     className="p-1 w-full h-72 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 " // Taille d'image à redéfinir !!
                   />
 
-                  <p className="pt-2 text-base w-full text-center font-bold">
+                  <p className="text-base w-full text-center font-bold">
                     {result.name}
                   </p>
                   <br />
-                  <div className="flex justify-center p">
+                  <div className="flex justify-center">
                     <TotalRating foodId={result.id} />
                   </div>
                 </div>
@@ -69,7 +69,7 @@ export default function ResultsProducts() {
           <div>
             <div
               role="presentation"
-              className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-20 outline-none focus:outline-none"
+              className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
               onClick={handleToggleModal}
             >
               <div className="w-4/5 h-3/4 md:h-2/3 lg:h-3/4 relative overflow-x-hidden rounded-lg">

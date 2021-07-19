@@ -344,9 +344,6 @@ export default function PetForm() {
                       <p className="pt-2 text-base w-full text-center font-bold">
                         {fav.Favorites.Foods.name}
                       </p>
-                      <p className="pt-2 text-base w-full text-center font-bold">
-                        {fav.Favorites.Foods.brand}
-                      </p>
                     </div>
                   </div>
                 </li>
@@ -385,9 +382,6 @@ export default function PetForm() {
                       <div>
                         <p className="pt-2 text-base w-full text-center font-bold">
                           {fav.Foods.name}
-                        </p>
-                        <p className="pt-2 text-base w-full text-center font-bold">
-                          {fav.Foods.brand}
                         </p>
                       </div>
                     </div>
