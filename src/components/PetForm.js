@@ -198,7 +198,7 @@ export default function PetForm() {
     <div className="flex items-center flex-col justify-center p-5">
       <div className="titre ">
         <h1 className="mt-6 text-center text-3xl font-extrabold">
-          Ajouter votre animal
+          {URLId ? 'Modifier cet animal' : 'Ajouter un animal'}
         </h1>
       </div>
       <br />
