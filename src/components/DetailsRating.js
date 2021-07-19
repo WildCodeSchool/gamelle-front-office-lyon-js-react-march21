@@ -16,7 +16,7 @@ export default function DetailsRating() {
 
   return (
     <>
-      {avgRating && avgRating.count >= 5 ? (
+      {avgRating && avgRating.count >= 10 ? (
         <div className="ml-3">
           <h4>Appétance :</h4>
           <Rating

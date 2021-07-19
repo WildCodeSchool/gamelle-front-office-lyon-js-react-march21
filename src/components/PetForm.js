@@ -113,13 +113,12 @@ export default function PetForm() {
 
   const onSubmit = (form) => {
     const updatedForm = { ...form, id };
-
     if (id) {
       API.patch(`/pets/${id}`, updatedForm)
         .then((res) => {
           API.get(`/pets/${res.data.id}`)
-            .then((resP) => {
-              setPetProfile(resP.data);
+            .then((response) => {
+              setPetProfile(response.data);
             })
             .catch((err) => console.log(err));
           addToast('Votre animal a bien été mis à jour', {
@@ -193,27 +192,29 @@ export default function PetForm() {
       <br />
 
       <div className="flex flex-col items-center object-center md:bg-primary md:rounded md:shadow-lg p-3 md:w-2/4">
-        <div
-          className="flex flex-col items-center m-5"
-          onClick={handleAvatarClick}
-          aria-hidden="true"
-        >
-          <input
-            type="file"
-            accept="image/png, image/jpeg, image/jpg"
-            ref={avatarUploadRef}
-            onChange={handleAvatarFileInputChange}
-            style={{ display: 'none' }}
-          />
-          <AvatarPet imagePet={image} alt={`${name} image`} />
-        </div>
         <br />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col items-center w-auto m-4"
           action="send"
           method="POST"
+          encType="multipart/form-data"
         >
+          <div
+            className="flex flex-col items-center m-5"
+            onClick={handleAvatarClick}
+            aria-hidden="true"
+          >
+            <input
+              type="file"
+              accept="image/png, image/jpeg, image/jpg"
+              ref={avatarUploadRef}
+              onChange={handleAvatarFileInputChange}
+              style={{ display: 'none' }}
+              name="imagePet"
+            />
+            <AvatarPet imagePet={image} alt={`${name} image`} />
+          </div>
           <div className="w-full mr-1 mb-3">
             <label htmlFor="name">
               Nom de votre animal<span style={{ color: 'red' }}>*</span>

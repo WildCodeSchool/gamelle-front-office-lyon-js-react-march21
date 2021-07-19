@@ -83,12 +83,13 @@ export default function Profile() {
                 <div role="none" onClick={handleAvatarClick}>
                   <input
                     type="file"
+                    name="avatar"
                     accept="image/png, image/jpeg, image/jpg"
                     ref={avatarUploadRef}
                     onChange={handleAvatarFileInputChange}
                     style={{ display: 'none' }}
                   />
-                  <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
+                  <Avatar avatarUrl={avatar} alt={`${firstName} `} />
                 </div>
 
                 <div className="bg-white m-5">

@@ -1,4 +1,4 @@
-import { createContext, useCallback } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import API from '../APIClient';
 
@@ -6,7 +6,8 @@ export const CurrentPetProfileContext = createContext();
 
 export default function CurrentPetProfileContextProvider({ children }) {
   const { addToast } = useToasts();
-  // const [profilePet, setProfilePet] = useState();
+  const [profilePet, setProfilePet] = useState();
+  const [savingProfilePet, setSavingProfilePet] = useState(false);
   // const [loadingProfilePet, setLoadingProfilePet] = useState(false);
 
   // ------------------------------------------ //
@@ -47,15 +48,56 @@ export default function CurrentPetProfileContextProvider({ children }) {
     }
   });
 
+  const updatePet = useCallback(
+    async (attributes) => {
+      setSavingProfilePet(true);
+      const formData = new FormData();
+      Object.keys(attributes).forEach((prop) => {
+        if (prop !== 'Animals') {
+          formData.append(prop, attributes[prop]);
+        }
+      });
+
+      try {
+        const updatedProfile = await API.patch(
+          `/pets/${profilePet.id}`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        ).then((res) => res.data);
+
+        setProfilePet({ ...updatedProfile, Animals: profilePet.Animals });
+        addToast('Votre animal a bien été mis à jour !', {
+          appearance: 'success',
+        });
+      } catch (err) {
+        window.console.error(err);
+        addToast('Il ya eu un problème lors de la mise à jour', {
+          appearance: 'error',
+        });
+      } finally {
+        setSavingProfilePet(false);
+      }
+    },
+    [profilePet]
+  );
+
   // ------------------------------------------ //
 
   return (
     <CurrentPetProfileContext.Provider
       value={{
-        // profilePet,
+        profilePet,
+        setProfilePet,
         // loadingProfilePet,
         // getProfilePet,
         createPetProfile,
+        updatePet,
+        savingProfilePet,
+        setSavingProfilePet,
       }}
     >
       {children}
