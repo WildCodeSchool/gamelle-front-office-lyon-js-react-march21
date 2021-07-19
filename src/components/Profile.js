@@ -41,9 +41,9 @@ export default function Profile() {
     if (profile) {
       const { firstname, lastname, avatarUrl, email } = profile;
       const valuesToUpdate = {
-        firstname,
-        lastname,
-        email,
+        firstname: firstname || '',
+        lastname: lastname || '',
+        email: email || '',
         avatarUrl: avatarUrl || '',
       };
       reset(valuesToUpdate);

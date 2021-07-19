@@ -22,6 +22,7 @@ export default function DetailsRating() {
           <Rating
             name="Appetance"
             value={avgRating ? avgRating.appetance : null}
+            precision={0.5}
             icon={<PetsIcon fontSize="inherit" />}
             readOnly
           />
@@ -30,6 +31,7 @@ export default function DetailsRating() {
           <Rating
             name="Digestion"
             value={avgRating ? avgRating.digestion : null}
+            precision={0.5}
             icon={<PetsIcon fontSize="inherit" />}
             readOnly
           />
@@ -38,6 +40,7 @@ export default function DetailsRating() {
           <Rating
             name="selle"
             value={avgRating ? avgRating.selle : null}
+            precision={0.5}
             icon={<PetsIcon fontSize="inherit" />}
             readOnly
           />
