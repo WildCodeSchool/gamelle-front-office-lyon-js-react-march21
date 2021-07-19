@@ -165,7 +165,7 @@ export default function Profile() {
         </div>
       </form>
 
-      {profile && profile.Animals.length !== 0 && (
+      {profile && profile.Animals && profile.Animals.length !== 0 && (
         <div className="flex flex-col items-center w-full">
           <div>
             <h1 className="mt-6 text-center text-3xl font-extrabold ">

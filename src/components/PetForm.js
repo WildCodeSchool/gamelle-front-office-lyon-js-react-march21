@@ -183,6 +183,17 @@ export default function PetForm() {
     }
   };
 
+  const handleDeletePetProfile = () => {
+    // eslint-disable-next-line no-alert
+    if (window.confirm('Êtes-vous certain ?')) {
+      API.delete(`/pets/${id}`)
+        .then(() => {
+          window.location.replace(`/petform`);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <div className="flex items-center flex-col justify-center p-5">
       <div className="titre ">
@@ -278,6 +289,18 @@ export default function PetForm() {
               {URLId ? 'Modifier cet animal' : 'Ajouter un animal'}
             </button>
           </div>
+          {URLId ? (
+            <div className="flex flex-col">
+              <button
+                type="button"
+                className="text-center font-bold rounded bg-red-500
+                hover:bg-secondary text-white  p-3 m-5 md:text-white md:hover:bg-red-200"
+                onClick={handleDeletePetProfile}
+              >
+                Supprimer cet animal
+              </button>
+            </div>
+          ) : null}
         </form>
       </div>
 

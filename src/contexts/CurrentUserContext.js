@@ -140,7 +140,7 @@ export default function CurrentUserContextProvider({ children }) {
   // ------------------------------------------ //
   const deleteUser = (id) => {
     // eslint-disable-next-line
-    if (window.confirm('Are you sure ?')) {
+    if (window.confirm('Êtes-vous certain ?')) {
       setLoadingProfile(true);
       API.delete(`/users/${id}`)
         .then(() => {
