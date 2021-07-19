@@ -20,6 +20,7 @@ export default function TotalRating({ foodId }) {
           <Rating
             name="ratingMean"
             value={rating.ratingMean}
+            precision={0.5}
             readOnly
             icon={<PetsIcon fontSize="inherit" />}
           />
