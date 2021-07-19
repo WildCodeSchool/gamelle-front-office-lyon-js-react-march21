@@ -14,17 +14,12 @@ import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import DetailsRating from './DetailsRating';
-import ModalSignIn from './modalSignIn';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
-  const {
-    profile,
-    toggleFoodInFavorites,
-    favoritesIdsList,
-    isLoggedIn = true,
-  } = useContext(CurrentUserContext);
+  const { profile, toggleFoodInFavorites, favoritesIdsList, setShowModal } =
+    useContext(CurrentUserContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const { addToast } = useToasts();
 
@@ -106,6 +101,7 @@ export default function ProductInfo() {
       addToast('Vous devez être connecté pour mettre un aliment en favori !', {
         appearance: 'error',
       });
+      setShowModal(true);
     }
   };
 
@@ -117,6 +113,7 @@ export default function ProductInfo() {
           appearance: 'error',
         }
       );
+      setShowModal(true);
     }
   };
 
@@ -156,20 +153,17 @@ export default function ProductInfo() {
                 <div className="flex flex-col w-full right-0 items-end">
                   <div className="w-2/3 flex justify-center flex-col items-center">
                     <DetailsRating />
-                    {isLoggedIn && (
-                      <NavLink
-                        to={profile ? `/give-advice/?id=${id}` : '#'}
-                        onClick={handleNotConnected}
+                    <NavLink
+                      to={profile ? `/give-advice/?id=${id}` : '#'}
+                      onClick={handleNotConnected}
+                    >
+                      <button
+                        className="btn btn-primary btn-primary:hover"
+                        type="button"
                       >
-                        <button
-                          className="btn btn-primary btn-primary:hover"
-                          type="button"
-                        >
-                          Je donne mon avis
-                        </button>
-                      </NavLink>
-                    )}
-                    {!isLoggedIn && <ModalSignIn />}
+                        Je donne mon avis
+                      </button>
+                    </NavLink>
 
                     <div className="flex mt-3 justify-center">
                       <div className="mr-3">
