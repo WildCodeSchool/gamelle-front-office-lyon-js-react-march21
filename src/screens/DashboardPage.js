@@ -2,6 +2,7 @@
 import { useEffect, useContext, useState } from 'react';
 import Datepicker from '../components/dashboard/Datepicker';
 import DoughnutCard from '../components/dashboard/DoughnutCard';
+import BarCard from '../components/dashboard/BarCard';
 import UserTableCard from '../components/dashboard/UserTableCard';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { StatsContext } from '../contexts/StatsContext';
@@ -348,7 +349,7 @@ export default function Dashboard() {
           </div>
           {nbReqBetweenDates && (
             <div className="flex flex-col w-full md:grid md:grid-cols-12 md:gap-6">
-              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb-0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataRequestByType}
                   width={389}
@@ -356,23 +357,23 @@ export default function Dashboard() {
                   title={`${chartDataRequestByType.datasets[0].label} - Total : ${totalRequests}`}
                 />
               </div>
-              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
-                <DoughnutCard
+              <div className="flex flex-col mb-3 md:mb-0 md:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
+                <BarCard
                   chartData={chartDataMostViewedFoods}
-                  width={788}
+                  width={389}
                   height={260}
                   title={`${chartDataMostViewedFoods.datasets[0].label} - Total : ${totalMostViewedFoods}`}
                 />
               </div>
-              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
-                <DoughnutCard
+              <div className="flex flex-col mb-3 md:mb-0 md:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
+                <BarCard
                   chartData={chartDataMostFavoriteFoods}
-                  width={788}
-                  height={260}
+                  width={389}
+                  height={100}
                   title={`${chartDataMostFavoriteFoods.datasets[0].label} - Total : ${totalCurrentMostFavoriteFoods}`}
                 />
               </div>
-              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb-0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataFoodTypes}
                   width={389}
@@ -380,7 +381,7 @@ export default function Dashboard() {
                   title={`${chartDataFoodTypes.datasets[0].label} - Total : ${totalFoodType}`}
                 />
               </div>
-              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb-0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataAnimalCategories}
                   width={389}
@@ -388,7 +389,7 @@ export default function Dashboard() {
                   title={`${chartDataAnimalCategories.datasets[0].label} - Total : ${totalAnimalCategories}`}
                 />
               </div>
-              <div className="fflex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="fflex flex-col mb-3 md:mb-0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataDevices}
                   width={389}
@@ -396,7 +397,7 @@ export default function Dashboard() {
                   title={`${chartDataDevices.datasets[0].label} - Total : ${totalDevices}`}
                 />
               </div>
-              <div className="flex flex-col mb-3 md:mb:0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb-0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
                 <DoughnutCard
                   chartData={chartDataOS}
                   width={389}
@@ -404,7 +405,9 @@ export default function Dashboard() {
                   title={`${chartDataOS.datasets[0].label} - Total : ${totalOS}`}
                 />
               </div>
-              <UserTableCard userList={listTenLastUsers} />
+              <div className="flex flex-col mb-3 md:mb-0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+                <UserTableCard userList={listTenLastUsers} />
+              </div>
             </div>
           )}
         </div>
