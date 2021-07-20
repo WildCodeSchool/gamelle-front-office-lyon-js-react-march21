@@ -69,7 +69,7 @@ export default function ResultsProducts() {
           <div>
             <div
               role="presentation"
-              className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+              className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none"
               onClick={handleToggleModal}
             >
               <div className="w-4/5 h-3/4 md:h-2/3 lg:h-3/4 relative overflow-x-hidden rounded-lg">
