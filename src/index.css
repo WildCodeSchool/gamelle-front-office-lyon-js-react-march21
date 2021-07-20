@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
 .isFavorite {
   width: 40px;
   height: 40px;
@@ -39,6 +41,7 @@
   --darker-grey: #a0d3e4;
   --bg-primary: var(--darker-grey);
   --bg-secondary: var(--dark-grey);
+  font-family: 'Lato', sans-serif;
 }
 
 body {

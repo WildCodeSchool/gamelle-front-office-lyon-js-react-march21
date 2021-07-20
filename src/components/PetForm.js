@@ -299,8 +299,7 @@ export default function PetForm() {
           <div className="flex flex-col">
             <button
               type="submit"
-              className="text-center font-bold rounded bg-primary
-                hover:bg-secondary text-white  p-3 m-5 md:bg-white md:text-primary md:hover:bg-grey"
+              className="text-center font-bold rounded p-3 m-5 bg-white text-primary hover:bg-grey"
             >
               {URLId ? 'Modifier cet animal' : 'Ajouter un animal'}
             </button>
