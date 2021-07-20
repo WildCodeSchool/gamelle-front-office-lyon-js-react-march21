@@ -117,7 +117,7 @@ export default function ProductInfo() {
     }
   };
 
-  const shareUrl = `${process.env.REACT_APP_FRONT_BASE_URL}/product-info-page/?id=${id}`;
+  const shareUrl = `${window.location.origin}/product-info-page/?id=${id}`;
   const title = 'Gamelle : ';
 
   return (
