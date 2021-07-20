@@ -231,7 +231,6 @@ export default function PetForm() {
             onChange={handleAvatarFileInputChange}
             style={{ display: 'none' }}
           />
-          {console.log(avatar)}
           <AvatarPet avatarUrl={avatar} alt={`${name} image`} />
         </div>
         <br />
