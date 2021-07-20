@@ -16,7 +16,7 @@ export default function DetailsRating() {
 
   return (
     <>
-      {avgRating && avgRating.count >= 1 ? (
+      {avgRating && avgRating.count >= 10 ? (
         <div className="flex flex-col items-center">
           <h4 className="text-center">Appétance :</h4>
           <Rating

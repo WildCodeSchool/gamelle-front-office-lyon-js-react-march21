@@ -35,7 +35,6 @@ export default function Avis() {
     }
   }, [profile]);
 
-  // eslint-disable-next-line no-console
   useEffect(() => {
     API.get(`/foods/${id}`)
       .then((res) => {
