@@ -17,8 +17,8 @@ export default function DetailsRating() {
   return (
     <>
       {avgRating && avgRating.count >= 5 ? (
-        <div className="ml-3">
-          <h4>Appétance :</h4>
+        <div className="flex flex-col items-center">
+          <h4 className="text-center">Appétance :</h4>
           <Rating
             name="Appetance"
             value={avgRating ? avgRating.appetance : null}
@@ -46,9 +46,10 @@ export default function DetailsRating() {
           />
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col items-center m-2">
           <h4>Appétance :</h4>
           <Rating
+            className="toto"
             name="Appetance"
             value={0}
             icon={<PetsIcon fontSize="inherit" />}
