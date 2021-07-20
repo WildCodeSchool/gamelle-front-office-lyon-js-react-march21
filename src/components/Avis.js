@@ -129,7 +129,7 @@ export default function Avis() {
             <div className="flex mb-3">Votre commentaire sur le produit</div>
 
             <textarea
-              value={reviews}
+              value={reviews || ''}
               onChange={(event) => {
                 setReviews(event.target.value);
               }}

@@ -113,13 +113,12 @@ export default function PetForm() {
 
   const onSubmit = (form) => {
     const updatedForm = { ...form, id };
-
     if (id) {
       API.patch(`/pets/${id}`, updatedForm)
         .then((res) => {
           API.get(`/pets/${res.data.id}`)
-            .then((resP) => {
-              setPetProfile(resP.data);
+            .then((response) => {
+              setPetProfile(response.data);
             })
             .catch((err) => console.log(err));
           addToast('Votre animal a bien été mis à jour', {
@@ -224,6 +223,7 @@ export default function PetForm() {
           className="flex flex-col items-center w-auto m-2"
           action="send"
           method="POST"
+          encType="multipart/form-data"
         >
           <div className="w-72 lg:w-96 mr-1 mb-3">
             <label htmlFor="name" className=" text-sm md:text-base">

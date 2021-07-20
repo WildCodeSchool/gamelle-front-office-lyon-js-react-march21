@@ -21,7 +21,7 @@ export default function ResultsProducts() {
     >
       <p className="text-4xl">Bienvenue !</p>
       <p className="hidden italic md:flex md:text-base lg:flex lg:text-lg">
-        Pour effectuer une recherche veuillez cliquer sur la fleche à gauche de
+        Pour effectuer une recherche veuillez cliquer sur la flèche à gauche de
         l'écran
       </p>
       <p className="flex md:hidden lg:hidden text-center text-xs italic">
