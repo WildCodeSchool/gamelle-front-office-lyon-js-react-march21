@@ -1,29 +1,39 @@
 import Rating from '@material-ui/lab/Rating';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
 import qs from 'query-string';
 import { useForm } from 'react-hook-form';
 import PetsIcon from '@material-ui/icons/Pets';
 import API from '../APIClient';
+import history from '../history';
 import TotalRating from './TotalRating';
 import { FoodContext } from '../contexts/FoodContext';
-import { RatingContext } from '../contexts/RatingContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Avis() {
-  const {
-    submitAdvice,
-    selle,
-    setSelle,
-    digestion,
-    setDigestion,
-    appetance,
-    setAppetance,
-    reviews,
-    setReviews,
-  } = useContext(RatingContext);
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
+  const { profile, getProfile } = useContext(CurrentUserContext);
   const { id } = qs.parse(window.location.search);
-
+  const { addToast } = useToasts();
+  const [digestion, setDigestion] = useState(null);
+  const [selle, setSelle] = useState(null);
+  const [appetance, setAppetance] = useState(null);
+  const [reviews, setReviews] = useState(null);
   const { handleSubmit } = useForm();
+
+  useEffect(() => {
+    if (profile && profile.Rating) {
+      const currentRating = profile.Rating.filter(
+        (rating) => rating.foodId === parseInt(id, 10)
+      );
+      if (currentRating && currentRating[0]) {
+        setSelle(currentRating[0].selle);
+        setDigestion(currentRating[0].digestion);
+        setAppetance(currentRating[0].appetance);
+        setReviews(currentRating[0].reviews);
+      }
+    }
+  }, [profile]);
 
   // eslint-disable-next-line no-console
   useEffect(() => {
@@ -34,6 +44,31 @@ export default function Avis() {
       // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
   }, []);
+
+  const submitAdvice = async () => {
+    try {
+      await API.post(`/ratings/${id}`, {
+        selle,
+        digestion,
+        appetance,
+        reviews,
+        postedAt: new Date(),
+      });
+      getProfile();
+      setTimeout(() => {
+        history.push('/');
+        addToast('Votre avis à bien été pris en compte', {
+          appearance: 'success',
+        });
+      }, 500);
+    } catch (err) {
+      if (err) {
+        addToast("Il y a un problème lors de l'envoi de votre avis", {
+          appearance: 'error',
+        });
+      }
+    }
+  };
 
   return (
     <div className="flex flex-wrap pt-5 px-3 md:flex md:flex-wrap md:px-56 md:pt-10 lg:flex lg:flex-wrap lg:px-56 lg:pt-10 xl:flex xl:flex-wrap xl:px-56 xl:pt-10">
@@ -101,6 +136,7 @@ export default function Avis() {
                 onChange={(event, value) => {
                   setDigestion(value);
                 }}
+                defaultValue={5}
                 icon={<PetsIcon fontSize="inherit" />}
               />
             </div>
