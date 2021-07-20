@@ -23,12 +23,12 @@ export default function PetForm() {
   const { handleSubmit, watch, register, setValue } = useForm({
     defaultValues: {
       name: '',
-      image: '',
+      avatar: '',
     },
   });
 
   const name = watch('name');
-  const image = watch('image');
+  const avatar = watch('avatarUrl');
   const chosenAnimalCategory = watch('animalCategoryId');
 
   useEffect(async () => {
@@ -98,6 +98,7 @@ export default function PetForm() {
       setValue('animalCategoryId', petProfile.animalCategoryId);
       setValue('breedId', petProfile.breedId);
       setValue('name', petProfile.name);
+      setValue('avatarUrl', petProfile.avatarUrl);
     }
   }, [filteredBreedList, id, petProfile]);
 
@@ -107,14 +108,28 @@ export default function PetForm() {
 
   const handleAvatarFileInputChange = (e) => {
     if (e.target.files[0]) {
-      setValue('image', URL.createObjectURL(e.target.files[0]));
+      setValue('avatarUrl', URL.createObjectURL(e.target.files[0]));
     }
   };
 
   const onSubmit = (form) => {
-    const updatedForm = { ...form, id };
+    const updatedForm = {
+      ...form,
+      id,
+      avatar: avatarUploadRef.current.files[0],
+    };
+
+    const formData = new FormData();
+    Object.keys(updatedForm).forEach((prop) => {
+      formData.append(prop, updatedForm[prop]);
+    });
+
     if (id) {
-      API.patch(`/pets/${id}`, updatedForm)
+      API.patch(`/pets/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
         .then((res) => {
           API.get(`/pets/${res.data.id}`)
             .then((response) => {
@@ -134,17 +149,17 @@ export default function PetForm() {
           );
         });
     } else {
-      API.post('/pets', form)
+      API.post('/pets', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
         .then((res) => {
           setId(res.data.id);
           window.location.replace(`/petform/?id=${res.data.id}`);
           addToast('Votre animal a bien été ajouté', {
             appearance: 'success',
           });
-          setTimeout(() => {
-            setId(res.data.id);
-            window.location.replace(`/petform/?id=${res.data.id}`);
-          }, 500);
         })
         .catch(() => {
           addToast("Il y a eu une erreur lors de l'ajout de votre animal.", {
@@ -210,12 +225,14 @@ export default function PetForm() {
         >
           <input
             type="file"
+            name="avatar"
             accept="image/png, image/jpeg, image/jpg"
             ref={avatarUploadRef}
             onChange={handleAvatarFileInputChange}
             style={{ display: 'none' }}
           />
-          <AvatarPet imagePet={image} alt={`${name} image`} />
+          {console.log(avatar)}
+          <AvatarPet avatarUrl={avatar} alt={`${name} image`} />
         </div>
         <br />
         <form
