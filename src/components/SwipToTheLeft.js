@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useContext } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
@@ -12,7 +11,13 @@ export default function SwipToTheLeft() {
   const { drawer, toggleDrawer, leaveDrawer } = useContext(DrawerContext);
 
   const list = (anchor) => (
-    <div role="none" onClick={(toggleDrawer(anchor, false), leaveDrawer)}>
+    <div
+      role="none"
+      onClick={(e) => {
+        toggleDrawer(anchor, false);
+        leaveDrawer(e);
+      }}
+    >
       <ProductSearch />
     </div>
   );

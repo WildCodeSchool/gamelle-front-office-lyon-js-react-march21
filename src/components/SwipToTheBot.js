@@ -9,7 +9,13 @@ export default function SwipToTheBot() {
   const { drawer, toggleDrawer, leaveDrawer } = useContext(DrawerContext);
 
   const list = (anchor) => (
-    <div role="none" onClick={(toggleDrawer(anchor, false), leaveDrawer)}>
+    <div
+      role="none"
+      onClick={(e) => {
+        toggleDrawer(anchor, false);
+        leaveDrawer(e);
+      }}
+    >
       <ProductSearch />
     </div>
   );
@@ -18,7 +24,7 @@ export default function SwipToTheBot() {
       {['bottom'].map((anchor) => (
         <div key={anchor} className="w-screen flex fixed justify-end z-40">
           <div className="w-full">
-            <section className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow h-10 flex justify-center items-center">
+            <section className="md:hidden fixed inset-x-0 bottom-0 z-10 bg-white shadow h-10 flex justify-center items-center">
               <div className="flex flex-col items-center">
                 <FontAwesomeIcon
                   icon={faSearch}
