@@ -72,59 +72,57 @@ export default function Favorites() {
   };
 
   return favoritesList.length !== 0 ? (
-    <div className="flex items-center flex-col justify-center m-5">
-      <div className="titre ">
-        <h1 className="mt-6 text-center text-3xl font-extrabold m-16">
-          Mes favoris
-        </h1>
+    <div className="flex flex-col items-center">
+      <div className="mt-10 mb-16">
+        <h1 className="text-center text-3xl font-extrabold ">Mes favoris</h1>
       </div>
       <br />
-
-      <ul>
-        {favoritesList.map((fav) => {
-          return (
-            <li key={fav.id} className="relative mb-6 rounded-lg w-full">
-              <NavLink
-                to={{
-                  pathname: `/product-info-page/?id=${fav.foodId}`,
-                  state: { background: location },
-                }}
-              >
-                <div
-                  className="bg-white rounded-lg w-full flex flex-col md:flex-row lg:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
-                  onClick={handleToggleModal}
-                  role="presentation"
+      <div className="w-11/12">
+        <ul>
+          {favoritesList.map((fav) => {
+            return (
+              <li key={fav.id} className="relative mb-6">
+                <NavLink
+                  to={{
+                    pathname: `/product-info-page/?id=${fav.foodId}`,
+                    state: { background: location },
+                  }}
                 >
-                  <div className="absolute right-5 top-5">
-                    <button
-                      type="button"
-                      aria-label="Favorite"
-                      onClick={(event) => handleClickDelete(event, fav)}
-                    >
-                      <FontAwesomeIcon
-                        className="text-3xl text-red-500"
-                        icon={faTimesCircle}
-                      />
-                    </button>
-                  </div>
-                  <div className="flex items-center">
+                  <div
+                    className="p-5  bg-white rounded-lg w-full flex flex-col items-center md:flex-row md:transform transition duration-500 hover:scale-95 lg:transform lg:hover:scale-105"
+                    onClick={handleToggleModal}
+                    role="presentation"
+                  >
                     <img
-                      className="w-40 h-40 bg-auto rounded-xl mr-5"
+                      className="p-1 w-full h-72 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 "
                       src={fav.Foods.image}
                       alt="imageproduit"
                     />
+                    <div className="flex flex-col w-full">
+                      <p className="text-base text-center font-bold">
+                        {fav.Foods.name}
+                      </p>
 
-                    <div>
-                      <p className="font-bold text-xl">{fav.Foods.name}</p>
-                      <p className="text-base">{fav.Foods.brand}</p>
+                      <div className="absolute right-3 top-3">
+                        <button
+                          type="button"
+                          aria-label="Favorite"
+                          onClick={(event) => handleClickDelete(event, fav)}
+                        >
+                          <FontAwesomeIcon
+                            className="text-3xl text-red-500"
+                            icon={faTimesCircle}
+                          />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </NavLink>
-            </li>
-          );
-        })}
-      </ul>
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       {showModalInfo ? (
         <div>
           <div

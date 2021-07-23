@@ -16,12 +16,13 @@ export default function DetailsRating() {
 
   return (
     <>
-      {avgRating && avgRating.count >= 5 ? (
-        <div className="ml-3">
-          <h4>Appétance :</h4>
+      {avgRating && avgRating.count >= 10 ? (
+        <div className="flex flex-col items-center">
+          <h4 className="text-center">Appétance :</h4>
           <Rating
             name="Appetance"
             value={avgRating ? avgRating.appetance : null}
+            precision={0.5}
             icon={<PetsIcon fontSize="inherit" />}
             readOnly
           />
@@ -30,6 +31,7 @@ export default function DetailsRating() {
           <Rating
             name="Digestion"
             value={avgRating ? avgRating.digestion : null}
+            precision={0.5}
             icon={<PetsIcon fontSize="inherit" />}
             readOnly
           />
@@ -38,14 +40,16 @@ export default function DetailsRating() {
           <Rating
             name="selle"
             value={avgRating ? avgRating.selle : null}
+            precision={0.5}
             icon={<PetsIcon fontSize="inherit" />}
             readOnly
           />
         </div>
       ) : (
-        <div>
+        <div className="flex flex-col items-center m-2">
           <h4>Appétance :</h4>
           <Rating
+            className="toto"
             name="Appetance"
             value={0}
             icon={<PetsIcon fontSize="inherit" />}

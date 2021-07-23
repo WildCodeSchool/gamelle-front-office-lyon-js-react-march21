@@ -1,4 +1,3 @@
-// import qs from 'query-string';
 import { createContext, useCallback, useEffect, useState } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import qs from 'query-string';
@@ -140,7 +139,7 @@ export default function CurrentUserContextProvider({ children }) {
   // ------------------------------------------ //
   const deleteUser = (id) => {
     // eslint-disable-next-line
-    if (window.confirm('Are you sure ?')) {
+    if (window.confirm('Êtes-vous certain ?')) {
       setLoadingProfile(true);
       API.delete(`/users/${id}`)
         .then(() => {
