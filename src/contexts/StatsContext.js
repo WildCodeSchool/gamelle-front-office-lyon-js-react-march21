@@ -14,6 +14,9 @@ export default function StatsContextProvider({ children }) {
     'rgb(233, 201, 177)',
     'rgb(1, 215, 88)',
     'rgb(131, 166, 151)',
+    'rgb(130, 160, 130)',
+    'rgb(211, 124, 51)',
+    'rgb(186, 0, 0)',
   ];
 
   return (
