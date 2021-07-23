@@ -17,6 +17,7 @@ export default function TotalRating({ foodId }) {
     <>
       {rating && rating.count >= 10 ? (
         <div className="flex flex-col items-center">
+          <h3 className="text-2xl">{rating.ratingMean} / 5</h3>
           <Rating
             name="ratingMean"
             value={rating.ratingMean}
