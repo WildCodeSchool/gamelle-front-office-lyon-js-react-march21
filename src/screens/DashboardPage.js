@@ -405,7 +405,7 @@ export default function Dashboard() {
                   title={`${chartDataOS.datasets[0].label} - Total : ${totalOS}`}
                 />
               </div>
-              <div className="flex flex-col mb-3 md:mb-0 md:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
+              <div className="flex flex-col mb-3 md:mb-0 md:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
                 <UserTableCard userList={listTenLastUsers} />
               </div>
             </div>

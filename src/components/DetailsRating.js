@@ -20,7 +20,7 @@ export default function DetailsRating() {
         <div className="flex flex-col items-center">
           <h4 className="text-center">Appétance :</h4>
           <Rating
-            name="Appetance"
+            name="appetance"
             value={avgRating ? avgRating.appetance : null}
             precision={0.5}
             icon={<PetsIcon fontSize="inherit" />}
@@ -29,7 +29,7 @@ export default function DetailsRating() {
           <br />
           <h4>Digestion :</h4>
           <Rating
-            name="Digestion"
+            name="digestion"
             value={avgRating ? avgRating.digestion : null}
             precision={0.5}
             icon={<PetsIcon fontSize="inherit" />}
@@ -46,11 +46,10 @@ export default function DetailsRating() {
           />
         </div>
       ) : (
-        <div className="flex flex-col items-center m-2">
+        <div className="flex flex-col items-center m-5">
           <h4>Appétance :</h4>
           <Rating
-            className="toto"
-            name="Appetance"
+            name="appetance"
             value={0}
             icon={<PetsIcon fontSize="inherit" />}
             readOnly
@@ -58,7 +57,7 @@ export default function DetailsRating() {
           <br />
           <h4>Digestion :</h4>
           <Rating
-            name="Digestion"
+            name="digestion"
             value={0}
             icon={<PetsIcon fontSize="inherit" />}
             readOnly

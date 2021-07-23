@@ -113,7 +113,7 @@ export default function Avis() {
           <div className="flex flex-col mt-3 md:flex md:flex-col lg:flex lg:flex-col xl:flex xl:flex-col">
             <div className="mb-3 flex">
               <div className="font-bold w-3/4 pr-3">
-                <h4>Appetance </h4>
+                <h4>Appétance </h4>
               </div>
 
               <Rating
@@ -141,7 +141,7 @@ export default function Avis() {
             </div>
             <div className="mb-3 flex">
               <div className="font-bold w-3/4 pr-3">
-                <h4>Qualitée des selles </h4>
+                <h4>Qualité des selles </h4>
               </div>
               <Rating
                 name="selle"

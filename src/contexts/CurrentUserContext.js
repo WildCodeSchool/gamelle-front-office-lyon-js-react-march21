@@ -153,7 +153,7 @@ export default function CurrentUserContextProvider({ children }) {
         .catch((err) => {
           window.console.error(err);
           addToast(
-            'Il u a eu une erreur lors de la supression de votre compte !',
+            'Il y a eu une erreur lors de la supression de votre compte !',
             {
               appearance: 'error',
             }
