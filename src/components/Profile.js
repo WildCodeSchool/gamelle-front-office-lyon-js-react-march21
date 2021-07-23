@@ -32,6 +32,7 @@ export default function Profile() {
 
   const firstName = watch('firstname');
   const avatar = watch('avatarUrl');
+  console.log(avatar);
 
   useEffect(() => {
     getProfile();
