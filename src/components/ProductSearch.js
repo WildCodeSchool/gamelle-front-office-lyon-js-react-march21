@@ -48,7 +48,6 @@ export default function ProductSearch() {
   const onSubmit = (form) => {
     API.post(`/searches`, form)
       .then(async (res) => {
-        console.log(res.data);
         setResultsList(res.data);
         setHasSearched(true);
         // update statistics
