@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import ProductSearch from './ProductSearch';
 import { DrawerContext } from '../contexts/DrawerContext';
 import './SwipToTheLeft.css';
@@ -26,10 +26,7 @@ export default function SwipToTheLeft() {
             onClick={toggleDrawer(anchor, true)}
             title="Cliquer ici pour ouvrir la barre de recherche"
           >
-            <FontAwesomeIcon
-              icon={faArrowAltCircleRight}
-              className="animate-wiggle z-50"
-            />
+            <FontAwesomeIcon icon={faSearch} className="animate-wiggle z-50" />
           </Button>
           <SwipeableDrawer
             anchor={anchor}

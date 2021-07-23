@@ -12,12 +12,23 @@ export default function ProductSearch() {
   const [foodTypeList, setFoodTypeList] = useState(null);
   const [animalCategoryList, setAnimalCategoryList] = useState(null);
   const { profile } = useContext(CurrentUserContext);
-  const { setResultsList, setHasSearched } = useContext(ResultsContext);
+  const {
+    currentBrand,
+    setCurrentBrand,
+    currentAnimalCategoryId,
+    setCurrentAnimalCategoryId,
+    currentFoodTypeId,
+    setCurrentFoodTypeId,
+    setResultsList,
+    setHasSearched,
+    currentSearchedText,
+    setCurrentSearchedText,
+  } = useContext(ResultsContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const { setDrawer } = useContext(DrawerContext);
+  const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
-    // setHasSearched(false);
     API.get(`/searches`)
       .then((res) => {
         setBrandList(res.data[0]);
@@ -33,8 +44,6 @@ export default function ProductSearch() {
         .then(() => {})
         .catch((err) => console.log(err));
   }, [statsInfos]);
-
-  const { register, handleSubmit, watch } = useForm();
 
   const onSubmit = (form) => {
     API.post(`/searches`, form)
@@ -60,8 +69,6 @@ export default function ProductSearch() {
       .catch((err) => console.log(err));
   };
 
-  const bigBrother = watch('brand');
-
   return (
     <div className="bg-grey h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -83,8 +90,11 @@ export default function ProductSearch() {
               Marque <span className="text-danger">*</span> :
               <select
                 {...register('brand', { required: true })}
-                defaultValue=""
+                value={currentBrand}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                onChange={(e) => {
+                  setCurrentBrand(e.target.value);
+                }}
               >
                 <option key="title" value="" disabled>
                   Sélectionnez une marque
@@ -104,8 +114,11 @@ export default function ProductSearch() {
               Type d'aliment :
               <select
                 {...register('foodTypeId')}
-                defaultValue=""
+                value={currentFoodTypeId}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                onChange={(e) => {
+                  setCurrentFoodTypeId(e.target.value);
+                }}
               >
                 <option key="title" value="" disabled>
                   Sélectionnez un type d'aliments
@@ -125,8 +138,11 @@ export default function ProductSearch() {
               Pour :
               <select
                 {...register('animalCategoryId')}
-                defaultValue=""
+                value={currentAnimalCategoryId}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                onChange={(e) => {
+                  setCurrentAnimalCategoryId(e.target.value);
+                }}
               >
                 <option key="title" value="" disabled>
                   Sélectionnez une catégorie
@@ -146,6 +162,10 @@ export default function ProductSearch() {
               <input
                 {...register('searchedWords')}
                 type="text"
+                value={currentSearchedText}
+                onChange={(e) => {
+                  setCurrentSearchedText(e.target.value);
+                }}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Vous pouvez saisir ici le nom de l'aliment"
               />
@@ -153,10 +173,15 @@ export default function ProductSearch() {
           </div>
           <div>
             <button
-              onClick={() => setDrawer(false)}
+              onClick={() => {
+                setDrawer(false);
+                setValue('foodTypeId', currentFoodTypeId);
+                setValue('animalCategoryId', currentAnimalCategoryId);
+                setValue('brand', currentBrand);
+                setValue('searchedWords', currentSearchedText);
+              }}
               type="submit"
-              // eslint-disable-next-line no-unneeded-ternary
-              disabled={bigBrother ? false : true}
+              disabled={currentBrand === ''}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-darkpurple"
             >
               Rechercher

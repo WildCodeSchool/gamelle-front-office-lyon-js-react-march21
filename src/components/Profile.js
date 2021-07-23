@@ -41,9 +41,9 @@ export default function Profile() {
     if (profile) {
       const { firstname, lastname, avatarUrl, email } = profile;
       const valuesToUpdate = {
-        firstname,
-        lastname,
-        email,
+        firstname: firstname || '',
+        lastname: lastname || '',
+        email: email || '',
         avatarUrl: avatarUrl || '',
       };
       reset(valuesToUpdate);
@@ -83,12 +83,13 @@ export default function Profile() {
                 <div role="none" onClick={handleAvatarClick}>
                   <input
                     type="file"
+                    name="avatar"
                     accept="image/png, image/jpeg, image/jpg"
                     ref={avatarUploadRef}
                     onChange={handleAvatarFileInputChange}
                     style={{ display: 'none' }}
                   />
-                  <Avatar avatarUrl={avatar} alt={`${firstName} avatar`} />
+                  <Avatar avatarUrl={avatar} alt={`${firstName} `} />
                 </div>
 
                 <div className="bg-white m-5">
@@ -165,7 +166,7 @@ export default function Profile() {
         </div>
       </form>
 
-      {profile && profile.Animals.length !== 0 && (
+      {profile && profile.Animals && profile.Animals.length !== 0 && (
         <div className="flex flex-col items-center w-full">
           <div>
             <h1 className="mt-6 text-center text-3xl font-extrabold ">
@@ -173,7 +174,7 @@ export default function Profile() {
             </h1>
           </div>
           <br />
-          <div className=" w-10/12 md:w-5/12 lg:w-2/6 ">
+          <div className=" w-10/12 md:w-5/12 lg:w-1/2 ">
             <ul>
               {profile.Animals.map((pet) => (
                 <li
@@ -184,19 +185,19 @@ export default function Profile() {
                     <div className="flex flex-col md:flex-row items-center ">
                       <div className="m-2">
                         <img
-                          className="h-20 w-20 md:w-32 md:h-32 lg:h-40 lg:w-40 rounded-full"
+                          className="h-20 w-20 md:w-32 md:h-32 lg:h-40 lg:w-40 md:max-w-sm rounded-full"
                           src={
-                            pet.image ||
+                            pet.avatarUrl ||
                             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW-vlzxatqDVDAQu4jpEfVlxcT_HXgembwISZjeZMdt2mm2fJv'
                           }
                           alt={pet.name}
                         />
                       </div>
                       <div className="m-2 md:ml-5">
-                        <p className="text-sm font-bold lg:text-xl text-center md:text-left">
+                        <p className="text-sm font-bold lg:text-xl text-center md:text-left break-all">
                           {pet.name}
                         </p>
-                        <p className="text-xs lg:text-base text-center md:text-left ">
+                        <p className="text-xs lg:text-base text-center md:text-left break-all">
                           {pet.Breeds.name}
                         </p>
                       </div>

@@ -12,7 +12,7 @@ import 'chartjs-adapter-moment';
 
 Chart.register(DoughnutController, ArcElement, TimeScale, Tooltip, Legend);
 
-function DoughnutChart({ data, width, height }) {
+export default function DoughnutChart({ data, width, height }) {
   const canvas = useRef(null);
   const legend = useRef(null);
   useEffect(() => {
@@ -127,5 +127,3 @@ function DoughnutChart({ data, width, height }) {
     </div>
   );
 }
-
-export default DoughnutChart;

@@ -14,17 +14,12 @@ import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import DetailsRating from './DetailsRating';
-import ModalSignIn from './modalSignIn';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
-  const {
-    profile,
-    toggleFoodInFavorites,
-    favoritesIdsList,
-    isLoggedIn = true,
-  } = useContext(CurrentUserContext);
+  const { profile, toggleFoodInFavorites, favoritesIdsList, setShowModal } =
+    useContext(CurrentUserContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const { addToast } = useToasts();
 
@@ -106,6 +101,7 @@ export default function ProductInfo() {
       addToast('Vous devez être connecté pour mettre un aliment en favori !', {
         appearance: 'error',
       });
+      setShowModal(true);
     }
   };
 
@@ -117,18 +113,19 @@ export default function ProductInfo() {
           appearance: 'error',
         }
       );
+      setShowModal(true);
     }
   };
 
-  const shareUrl = `${process.env.REACT_APP_FRONT_BASE_URL}/product-info-page/?id=${id}`;
+  const shareUrl = `${window.location.origin}/product-info-page/?id=${id}`;
   const title = 'Gamelle : ';
 
   return (
     <>
       {foodDetails && (
         <>
-          <div className="flex items-center flex-col justify-center md:p-5">
-            <div className="relative md:flex md:flex-col md:shadow-lg lg:w-10/12 md:w-10/12 md:m-10 bg-white">
+          <div className="flex flex-col md:p-10">
+            <div className="relative md:flex md:flex-col md:shadow-lg bg-white">
               <div className="absolute right-0 mr-5 mt-3">
                 <button
                   type="button"
@@ -140,36 +137,37 @@ export default function ProductInfo() {
                   }
                 />
               </div>
-              <div className="flex items-center  border border-grey">
-                <div key={foodDetails.id} className="m-5">
+              <div className="flex flex-col md:flex-col lg:flex-row items-center border border-grey lg:p-10">
+                <div key={foodDetails.id} className="flex-1 mt-14 md:m-5">
                   <img
-                    className="flex-none h-40 object-cover rounded-xl mr-5 md:h-96 md:w-72"
+                    className="h-full w-60 lg:max-w-xs rounded-xl object-cover "
                     src={foodDetails.image_aws_url}
                     alt={foodDetails.image_aws_url}
                   />
                 </div>
 
-                <div className="titre">
-                  <div className="font-bold text-4xl">{foodDetails.brand}</div>
-                  <div className="text-base">{foodDetails.name}</div>
+                <div className="m-3">
+                  <div className="font-bold text-4xl text-center">
+                    {foodDetails.brand}
+                  </div>
+                  <div className="text-base text-center">
+                    {foodDetails.name}
+                  </div>
                 </div>
-                <div className="flex flex-col w-full right-0 items-end">
-                  <div className="w-2/3 flex justify-center flex-col items-center">
+                <div className="flex flex-col md:flex-1 right-0 items-end">
+                  <div className="flex flex-col justify-center items-center mr-5">
                     <DetailsRating />
-                    {isLoggedIn && (
-                      <NavLink
-                        to={profile ? `/give-advice/?id=${id}` : '#'}
-                        onClick={handleNotConnected}
+                    <NavLink
+                      to={profile ? `/give-advice/?id=${id}` : '#'}
+                      onClick={handleNotConnected}
+                    >
+                      <button
+                        className="btn btn-primary btn-primary:hover"
+                        type="button"
                       >
-                        <button
-                          className="btn btn-primary btn-primary:hover"
-                          type="button"
-                        >
-                          Je donne mon avis
-                        </button>
-                      </NavLink>
-                    )}
-                    {!isLoggedIn && <ModalSignIn />}
+                        Je donne mon avis
+                      </button>
+                    </NavLink>
 
                     <div className="flex mt-3 justify-center">
                       <div className="mr-3">
@@ -203,7 +201,7 @@ export default function ProductInfo() {
                 </div>
               </div>
               <div className="container">
-                <p className="h-auto border border-grey p-5">
+                <p className="text-xm h-auto border border-grey p-5">
                   <span className="text-xl">Composition : </span>
                   {foodDetails.ingredients_text ? (
                     foodDetails.ingredients_text
@@ -214,7 +212,7 @@ export default function ProductInfo() {
                 <h1 className="font-bold text-2xl px-10 py-6 border border-grey bg-gray-200">
                   Constituants analytiques (en %)
                 </h1>
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Humidité :{' '}
                   {foodDetails.humidity ? (
                     foodDetails.humidity
@@ -222,7 +220,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Protéines :{' '}
                   {foodDetails.proteins_100g ? (
                     foodDetails.energy_100g
@@ -230,7 +228,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Mat. grasses brutes :{' '}
                   {foodDetails.fat_100g ? (
                     foodDetails.fat_100g
@@ -238,7 +236,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Mat. minérales (ou cendres) :{' '}
                   {foodDetails.cendars_100g ? (
                     foodDetails.cendars_100g
@@ -246,7 +244,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Cellulose brute :{' '}
                   {foodDetails.cellulose_100g ? (
                     foodDetails.cellulose_100g
@@ -257,7 +255,7 @@ export default function ProductInfo() {
                 <div className="border border-grey px-5 py-1">
                   <h1 className="text-2xl">Calcium et Phosphore :</h1>
                   <ul className="bg-grey m-5">
-                    <li>
+                    <li className="text-xm">
                       Calcium :{' '}
                       {foodDetails.calcium_100g ? (
                         foodDetails.calcium_100g
@@ -265,7 +263,7 @@ export default function ProductInfo() {
                         <span className="italic text-xs"> Inconnu</span>
                       )}
                     </li>
-                    <li>
+                    <li className="text-xm">
                       Phosphore :{' '}
                       {foodDetails.phosphorus_100g ? (
                         foodDetails.phosphorus_100g
@@ -273,7 +271,7 @@ export default function ProductInfo() {
                         <span className="italic text-xs"> Inconnu</span>
                       )}
                     </li>
-                    <li>
+                    <li className="text-xm">
                       Ratio calcium/phosphore :{' '}
                       {foodDetails.phosphorus_100g &&
                       foodDetails.calcium_100g ? (
@@ -286,7 +284,7 @@ export default function ProductInfo() {
                     </li>
                   </ul>
                 </div>
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Sodium :{' '}
                   {foodDetails.sodium_100g ? (
                     foodDetails.sodium_100g
@@ -294,7 +292,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Potassium :{' '}
                   {foodDetails.potassium_100g ? (
                     foodDetails.potassium_100g
@@ -305,7 +303,7 @@ export default function ProductInfo() {
                 <div className="border border-grey px-5 py-1">
                   <h1 className="text-2xl">Omega :</h1>
                   <ul className=" bg-grey m-5">
-                    <li>
+                    <li className="text-xm">
                       Omega 3 :{' '}
                       {foodDetails.omega3_fat_100g ? (
                         foodDetails.omega3_fat_100g
@@ -313,7 +311,7 @@ export default function ProductInfo() {
                         <span className="italic text-xs"> Inconnu</span>
                       )}
                     </li>
-                    <li>
+                    <li className="text-xm">
                       Omega 6 :{' '}
                       {foodDetails.omega6_fat_100g ? (
                         foodDetails.omega6_fat_100g
@@ -324,13 +322,13 @@ export default function ProductInfo() {
                   </ul>
                 </div>
 
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Vitamines (en UI/Kg) :{' '}
                 </p>
                 <h1 className="font-bold text-2xl px-10 py-6 border border-grey bg-gray-200">
                   Additifs
                 </h1>
-                <p className="text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl border border-grey px-5 py-1">
                   Vitamines (en UI/Kg) :{' '}
                 </p>
               </div>

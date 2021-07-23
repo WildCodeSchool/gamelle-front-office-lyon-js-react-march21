@@ -69,7 +69,7 @@ export default function Datepicker() {
 
       handleClickDates();
     }
-  }, []);
+  }, [chosenDates]);
 
   return (
     <div className="relative flex items-center">

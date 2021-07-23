@@ -23,12 +23,12 @@ export default function PetForm() {
   const { handleSubmit, watch, register, setValue } = useForm({
     defaultValues: {
       name: '',
-      image: '',
+      avatar: '',
     },
   });
 
   const name = watch('name');
-  const image = watch('image');
+  const avatar = watch('avatarUrl');
   const chosenAnimalCategory = watch('animalCategoryId');
 
   useEffect(async () => {
@@ -98,6 +98,7 @@ export default function PetForm() {
       setValue('animalCategoryId', petProfile.animalCategoryId);
       setValue('breedId', petProfile.breedId);
       setValue('name', petProfile.name);
+      setValue('avatarUrl', petProfile.avatarUrl);
     }
   }, [filteredBreedList, id, petProfile]);
 
@@ -107,19 +108,32 @@ export default function PetForm() {
 
   const handleAvatarFileInputChange = (e) => {
     if (e.target.files[0]) {
-      setValue('image', URL.createObjectURL(e.target.files[0]));
+      setValue('avatarUrl', URL.createObjectURL(e.target.files[0]));
     }
   };
 
   const onSubmit = (form) => {
-    const updatedForm = { ...form, id };
+    const updatedForm = {
+      ...form,
+      id,
+      avatar: avatarUploadRef.current.files[0],
+    };
+
+    const formData = new FormData();
+    Object.keys(updatedForm).forEach((prop) => {
+      formData.append(prop, updatedForm[prop]);
+    });
 
     if (id) {
-      API.patch(`/pets/${id}`, updatedForm)
+      API.patch(`/pets/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
         .then((res) => {
           API.get(`/pets/${res.data.id}`)
-            .then((resP) => {
-              setPetProfile(resP.data);
+            .then((response) => {
+              setPetProfile(response.data);
             })
             .catch((err) => console.log(err));
           addToast('Votre animal a bien été mis à jour', {
@@ -135,17 +149,17 @@ export default function PetForm() {
           );
         });
     } else {
-      API.post('/pets', form)
+      API.post('/pets', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
         .then((res) => {
           setId(res.data.id);
           window.location.replace(`/petform/?id=${res.data.id}`);
           addToast('Votre animal a bien été ajouté', {
             appearance: 'success',
           });
-          setTimeout(() => {
-            setId(res.data.id);
-            window.location.replace(`/petform/?id=${res.data.id}`);
-          }, 500);
         })
         .catch(() => {
           addToast("Il y a eu une erreur lors de l'ajout de votre animal.", {
@@ -183,16 +197,27 @@ export default function PetForm() {
     }
   };
 
+  const handleDeletePetProfile = () => {
+    // eslint-disable-next-line no-alert
+    if (window.confirm('Êtes-vous certain ?')) {
+      API.delete(`/pets/${id}`)
+        .then(() => {
+          window.location.replace(`/petform`);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <div className="flex items-center flex-col justify-center p-5">
       <div className="titre ">
         <h1 className="mt-6 text-center text-3xl font-extrabold">
-          Ajouter votre animal
+          {URLId ? 'Modifier cet animal' : 'Ajouter un animal'}
         </h1>
       </div>
       <br />
 
-      <div className="flex flex-col items-center object-center md:bg-primary md:rounded md:shadow-lg p-3 md:w-2/4">
+      <div className="flex flex-col items-center object-center bg-primary rounded shadow-lg p-3 md:w-2/4">
         <div
           className="flex flex-col items-center m-5"
           onClick={handleAvatarClick}
@@ -200,22 +225,24 @@ export default function PetForm() {
         >
           <input
             type="file"
+            name="avatar"
             accept="image/png, image/jpeg, image/jpg"
             ref={avatarUploadRef}
             onChange={handleAvatarFileInputChange}
             style={{ display: 'none' }}
           />
-          <AvatarPet imagePet={image} alt={`${name} image`} />
+          <AvatarPet avatarUrl={avatar} alt={`${name} image`} />
         </div>
         <br />
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col items-center w-auto m-4"
+          className="flex flex-col items-center w-auto m-2"
           action="send"
           method="POST"
+          encType="multipart/form-data"
         >
-          <div className="w-full mr-1 mb-3">
-            <label htmlFor="name">
+          <div className="w-72 lg:w-96 mr-1 mb-3">
+            <label htmlFor="name" className=" text-sm md:text-base">
               Nom de votre animal<span style={{ color: 'red' }}>*</span>
               <input
                 type="text"
@@ -228,12 +255,12 @@ export default function PetForm() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="animalCategoryId">
+            <label htmlFor="animalCategoryId" className=" text-sm md:text-base">
               Catgéorie de votre animal <span className="text-danger">*</span>
               <select
                 {...register('animalCategoryId', { required: true })}
                 defaultValue=""
-                className="appearance-none rounded-none relative block w-96 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-72 lg:w-96 px-3 py-2 border text-sm md:text-base border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
               >
                 <option key="title" value="" disabled>
                   Sélectionnez une catégorie
@@ -249,12 +276,12 @@ export default function PetForm() {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="breedId">
+            <label htmlFor="breedId" className=" text-sm md:text-base">
               Race de votre animal <span className="text-danger">*</span>
               <select
                 {...register('breedId', { required: true })}
                 defaultValue=""
-                className="appearance-none rounded-none relative block w-96 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-none relative block w-72 lg:w-96  px-3 py-2 border text-sm md:text-base border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10"
               >
                 <option key="title" value="" disabled>
                   Sélectionnez une race
@@ -272,12 +299,23 @@ export default function PetForm() {
           <div className="flex flex-col">
             <button
               type="submit"
-              className="text-center font-bold rounded bg-primary
-                hover:bg-secondary text-white  p-3 m-5 md:bg-white md:text-primary md:hover:bg-grey"
+              className="text-center font-bold rounded p-3 m-5 bg-white text-primary hover:bg-grey"
             >
               {URLId ? 'Modifier cet animal' : 'Ajouter un animal'}
             </button>
           </div>
+          {URLId ? (
+            <div className="flex flex-col">
+              <button
+                type="button"
+                className="text-center font-bold rounded bg-red-500
+                hover:bg-secondary text-white  p-3 m-5 md:text-white md:hover:bg-red-200"
+                onClick={handleDeletePetProfile}
+              >
+                Supprimer cet animal
+              </button>
+            </div>
+          ) : null}
         </form>
       </div>
 
@@ -296,30 +334,31 @@ export default function PetForm() {
               return (
                 <li
                   key={fav.id}
-                  className="relative bg-white mb-6 rounded-lg w-full p-2"
+                  className="relative bg-white mb-6 rounded-lg w-full md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
                 >
-                  <button
-                    type="button"
-                    aria-label="Favorite"
-                    onClick={() => handleClickDeleteFavorite(fav)}
-                    className="absolute right-5 top-5"
-                  >
-                    <FontAwesomeIcon
-                      className="text-3xl text-red-500"
-                      icon={faTimesCircle}
-                    />
-                  </button>
-                  <div className="flex items-center">
+                  <div>
+                    <button
+                      type="button"
+                      aria-label="Favorite"
+                      onClick={() => handleClickDeleteFavorite(fav)}
+                      className="absolute right-0 m-2 md:mr-5 "
+                    >
+                      <FontAwesomeIcon
+                        className="text-3xl text-red-500"
+                        icon={faTimesCircle}
+                      />
+                    </button>
+                  </div>
+                  <div className="flex flex-col p-2 md:flex-row lg:flex-row items-center">
                     <img
-                      className="w-40 h-40 bg-auto rounded-xl mr-5"
+                      className="p-1 w-full h-60 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 "
                       src={fav.Favorites.Foods.image}
                       alt="imageproduit"
                     />
                     <div>
-                      <p className="font-bold text-xl">
+                      <p className="pt-2 text-base w-full text-center font-bold">
                         {fav.Favorites.Foods.name}
                       </p>
-                      <p className="text-base">{fav.Favorites.Foods.brand}</p>
                     </div>
                   </div>
                 </li>
@@ -339,24 +378,26 @@ export default function PetForm() {
               return (
                 <li
                   key={fav.id}
-                  className="relative bg-white mb-6 rounded-lg w-full p-2"
+                  className=" relative bg-white mb-6 rounded-lg w-full p-2 md:transform transition duration-500 hover:scale-95 lg:transform transition duration-500 hover:scale-105"
                 >
                   <button
                     type="button"
                     aria-label="FilteredFavorites"
                     onClick={() => handleClickFilteredFavorite(fav)}
+                    className="toto"
                   >
-                    <div className="absolute right-5 top-5 notPetFavorite" />
+                    <div className="absolute right-0 m-2 md:mr-5 notPetFavorite" />
 
-                    <div className="flex items-center">
+                    <div className="flex flex-col md:flex-row lg:flex-row items-center">
                       <img
-                        className="w-40 h-40 bg-auto rounded-xl mr-5"
+                        className="p-1 w-full h-60 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 "
                         src={fav.Foods.image}
                         alt="imageproduit"
                       />
                       <div>
-                        <p className="font-bold text-xl">{fav.Foods.name}</p>
-                        <p className="text-base">{fav.Foods.brand}</p>
+                        <p className="pt-2 text-base w-full text-center font-bold">
+                          {fav.Foods.name}
+                        </p>
                       </div>
                     </div>
                   </button>

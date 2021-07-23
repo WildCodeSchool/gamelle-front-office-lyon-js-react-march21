@@ -34,7 +34,7 @@ export default function Header() {
               <img
                 src={Logo}
                 alt="logo"
-                className="w-28 flex mt-3 items-center"
+                className="w-28 flex mt-3 mb-3 items-center"
               />
             </NavLink>
           </div>
@@ -61,23 +61,28 @@ export default function Header() {
               </NavLink>
             </li>
 
-            <li className="nav-item">
-              <NavLink
-                to="/history"
-                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
-              >
-                {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
-                exact
-                to="/favoris"
-              >
-                {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
-              </NavLink>
-            </li>
+            {isLoggedIn && (
+              <li className="nav-item">
+                <NavLink
+                  to="/history"
+                  className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                >
+                  {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
+                </NavLink>
+              </li>
+            )}
+
+            {isLoggedIn && (
+              <li className="nav-item">
+                <NavLink
+                  className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                  exact
+                  to="/favoris"
+                >
+                  {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
+                </NavLink>
+              </li>
+            )}
             {isLoggedIn &&
               (profile.role === 'admin' || profile.role === 'superAdmin') && (
                 <li>
