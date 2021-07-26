@@ -66,7 +66,7 @@ export default function Profile() {
         <div className="flex items-center flex-col justify-center p-5">
           <div>
             <h1 className="mt-6 text-center text-3xl font-extrabold ">
-              Votre profil
+              Mon profil
             </h1>
           </div>
           <br />

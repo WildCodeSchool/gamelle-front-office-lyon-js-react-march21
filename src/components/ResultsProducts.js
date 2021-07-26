@@ -20,11 +20,11 @@ export default function ResultsProducts() {
       id="full-content"
     >
       <p className="text-4xl">Bienvenue !</p>
-      <p className="hidden italic md:flex md:text-base lg:flex lg:text-lg">
+      <p className="hidden italic md:flex md:text-base lg:flex lg:text-lg px-4">
         Pour effectuer une recherche, veuillez cliquer sur l'icône de recherche
         à gauche de l'écran
       </p>
-      <p className="flex md:hidden lg:hidden text-center text-xs italic">
+      <p className="flex md:hidden lg:hidden text-center text-xs italic px-4">
         Pour effectuer une recherche, veuillez cliquer sur l'icône de recherche
         en bas de votre écran
       </p>
@@ -69,10 +69,10 @@ export default function ResultsProducts() {
           <div>
             <div
               role="presentation"
-              className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none"
+              className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 outline-none focus:outline-none "
               onClick={handleToggleModal}
             >
-              <div className="w-11/12 h-4/5 md:h-2/3 lg:h-3/4 relative overflow-x-hidden rounded-lg">
+              <div className="w-11/12 h-4/5 md:h-2/3 lg:h-3/4 relative overflow-x-hidden rounded-lg ">
                 <div
                   role="presentation"
                   className=" rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"

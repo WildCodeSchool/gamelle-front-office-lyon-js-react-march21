@@ -124,7 +124,7 @@ export default function ProductInfo() {
     <>
       {foodDetails && (
         <>
-          <div className="flex flex-col md:p-10">
+          <div className="flex flex-col md:p-10 ">
             <div className="relative md:flex md:flex-col md:shadow-lg bg-white">
               <div className="absolute right-0 mr-5 mt-3">
                 <button

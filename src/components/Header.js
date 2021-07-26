@@ -30,30 +30,25 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full flex bg-primary">
-      <div className="w-full h-full px-4 justify-between items-center flex flex-wrap">
-        <div className="w-full h-full relative flex justify-between lg:w-auto lg:static lg:block">
-          <NavLink
-            exact
-            to="/"
-            className="h-full flex justify-center bg-danger"
-          >
-            <img src={Logo} alt="logo" className="w-28 flex justify-center" />
+    <header className="w-full h-auto flex bg-primary">
+      <div className="w-full px-4 justify-between items-center flex flex-wrap">
+        <div className="my-4 w-full relative flex justify-between lg:w-auto lg:static lg:block ">
+          <NavLink exact path="/" to="/">
+            <img src={Logo} alt="logo" className="w-28" />
           </NavLink>
-
-          <button type="button" onClick={handleBurgerToggle}>
+          <button id="burger-btn" type="button" onClick={handleBurgerToggle}>
             <FontAwesomeIcon
-              className="lg:hidden flex"
+              className="flex text-white"
               icon={burger ? faTimes : faBars}
             />
           </button>
         </div>
         <div
-          className={`lg:flex flex-grow items-center${
+          className={`lg:flex flex-grow items-center ${
             burger ? ' flex' : ' hidden'
           }`}
         >
-          <ul className="w-full flex flex-col h-full lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
+          <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end">
             <li className="nav-item">
               <NavLink
                 className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
