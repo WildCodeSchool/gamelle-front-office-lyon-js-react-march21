@@ -6,13 +6,6 @@ export default function ModalSignIn() {
   const { showModal, setShowModal } = useContext(CurrentUserContext);
   return (
     <div>
-      <div
-        role="none"
-        className="btn px-3 py-2 bg-primary text-white font-bold uppercase text-sm lg:text-md cursor-pointer hover:opacity-75 "
-        onClick={() => setShowModal(true)}
-      >
-        S'identifier
-      </div>
       {showModal ? (
         <div>
           <div
@@ -20,7 +13,7 @@ export default function ModalSignIn() {
             className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none z-50"
             onClick={() => setShowModal(false)}
           >
-            <div className="w-3/4 h-1/2 relative my-6">
+            <div className="w-3/4 relative my-6">
               <div
                 role="none"
                 className=" rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"

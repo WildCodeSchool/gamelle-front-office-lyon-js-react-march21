@@ -14,12 +14,18 @@ import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import DetailsRating from './DetailsRating';
+import ModalSignIn from './modalSignIn';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
-  const { profile, toggleFoodInFavorites, favoritesIdsList, setShowModal } =
-    useContext(CurrentUserContext);
+  const {
+    profile,
+    toggleFoodInFavorites,
+    favoritesIdsList,
+    setShowModal,
+    showModal,
+  } = useContext(CurrentUserContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const { addToast } = useToasts();
 
@@ -336,6 +342,7 @@ export default function ProductInfo() {
           </div>
         </>
       )}
+      {showModal && <ModalSignIn />}
     </>
   );
 }
