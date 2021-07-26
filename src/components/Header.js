@@ -34,7 +34,7 @@ export default function Header() {
               <img
                 src={Logo}
                 alt="logo"
-                className="w-28 flex mt-3 items-center"
+                className="w-28 flex mt-3 mb-3 items-center"
               />
             </NavLink>
           </div>
