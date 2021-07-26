@@ -200,7 +200,7 @@ export default function ProductInfo() {
                   </div>
                 </div>
               </div>
-              <div className="container">
+              <div>
                 <p className="text-xm h-auto border border-grey p-5">
                   <span className="text-xl">Composition : </span>
                   {foodDetails.ingredients_text ? (

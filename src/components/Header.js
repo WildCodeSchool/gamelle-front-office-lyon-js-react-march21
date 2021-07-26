@@ -25,19 +25,22 @@ export default function Header() {
     setBurger(!burger);
   };
 
+  const closeBurger = () => {
+    setBurger(false);
+  };
+
   return (
-    <header className="w-full h-auto flex bg-primary">
-      <div className="container px-4 justify-between items-start align-center flex flex-wrap">
-        <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start xl:justify-start 2xl:justify-start">
-          <div className="flex items-center h-full">
-            <NavLink exact path="/" to="/">
-              <img
-                src={Logo}
-                alt="logo"
-                className="w-28 flex mt-3 mb-3 items-center"
-              />
-            </NavLink>
-          </div>
+    <header className="w-full flex bg-primary">
+      <div className="w-full h-full px-4 justify-between items-center flex flex-wrap">
+        <div className="w-full h-full relative flex justify-between lg:w-auto lg:static lg:block">
+          <NavLink
+            exact
+            to="/"
+            className="h-full flex justify-center bg-danger"
+          >
+            <img src={Logo} alt="logo" className="w-28 flex justify-center" />
+          </NavLink>
+
           <button type="button" onClick={handleBurgerToggle}>
             <FontAwesomeIcon
               className="lg:hidden flex"
@@ -50,12 +53,13 @@ export default function Header() {
             burger ? ' flex' : ' hidden'
           }`}
         >
-          <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
+          <ul className="w-full flex flex-col h-full lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
             <li className="nav-item">
               <NavLink
                 className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                 exact
                 to="/"
+                onClick={closeBurger}
               >
                 {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
               </NavLink>
@@ -66,6 +70,7 @@ export default function Header() {
                 <NavLink
                   to="/history"
                   className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                  onClick={closeBurger}
                 >
                   {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
                 </NavLink>
@@ -78,6 +83,7 @@ export default function Header() {
                   className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                   exact
                   to="/favoris"
+                  onClick={closeBurger}
                 >
                   {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
                 </NavLink>
@@ -90,6 +96,7 @@ export default function Header() {
                     exact
                     to="/dashboard"
                     className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                    onClick={closeBurger}
                   >
                     {burger ? (
                       'Statistiques'
@@ -105,6 +112,7 @@ export default function Header() {
                   exact
                   to="/users"
                   className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                  onClick={closeBurger}
                 >
                   {burger ? 'Utilisateurs' : <FontAwesomeIcon icon={faUsers} />}
                 </NavLink>
@@ -117,6 +125,7 @@ export default function Header() {
                     className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                     exact
                     to="/profile"
+                    onClick={closeBurger}
                   >
                     {burger ? (
                       'Profil'
@@ -134,6 +143,7 @@ export default function Header() {
                     exact
                     to="/sign-up"
                     className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                    onClick={closeBurger}
                   >
                     S'inscrire
                   </NavLink>

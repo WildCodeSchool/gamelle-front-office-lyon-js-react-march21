@@ -170,7 +170,7 @@ export default function Profile() {
         <div className="flex flex-col items-center w-full">
           <div>
             <h1 className="mt-6 text-center text-3xl font-extrabold ">
-              Mes animaux
+              {profile.Animals.length === 1 ? 'Mon Animal' : 'Mes Animaux'}
             </h1>
           </div>
           <br />
