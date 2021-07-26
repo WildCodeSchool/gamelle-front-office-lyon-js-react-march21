@@ -120,8 +120,8 @@ export default function ProductSearch() {
                   setCurrentFoodTypeId(e.target.value);
                 }}
               >
-                <option key="title" value="" disabled>
-                  Sélectionnez un type d'aliments
+                <option key="title" value="" selected>
+                  Tous les types d'aliments
                 </option>
                 {foodTypeList &&
                   foodTypeList.map((element) => (
@@ -144,8 +144,8 @@ export default function ProductSearch() {
                   setCurrentAnimalCategoryId(e.target.value);
                 }}
               >
-                <option key="title" value="" disabled>
-                  Sélectionnez une catégorie
+                <option key="title" value="" selected>
+                  Toutes les catégories d'animaux
                 </option>
                 {animalCategoryList &&
                   animalCategoryList.map((element) => (
