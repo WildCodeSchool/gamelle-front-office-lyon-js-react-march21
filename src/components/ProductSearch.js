@@ -87,7 +87,8 @@ export default function ProductSearch() {
 
           <div className="mb-3">
             <label htmlFor="brandName">
-              Marque <span className="text-danger">*</span> :
+              Marque <span className="text-danger text-xs">(obligatoire)</span>{' '}
+              :
               <select
                 {...register('brand', { required: true })}
                 value={currentBrand}
@@ -158,7 +159,7 @@ export default function ProductSearch() {
           </div>
           <div className="mb-3">
             <label htmlFor="searchedWords">
-              Nom :
+              Affinez votre recherche :
               <input
                 {...register('searchedWords')}
                 type="text"
@@ -167,7 +168,7 @@ export default function ProductSearch() {
                   setCurrentSearchedText(e.target.value);
                 }}
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Vous pouvez saisir ici le nom de l'aliment"
+                placeholder="Mots-clés"
               />
             </label>
           </div>

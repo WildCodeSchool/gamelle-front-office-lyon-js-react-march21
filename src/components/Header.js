@@ -29,6 +29,10 @@ export default function Header() {
     setBurger(!burger);
   };
 
+  const closeBurger = () => {
+    setBurger(false);
+  };
+
   return (
     <>
       <header className="w-full h-auto flex bg-primary">
@@ -55,6 +59,7 @@ export default function Header() {
                   className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                   exact
                   to="/"
+                  onClick={closeBurger}
                 >
                   {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
                 </NavLink>
@@ -65,6 +70,7 @@ export default function Header() {
                   <NavLink
                     to="/history"
                     className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                    onClick={closeBurger}
                   >
                     {burger ? (
                       'Historique'
@@ -81,6 +87,7 @@ export default function Header() {
                     className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                     exact
                     to="/favoris"
+                    onClick={closeBurger}
                   >
                     {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
                   </NavLink>
@@ -93,6 +100,7 @@ export default function Header() {
                       exact
                       to="/dashboard"
                       className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                      onClick={closeBurger}
                     >
                       {burger ? (
                         'Statistiques'
@@ -108,6 +116,7 @@ export default function Header() {
                     exact
                     to="/users"
                     className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                    onClick={closeBurger}
                   >
                     {burger ? (
                       'Utilisateurs'
@@ -124,6 +133,7 @@ export default function Header() {
                       className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                       exact
                       to="/profile"
+                      onClick={closeBurger}
                     >
                       {burger ? (
                         'Profil'
@@ -141,6 +151,7 @@ export default function Header() {
                       exact
                       to="/sign-up"
                       className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                      onClick={closeBurger}
                     >
                       S'inscrire
                     </NavLink>
@@ -149,7 +160,9 @@ export default function Header() {
                     <div
                       role="none"
                       className="btn px-3 py-2 bg-primary text-white font-bold uppercase text-sm lg:text-md cursor-pointer hover:opacity-75 "
-                      onClick={() => setShowModal(true)}
+                      onClick={() => {
+                        setShowModal(true);
+                      }}
                     >
                       S'identifier
                     </div>
@@ -158,7 +171,7 @@ export default function Header() {
                 </>
               )}
               {isLoggedIn && (
-                <li>
+                <li onClick={closeBurger} aria-hidden="true">
                   <Logout />
                 </li>
               )}
