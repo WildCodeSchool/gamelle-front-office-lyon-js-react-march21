@@ -12,7 +12,13 @@ export default function SwipToTheLeft() {
   const { drawer, toggleDrawer, leaveDrawer } = useContext(DrawerContext);
 
   const list = (anchor) => (
-    <div role="none" onClick={(toggleDrawer(anchor, false), leaveDrawer)}>
+    <div
+      role="none"
+      onClick={(e) => {
+        toggleDrawer(anchor, false);
+        leaveDrawer(e);
+      }}
+    >
       <ProductSearch />
     </div>
   );

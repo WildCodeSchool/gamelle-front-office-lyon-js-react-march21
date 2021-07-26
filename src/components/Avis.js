@@ -70,8 +70,8 @@ export default function Avis() {
   };
 
   return (
-    <div className="flex flex-wrap pt-5 px-3 md:flex md:flex-wrap md:px-56 md:pt-10 lg:flex lg:flex-wrap lg:px-56 lg:pt-10 xl:flex xl:flex-wrap xl:px-56 xl:pt-10">
-      <div className=" flex flex-col md:flex md:w-full md:flex-row md:justify-between lg:flex lg:flex-row lg:w-full lg:justify-between xl:flex xl:flex-row xl:w-full xl:justify-between">
+    <div className="flex flex-wrap pt-5 px-3 md:flex md:flex-wrap md:pt-10 lg:flex lg:flex-wrap lg:px-56 lg:pt-10 xl:flex xl:flex-wrap xl:px-56 xl:pt-10">
+      <div className=" flex flex-col  md:flex md:justify-center md:items-center md:w-full lg:flex lg:flex-row lg:w-full lg:justify-between xl:flex xl:flex-row xl:w-full xl:justify-between">
         <div className="h-40 flex justify-center md:h-60 lg:h-96 xl:h-96">
           <img
             src={foodDetails.image_aws_url}
@@ -79,7 +79,7 @@ export default function Avis() {
             className="h-full rounded border-2 border-black"
           />
         </div>
-        <div className="flex font-bold mt-3 text-sm md:flex md:items-center md:text-md lg:flex lg:items-center lg:text-lg  xl:flex xl:items-center xl:text-lg ">
+        <div className="flex font-bold mt-3 text-sm md:flex md:items-center md:text-md md:p-5 md:text-center lg:flex lg:items-center lg:text-lg  xl:flex xl:items-center xl:text-lg ">
           <h5>{foodDetails.name}</h5>
         </div>
         <div className="flex flex-col mt-3 justify-center items-center text-xs md:items-center md:justify-center md:text-md lg:items-center lg:justify-center lg:text-lg">

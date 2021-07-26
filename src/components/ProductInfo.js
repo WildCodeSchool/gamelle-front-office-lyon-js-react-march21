@@ -14,12 +14,18 @@ import API from '../APIClient';
 import { FoodContext } from '../contexts/FoodContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import DetailsRating from './DetailsRating';
+import ModalSignIn from './modalSignIn';
 
 export default function ProductInfo() {
   const { foodDetails, setFoodDetails } = useContext(FoodContext);
   const { id } = qs.parse(window.location.search);
-  const { profile, toggleFoodInFavorites, favoritesIdsList, setShowModal } =
-    useContext(CurrentUserContext);
+  const {
+    profile,
+    toggleFoodInFavorites,
+    favoritesIdsList,
+    setShowModal,
+    showModal,
+  } = useContext(CurrentUserContext);
   const [statsInfos, setStatsInfos] = useState(null);
   const { addToast } = useToasts();
 
@@ -125,7 +131,7 @@ export default function ProductInfo() {
       {foodDetails && (
         <>
           <div className="flex flex-col md:p-10">
-            <div className="relative md:flex md:flex-col md:shadow-lg bg-white">
+            <div className="relative md:flex md:flex-col bg-white">
               <div className="absolute right-0 mr-5 mt-3">
                 <button
                   type="button"
@@ -137,7 +143,7 @@ export default function ProductInfo() {
                   }
                 />
               </div>
-              <div className="flex flex-col md:flex-col lg:flex-row items-center border border-grey lg:p-10">
+              <div className="flex flex-col md:flex-col lg:flex-row items-center lg:p-10">
                 <div key={foodDetails.id} className="flex-1 mt-14 md:m-5">
                   <img
                     className="h-full w-60 lg:max-w-xs rounded-xl object-cover "
@@ -200,8 +206,8 @@ export default function ProductInfo() {
                   </div>
                 </div>
               </div>
-              <div className="container">
-                <p className="text-xm h-auto border border-grey p-5">
+              <div className="border border-grey ">
+                <p className="text-xm h-auto p-5">
                   <span className="text-xl">Composition : </span>
                   {foodDetails.ingredients_text ? (
                     foodDetails.ingredients_text
@@ -209,10 +215,10 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <h1 className="font-bold text-2xl px-10 py-6 border border-grey bg-gray-200">
+                <h1 className="font-bold text-2xl px-10 py-6 bg-gray-200">
                   Constituants analytiques (en %)
                 </h1>
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Humidité :{' '}
                   {foodDetails.humidity ? (
                     foodDetails.humidity
@@ -220,7 +226,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Protéines :{' '}
                   {foodDetails.proteins_100g ? (
                     foodDetails.energy_100g
@@ -228,7 +234,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Mat. grasses brutes :{' '}
                   {foodDetails.fat_100g ? (
                     foodDetails.fat_100g
@@ -236,7 +242,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Mat. minérales (ou cendres) :{' '}
                   {foodDetails.cendars_100g ? (
                     foodDetails.cendars_100g
@@ -244,7 +250,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Cellulose brute :{' '}
                   {foodDetails.cellulose_100g ? (
                     foodDetails.cellulose_100g
@@ -252,7 +258,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <div className="border border-grey px-5 py-1">
+                <div className="px-5 py-1">
                   <h1 className="text-2xl">Calcium et Phosphore :</h1>
                   <ul className="bg-grey m-5">
                     <li className="text-xm">
@@ -284,7 +290,7 @@ export default function ProductInfo() {
                     </li>
                   </ul>
                 </div>
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Sodium :{' '}
                   {foodDetails.sodium_100g ? (
                     foodDetails.sodium_100g
@@ -292,7 +298,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Potassium :{' '}
                   {foodDetails.potassium_100g ? (
                     foodDetails.potassium_100g
@@ -300,7 +306,7 @@ export default function ProductInfo() {
                     <span className="italic text-xs"> Inconnu</span>
                   )}
                 </p>
-                <div className="border border-grey px-5 py-1">
+                <div className="px-5 py-1">
                   <h1 className="text-2xl">Omega :</h1>
                   <ul className=" bg-grey m-5">
                     <li className="text-xm">
@@ -322,13 +328,13 @@ export default function ProductInfo() {
                   </ul>
                 </div>
 
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Vitamines (en UI/Kg) :{' '}
                 </p>
-                <h1 className="font-bold text-2xl px-10 py-6 border border-grey bg-gray-200">
+                <h1 className="font-bold text-2xl px-10 py-6 bg-gray-200">
                   Additifs
                 </h1>
-                <p className="text-xm md:text-xl border border-grey px-5 py-1">
+                <p className="text-xm md:text-xl px-5 py-1">
                   Vitamines (en UI/Kg) :{' '}
                 </p>
               </div>
@@ -336,6 +342,7 @@ export default function ProductInfo() {
           </div>
         </>
       )}
+      {showModal && <ModalSignIn />}
     </>
   );
 }
