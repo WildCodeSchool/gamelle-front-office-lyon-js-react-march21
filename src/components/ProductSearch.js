@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
+import history from '../history';
 import API from '../APIClient';
 import { ResultsContext } from '../contexts/ResultsContext';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
@@ -65,6 +65,7 @@ export default function ProductSearch() {
           searchText: form.searchedWords,
           requestSentAt: new Date(),
         });
+        history.push('/result-product');
       })
       .catch((err) => console.log(err));
   };

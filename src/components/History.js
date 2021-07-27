@@ -98,7 +98,7 @@ export default function History() {
         <h1 className="text-center text-3xl font-extrabold">Mon historique</h1>
       </div>
       <br />
-      <div className="w-11/12">
+      <div className="w-9/12">
         <ul>
           {historyList.map((hist) => {
             const isFavorite = !!favoritesIdsList[hist.foodId];
