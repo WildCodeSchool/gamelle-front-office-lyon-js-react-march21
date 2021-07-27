@@ -66,35 +66,45 @@ export default function SignIn() {
         <div className="mb-5">
           <label htmlFor="password">
             Mot de passe
-            <input
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              autoComplete="current-password"
-              required
-              className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="********"
-              {...register('password')}
-            />
+            <div className="flex justify-end">
+              <FontAwesomeIcon
+                className="absolute cursor-pointer flex z-50 mt-3 mr-3"
+                icon={showPassword ? faEye : faEyeSlash}
+                onClick={() => setShowPassword(!showPassword)}
+              />
+              <input
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                autoComplete="current-password"
+                required
+                className="rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="********"
+                {...register('password')}
+              />
+            </div>
           </label>
-          <FontAwesomeIcon
-            className="cursor-pointer flex mt-3"
-            icon={showPassword ? faEye : faEyeSlash}
-            onClick={() => setShowPassword(!showPassword)}
-          />
         </div>
-        <NavLink to="/forgot-password" onClick={() => setShowModal(false)}>
-          Mot de passe oublié ?
-        </NavLink>
-        <br />
-
-        <label htmlFor="stayConnected">
+        <div>
+          <h1 className="flex justify-end cursor-default">
+            <NavLink
+              to="/forgot-password"
+              onClick={() => setShowModal(false)}
+              className=" hover:underline cursor-pointer hover:text-info"
+            >
+              Mot de passe oublié ?
+            </NavLink>
+          </h1>
+        </div>
+        <label htmlFor="stayConnected" className="flex mb-1.5">
           Maintenir la connexion
-          <input
-            name="stayConnected"
-            className="mr-3"
-            type="checkbox"
-            {...register('stayConnected')}
-          />
+          <div className="mt-0.5 ml-2">
+            <input
+              name="stayConnected"
+              className="mb-3 cursor-pointer"
+              type="checkbox"
+              {...register('stayConnected')}
+            />
+          </div>
         </label>
         <div>
           <button

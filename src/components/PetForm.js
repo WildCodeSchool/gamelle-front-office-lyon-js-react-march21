@@ -353,7 +353,7 @@ export default function PetForm() {
                     <img
                       className="p-1 w-full h-60 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 "
                       src={fav.Favorites.Foods.image}
-                      alt="imageproduit"
+                      alt={fav.Favorites.Foods.name}
                     />
                     <div>
                       <p className="pt-2 text-base w-full text-center font-bold">
@@ -392,7 +392,7 @@ export default function PetForm() {
                       <img
                         className="p-1 w-full h-60 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 "
                         src={fav.Foods.image}
-                        alt="imageproduit"
+                        alt={fav.Foods.name}
                       />
                       <div>
                         <p className="pt-2 text-base w-full text-center font-bold">

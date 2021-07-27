@@ -76,7 +76,7 @@ export default function Profile() {
                 <img
                   className="h-full w-full object-cover"
                   src="https://picsum.photos/1000/1000?random"
-                  alt="random"
+                  alt="random from https://picsum.photos"
                 />
               </div>
               <div className="bg-white flex flex-col items-center -mt-24">
@@ -185,7 +185,7 @@ export default function Profile() {
                     <div className="flex flex-col md:flex-row items-center ">
                       <div className="m-2">
                         <img
-                          className="h-20 w-20 md:w-32 md:h-32 lg:h-40 lg:w-40 md:max-w-sm rounded-full"
+                          className="h-20 w-20 md:w-32 md:h-32 lg:h-40 lg:w-40 md:max-w-sm rounded-full object-cover"
                           src={
                             pet.avatarUrl ||
                             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW-vlzxatqDVDAQu4jpEfVlxcT_HXgembwISZjeZMdt2mm2fJv'
