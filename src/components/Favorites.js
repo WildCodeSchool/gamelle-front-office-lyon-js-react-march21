@@ -96,7 +96,7 @@ export default function Favorites() {
                     <img
                       className="p-1 w-full h-72 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 "
                       src={fav.Foods.image}
-                      alt="imageproduit"
+                      alt={fav.food.name}
                     />
                     <div className="flex flex-col w-full">
                       <p className="text-base text-center font-bold">

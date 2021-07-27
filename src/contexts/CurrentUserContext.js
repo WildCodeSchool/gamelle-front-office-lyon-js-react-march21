@@ -41,6 +41,7 @@ export default function CurrentUserContextProvider({ children }) {
         appearance: 'success',
       });
       getProfile();
+      setShowModal(false);
     } catch (err) {
       if (err.response && err.response.status === 401) {
         addToast('Email ou mot de passe incorrect !', {

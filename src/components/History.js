@@ -118,7 +118,7 @@ export default function History() {
                     <img
                       className="p-1 w-full h-72 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40"
                       src={hist.Foods.image}
-                      alt="imageproduit"
+                      alt={hist.Foods.name}
                     />
 
                     <p className="text-base w-full text-center font-bold">
