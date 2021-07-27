@@ -148,7 +148,7 @@ export default function ProductInfo() {
                   <img
                     className="h-full w-60 lg:max-w-xs rounded-xl object-cover "
                     src={foodDetails.image_aws_url}
-                    alt={foodDetails.image_aws_url}
+                    alt={foodDetails.name}
                   />
                 </div>
 
