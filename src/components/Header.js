@@ -19,138 +19,166 @@ import Logout from './Logout';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Header() {
-  const { isLoggedIn = true, profile } = useContext(CurrentUserContext);
+  const {
+    isLoggedIn = true,
+    profile,
+    setShowModal,
+  } = useContext(CurrentUserContext);
   const [burger, setBurger] = useState(false);
   const handleBurgerToggle = () => {
     setBurger(!burger);
   };
 
+  const closeBurger = () => {
+    setBurger(false);
+  };
+
   return (
-    <header className="w-full h-auto flex bg-primary">
-      <div className="container px-4 justify-between items-start align-center flex flex-wrap">
-        <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start xl:justify-start 2xl:justify-start">
-          <div className="flex items-center h-full">
+    <>
+      <header className="w-full h-auto flex bg-primary">
+        <div className="w-full px-4 justify-between items-center flex flex-wrap">
+          <div className="my-4 w-full relative flex justify-between lg:w-auto lg:static lg:block ">
             <NavLink exact path="/" to="/">
-              <img
-                src={Logo}
-                alt="logo"
-                className="w-28 flex mt-3 mb-3 items-center"
-              />
+              <img src={Logo} alt="logo" className="w-28" />
             </NavLink>
+            <button id="burger-btn" type="button" onClick={handleBurgerToggle}>
+              <FontAwesomeIcon
+                className="flex text-white"
+                icon={burger ? faTimes : faBars}
+              />
+            </button>
           </div>
-          <button type="button" onClick={handleBurgerToggle}>
-            <FontAwesomeIcon
-              className="lg:hidden flex"
-              icon={burger ? faTimes : faBars}
-            />
-          </button>
-        </div>
-        <div
-          className={`lg:flex flex-grow items-center${
-            burger ? ' flex' : ' hidden'
-          }`}
-        >
-          <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end mt-7">
-            <li className="nav-item">
-              <NavLink
-                className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
-                exact
-                to="/"
-              >
-                {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
-              </NavLink>
-            </li>
-
-            {isLoggedIn && (
-              <li className="nav-item">
-                <NavLink
-                  to="/history"
-                  className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
-                >
-                  {burger ? 'Historique' : <FontAwesomeIcon icon={faHistory} />}
-                </NavLink>
-              </li>
-            )}
-
-            {isLoggedIn && (
+          <div
+            className={`lg:flex flex-grow items-center ${
+              burger ? ' flex' : ' hidden'
+            }`}
+          >
+            <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end">
               <li className="nav-item">
                 <NavLink
                   className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                   exact
-                  to="/favoris"
+                  to="/"
+                  onClick={closeBurger}
                 >
-                  {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
+                  {burger ? 'Rechercher' : <FontAwesomeIcon icon={faSearch} />}
                 </NavLink>
               </li>
-            )}
-            {isLoggedIn &&
-              (profile.role === 'admin' || profile.role === 'superAdmin') && (
-                <li>
+
+              {isLoggedIn && (
+                <li className="nav-item">
                   <NavLink
-                    exact
-                    to="/dashboard"
+                    to="/history"
                     className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                    onClick={closeBurger}
                   >
                     {burger ? (
-                      'Statistiques'
+                      'Historique'
                     ) : (
-                      <FontAwesomeIcon icon={faChartLine} />
+                      <FontAwesomeIcon icon={faHistory} />
                     )}
                   </NavLink>
                 </li>
               )}
-            {isLoggedIn && profile.role === 'superAdmin' && (
-              <li>
-                <NavLink
-                  exact
-                  to="/users"
-                  className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
-                >
-                  {burger ? 'Utilisateurs' : <FontAwesomeIcon icon={faUsers} />}
-                </NavLink>
-              </li>
-            )}
-            {isLoggedIn && (
-              <>
-                <li>
+
+              {isLoggedIn && (
+                <li className="nav-item">
                   <NavLink
                     className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
                     exact
-                    to="/profile"
+                    to="/favoris"
+                    onClick={closeBurger}
+                  >
+                    {burger ? 'Favoris' : <FontAwesomeIcon icon={faHeart} />}
+                  </NavLink>
+                </li>
+              )}
+              {isLoggedIn &&
+                (profile.role === 'admin' || profile.role === 'superAdmin') && (
+                  <li>
+                    <NavLink
+                      exact
+                      to="/dashboard"
+                      className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                      onClick={closeBurger}
+                    >
+                      {burger ? (
+                        'Statistiques'
+                      ) : (
+                        <FontAwesomeIcon icon={faChartLine} />
+                      )}
+                    </NavLink>
+                  </li>
+                )}
+              {isLoggedIn && profile.role === 'superAdmin' && (
+                <li>
+                  <NavLink
+                    exact
+                    to="/users"
+                    className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                    onClick={closeBurger}
                   >
                     {burger ? (
-                      'Profil'
+                      'Utilisateurs'
                     ) : (
-                      <FontAwesomeIcon icon={faUserCircle} />
+                      <FontAwesomeIcon icon={faUsers} />
                     )}
                   </NavLink>
                 </li>
-              </>
-            )}
-            {!isLoggedIn && (
-              <>
-                <li>
-                  <NavLink
-                    exact
-                    to="/sign-up"
-                    className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
-                  >
-                    S'inscrire
-                  </NavLink>
+              )}
+              {isLoggedIn && (
+                <>
+                  <li>
+                    <NavLink
+                      className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                      exact
+                      to="/profile"
+                      onClick={closeBurger}
+                    >
+                      {burger ? (
+                        'Profil'
+                      ) : (
+                        <FontAwesomeIcon icon={faUserCircle} />
+                      )}
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              {!isLoggedIn && (
+                <>
+                  <li>
+                    <NavLink
+                      exact
+                      to="/sign-up"
+                      className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"
+                      onClick={closeBurger}
+                    >
+                      S'inscrire
+                    </NavLink>
+                  </li>
+                  <li>
+                    <div
+                      role="none"
+                      className="btn px-3 py-2 bg-primary text-white font-bold uppercase text-sm lg:text-md cursor-pointer hover:opacity-75 "
+                      onClick={() => {
+                        setShowModal(true);
+                      }}
+                    >
+                      S'identifier
+                    </div>
+                    <ModalSignIn />
+                  </li>
+                </>
+              )}
+              {isLoggedIn && (
+                <li onClick={closeBurger} aria-hidden="true">
+                  <Logout />
                 </li>
-                <li>
-                  <ModalSignIn />
-                </li>
-              </>
-            )}
-            {isLoggedIn && (
-              <li>
-                <Logout />
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

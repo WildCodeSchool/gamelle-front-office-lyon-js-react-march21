@@ -26,7 +26,7 @@ export default function SignIn() {
             className="flex items-center cursor-pointer mx-2 mt-1"
             icon={faGoogle}
           />
-          <p className="mr-2">Connectez vous avec votre compte Google</p>
+          <p className="mr-2">Continuer avec Google</p>
         </a>
       </div>
       <div className="flex justify-center mt-4">
@@ -38,7 +38,7 @@ export default function SignIn() {
             className="flex items-center cursor-pointer mx-2 mt-1"
             icon={faFacebook}
           />
-          <p className="mr-2">Connectez vous avec votre compte Facebook</p>
+          <p className="mr-2">Continuer avec Facebook</p>
         </a>
       </div>
       <form
