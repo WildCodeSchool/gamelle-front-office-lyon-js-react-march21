@@ -12,6 +12,7 @@ import Dashboard from '../screens/DashboardPage';
 import ProductInfoPage from '../screens/ProductInfoPage';
 import UsersManagementPage from '../screens/UsersManagementPage';
 import RatingPage from '../screens/RatingPage';
+import HomePage from '../screens/HomePage';
 
 export default function Main() {
   const location = useLocation();
@@ -19,7 +20,8 @@ export default function Main() {
   return (
     <main>
       <Switch location={background || location}>
-        <Route exact path="/" component={SearchPage} />
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/result-product" component={SearchPage} />
         <Route exact path="/profile" component={ProfilePage} />
         <Route exact path="/history" component={HistoryPage} />
         <Route exact path="/sign-up" component={SignUp} />

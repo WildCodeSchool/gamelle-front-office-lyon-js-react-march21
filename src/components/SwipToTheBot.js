@@ -21,7 +21,7 @@ export default function SwipToTheBot() {
     </div>
   );
   return (
-    <div className="shadow-xl h-96">
+    <div className="shadow-xl ">
       {['bottom'].map((anchor) => (
         <div key={anchor} className="w-screen flex fixed justify-end z-40">
           <div className="w-full">

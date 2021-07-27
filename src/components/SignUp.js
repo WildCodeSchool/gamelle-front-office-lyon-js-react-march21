@@ -108,21 +108,28 @@ export default function SignUp() {
           <div className="mb-3">
             <label htmlFor="password">
               Mot de passe<span style={{ color: 'red' }}>*</span>
-              <input
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                required
-                placeholder="********"
-                {...register('password', {
-                  required: 'this is a required',
-                  minLength: {
-                    value: 8,
-                  },
-                })}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="flex justify-end">
+                <FontAwesomeIcon
+                  className="absolute cursor-pointer flex z-50 mt-3 -ml-3"
+                  icon={showPassword ? faEye : faEyeSlash}
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+                <input
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border focus:outline-none focus:z-10 sm:text-sm"
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  required
+                  placeholder="********"
+                  {...register('password', {
+                    required: 'this is a required',
+                    minLength: {
+                      value: 8,
+                    },
+                  })}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
             </label>
           </div>
           <div className="mb-3">
@@ -140,11 +147,6 @@ export default function SignUp() {
               />
             </label>
           </div>
-          <FontAwesomeIcon
-            className="cursor-pointer"
-            icon={showPassword ? faEye : faEyeSlash}
-            onClick={() => setShowPassword(!showPassword)}
-          />
           <div>
             <PasswordStrengthBar
               password={password}
