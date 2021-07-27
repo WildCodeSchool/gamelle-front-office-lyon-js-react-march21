@@ -32,10 +32,10 @@ export default function ResultsProducts() {
   ) : resultsList.length !== 0 ? (
     <div className="flex flex-col justify-center items-center w-full">
       <h1 className="m-6">{`Les ${resultsList.length} résultats de votre recherche`}</h1>
-      <div className="w-11/12">
+      <div className="w-9/12 md:w-8/12">
         <ul>
           {resultsList.map((result) => (
-            <li key={result.id} className="mb-6 rounded-lg w-full">
+            <li key={result.id} className="mb-6 rounded-lg w-full shadow-xl">
               <NavLink
                 to={{
                   pathname: `/product-info-page/?id=${result.id}`,
@@ -43,7 +43,7 @@ export default function ResultsProducts() {
                 }}
               >
                 <div
-                  className="p-5 bg-white rounded-lg w-full flex flex-col md:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform lg:hover:scale-105"
+                  className="py-7 p-5 bg-white rounded-lg w-full flex flex-col md:flex-row items-center md:transform transition duration-500 hover:scale-95 lg:transform lg:hover:scale-105"
                   onClick={handleToggleModal}
                   role="presentation"
                 >
@@ -53,7 +53,7 @@ export default function ResultsProducts() {
                     className="p-1 w-full h-72 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 " // Taille d'image à redéfinir !!
                   />
 
-                  <p className="text-base w-full text-center font-bold">
+                  <p className="text-base w-full text-center font-bold mt-3">
                     {result.name}
                   </p>
                   <br />

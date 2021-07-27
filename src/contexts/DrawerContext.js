@@ -4,7 +4,7 @@ export const DrawerContext = createContext(null);
 
 export default function DrawerContextProvider({ children }) {
   const [drawer, setDrawer] = useState({
-    left: false,
+    left: true,
     right: false,
   });
 

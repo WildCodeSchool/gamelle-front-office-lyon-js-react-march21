@@ -14,7 +14,7 @@ export default function TotalRating({ foodId }) {
   }, []);
 
   return (
-    <>
+    <div className="py-3">
       {rating && rating.count >= 10 ? (
         <div className="flex flex-col items-center">
           <h3 className="text-2xl">{rating.ratingMean} / 5</h3>
@@ -23,6 +23,7 @@ export default function TotalRating({ foodId }) {
             value={rating.ratingMean}
             precision={0.5}
             readOnly
+            size="large"
             icon={<PetsIcon fontSize="inherit" />}
           />
           <p className="flex justify-center text-xs italic">
@@ -35,6 +36,7 @@ export default function TotalRating({ foodId }) {
             name="ratingNull"
             value={0}
             readOnly
+            size="large"
             icon={<PetsIcon fontSize="inherit" />}
           />
           <p className="text-center text-xs italic">
@@ -42,6 +44,6 @@ export default function TotalRating({ foodId }) {
           </p>
         </div>
       )}
-    </>
+    </div>
   );
 }
