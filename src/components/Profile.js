@@ -76,7 +76,7 @@ export default function Profile() {
                 <img
                   className="h-full w-full object-cover"
                   src="https://picsum.photos/1000/1000?random"
-                  alt="random from piscum"
+                  alt="random from https://picsum.photos"
                 />
               </div>
               <div className="bg-white flex flex-col items-center -mt-24">
