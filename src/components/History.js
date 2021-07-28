@@ -98,7 +98,7 @@ export default function History() {
         <h1 className="text-center text-3xl font-extrabold">Mon historique</h1>
       </div>
       <br />
-      <div className="w-9/12">
+      <div className="w-10/12 md:w-9/12">
         <ul>
           {historyList.map((hist) => {
             const isFavorite = !!favoritesIdsList[hist.foodId];
@@ -124,7 +124,7 @@ export default function History() {
                     <p className="text-base w-full text-center font-bold">
                       {hist.Foods.name}
                     </p>
-                    <div className="absolute right-3 top-3">
+                    <div className="absolute right-1 top-1 md:right-3 md:top-3">
                       <button
                         type="button"
                         aria-label="Favorite"

@@ -13,7 +13,7 @@ export default function ModalSignIn() {
             className="bg-opaque justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
             onClick={() => setShowModal(false)}
           >
-            <div className="w-1/3 relative my-6">
+            <div className="w-11/12 md:w-1/3 relative my-6">
               <div
                 role="none"
                 className=" rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none"

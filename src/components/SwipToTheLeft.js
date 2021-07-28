@@ -31,7 +31,10 @@ export default function SwipToTheLeft() {
             onClick={toggleDrawer(anchor, true)}
             title="Cliquer ici pour ouvrir la barre de recherche"
           >
-            <FontAwesomeIcon icon={faSearch} className="animate-wiggle z-50" />
+            <FontAwesomeIcon
+              icon={faSearch}
+              className="animate-wiggle z-50 text-xl relative -top-85px"
+            />
           </Button>
           <SwipeableDrawer
             anchor={anchor}
