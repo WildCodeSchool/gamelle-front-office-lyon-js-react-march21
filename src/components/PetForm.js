@@ -301,7 +301,7 @@ export default function PetForm() {
               type="submit"
               className="text-center font-bold rounded p-3 m-5 bg-white text-primary hover:bg-grey"
             >
-              {URLId ? 'Modifier cet animal' : 'Ajouter un animal'}
+              {URLId ? 'Sauvegarder' : 'Ajouter un animal'}
             </button>
           </div>
           {URLId ? (
