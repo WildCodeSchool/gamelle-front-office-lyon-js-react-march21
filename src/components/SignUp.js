@@ -49,7 +49,7 @@ export default function SignUp() {
         </div>
         <form
           onSubmit={handleSubmit(confirm)}
-          className="mt-8 space-y-6"
+          className="mt-8"
           action="send"
           method="POST"
         >
@@ -67,7 +67,7 @@ export default function SignUp() {
                 />
               </label>
             </div>
-            <div className="w-1/2 ml-1">
+            <div className="w-1/2 ml-1 mb-3">
               <label htmlFor="lastname" className="dark:text-white">
                 Nom<span style={{ color: 'red' }}>*</span>
                 <input
