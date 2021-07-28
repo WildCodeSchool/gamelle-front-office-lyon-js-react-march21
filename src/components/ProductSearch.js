@@ -122,7 +122,7 @@ export default function ProductSearch() {
                   setCurrentFoodTypeId(e.target.value);
                 }}
               >
-                <option key="title" value="" selected>
+                <option key="title" value="">
                   Tous les types d'aliments
                 </option>
                 {foodTypeList &&
@@ -146,7 +146,7 @@ export default function ProductSearch() {
                   setCurrentAnimalCategoryId(e.target.value);
                 }}
               >
-                <option key="title" value="" selected>
+                <option key="title" value="">
                   Toutes les catégories d'animaux
                 </option>
                 {animalCategoryList &&
