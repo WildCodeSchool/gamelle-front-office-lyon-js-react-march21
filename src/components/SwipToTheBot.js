@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import ProductSearch from './ProductSearch';
 import { DrawerContext } from '../contexts/DrawerContext';
+import './SwipToTheBot.css';
 
 export default function SwipToTheBot() {
   const { drawer, toggleDrawer, leaveDrawer } = useContext(DrawerContext);
@@ -20,11 +21,14 @@ export default function SwipToTheBot() {
     </div>
   );
   return (
-    <>
+    <div className="shadow-xl ">
       {['bottom'].map((anchor) => (
         <div key={anchor} className="w-screen flex fixed justify-end z-40">
           <div className="w-full">
-            <section className="md:hidden fixed inset-x-0 bottom-0 z-10 bg-white shadow h-10 flex justify-center items-center">
+            <section
+              id="searchBox"
+              className="md:hidden block fixed inset-x-0 bottom-0 z-10 bg-white shadow-2xl h-16 flex justify-center items-center"
+            >
               <div className="flex flex-col items-center">
                 <FontAwesomeIcon
                   icon={faSearch}
@@ -44,6 +48,6 @@ export default function SwipToTheBot() {
           </SwipeableDrawer>
         </div>
       ))}
-    </>
+    </div>
   );
 }

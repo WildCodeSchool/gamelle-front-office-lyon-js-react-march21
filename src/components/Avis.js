@@ -70,19 +70,19 @@ export default function Avis() {
   };
 
   return (
-    <div className="flex flex-wrap pt-5 px-3 md:flex md:flex-wrap md:pt-10 lg:flex lg:flex-wrap lg:px-56 lg:pt-10 xl:flex xl:flex-wrap xl:px-56 xl:pt-10">
-      <div className=" flex flex-col  md:flex md:justify-center md:items-center md:w-full lg:flex lg:flex-row lg:w-full lg:justify-between xl:flex xl:flex-row xl:w-full xl:justify-between">
-        <div className="h-40 flex justify-center md:h-60 lg:h-96 xl:h-96">
+    <div className="flex flex-wrap  justify-center items-center pt-5 px-5 md:flex md:flex-wrap md:pt-10 lg:flex lg:flex-wrap lg:px-56 lg:pt-10 xl:flex xl:flex-wrap xl:px-56 xl:pt-10">
+      <div className="flex flex-col justify-center items-center md:w-full lg:flex lg:flex-row lg:w-full lg:justify-between xl:flex xl:flex-row xl:w-full xl:justify-between">
+        <div className="py-3  md:max-h-60 lg:max-h-96 md:py-0">
           <img
             src={foodDetails.image_aws_url}
             alt={foodDetails.name}
-            className="h-full rounded border-2 border-black"
+            className=" rounded shadow-xl max-w-lg max-h-96"
           />
         </div>
-        <div className="flex font-bold mt-3 text-sm md:flex md:items-center md:text-md md:p-5 md:text-center lg:flex lg:items-center lg:text-lg  xl:flex xl:items-center xl:text-lg ">
+        <div className="flex font-bold mt-3 text-center md:flex md:items-center text-md md:p-5 md:text-center lg:flex lg:items-center lg:text-lg  xl:flex xl:items-center xl:text-lg ">
           <h5>{foodDetails.name}</h5>
         </div>
-        <div className="flex flex-col mt-3 justify-center items-center text-xs md:items-center md:justify-center md:text-md lg:items-center lg:justify-center lg:text-lg">
+        <div className="flex flex-col mt-3 justify-center items-center  md:items-center md:justify-center text-md lg:items-center lg:justify-center lg:text-lg">
           <div className="mb-0.5 font-bold">
             <h1>Note globale</h1>
           </div>
@@ -95,10 +95,10 @@ export default function Avis() {
         action="send"
         method="POST"
       >
-        <div className="flex flex-col text-xs px-3 md:flex md-flex-row md:justify-between md:mt-5 md:text-md lg:flex lg:flex-row lg:justify-between lg:mt-10 lg:text-lg xl:flex xl:flex-row xl:justify-between xl:mt-10 xl:text-lg ">
+        <div className="flex flex-col px-3 md:flex md-flex-row md:justify-between md:mt-5 text-md lg:flex lg:flex-row lg:justify-between lg:mt-10 lg:text-lg xl:flex xl:flex-row xl:justify-between xl:mt-10 xl:text-lg ">
           <div className="pl-3 flex  flex-col mt-3">
             <h1 className="font-bold mb-3">Rédiger un avis</h1>
-            <ul className="list-disc">
+            <ul className="list-disc pl-3">
               <li>Vous ne pouvez donner qu’un seul avis par produit</li>
               <li>
                 Si vous laissez un second avis, votre avis précédent sera
@@ -108,9 +108,8 @@ export default function Avis() {
                 Assurez-vous d’avoir personnellement testé ou utilisé le produit
               </li>
             </ul>
-            <p className="text-opaque">Merci pour votre contribution !</p>
           </div>
-          <div className="flex flex-col mt-3 md:flex md:flex-col lg:flex lg:flex-col xl:flex xl:flex-col">
+          <div className="flex flex-col mt-5 md:flex md:flex-col lg:flex lg:flex-col xl:flex xl:flex-col">
             <div className="mb-3 flex">
               <div className="font-bold w-3/4 pr-3">
                 <h4>Appétance </h4>
@@ -152,14 +151,9 @@ export default function Avis() {
                 icon={<PetsIcon fontSize="inherit" />}
               />
             </div>
-            <div>
-              <h1 className="text-xs italic">
-                Votre évaluation du produit (5 = meilleure note){' '}
-              </h1>
-            </div>
           </div>
         </div>
-        <div className="flex mt-10">
+        <div className="flex mt-10 px-3">
           <label htmlFor="reviews" className="flex w-full flex-col">
             <div className="flex mb-3">Votre commentaire sur le produit</div>
 

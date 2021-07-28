@@ -77,7 +77,7 @@ export default function Favorites() {
         <h1 className="text-center text-3xl font-extrabold ">Mes favoris</h1>
       </div>
       <br />
-      <div className="w-11/12">
+      <div className="w-9/12">
         <ul>
           {favoritesList.map((fav) => {
             return (
@@ -96,7 +96,7 @@ export default function Favorites() {
                     <img
                       className="p-1 w-full h-72 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 "
                       src={fav.Foods.image}
-                      alt="imageproduit"
+                      alt={fav.Foods.name}
                     />
                     <div className="flex flex-col w-full">
                       <p className="text-base text-center font-bold">
@@ -147,9 +147,9 @@ export default function Favorites() {
       ) : null}
     </div>
   ) : (
-    <div>
+    <div className="text-center p-10 font-bold">
       {profile
-        ? 'Désolé, votre liste de favoris est vide'
+        ? "Votre n'avez pas de favoris pour le moment"
         : 'Vous devez être connecté pour accéder à votre liste de favoris'}
     </div>
   );
