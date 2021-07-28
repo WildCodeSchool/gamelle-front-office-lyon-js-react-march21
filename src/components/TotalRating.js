@@ -14,7 +14,7 @@ export default function TotalRating({ foodId }) {
   }, []);
 
   return (
-    <div className="py-3">
+    <div className="py-3 z-0">
       {rating && rating.count >= 10 ? (
         <div className="flex flex-col items-center">
           <h3 className="text-2xl">{rating.ratingMean} / 5</h3>

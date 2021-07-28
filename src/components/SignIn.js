@@ -20,11 +20,11 @@ export default function SignIn() {
       </div>
       <div className="flex justify-center mt-4">
         <a
-          className="border flex justify-center rounded-lg"
+          className="border flex justify-center rounded-lg hover:bg-gray-200 p-3"
           href={`${process.env.REACT_APP_API_BASE_URL}/auth/google`}
         >
           <img
-            className="w-5 h-5 flex items-center cursor-pointer mx-2 mt-0.5 "
+            className="w-4 h-4 flex items-center cursor-pointer mx-2 mt-0.5 "
             src={google}
             alt="G"
           />
@@ -33,7 +33,7 @@ export default function SignIn() {
       </div>
       <div className="flex justify-center mt-4">
         <a
-          className="border flex justify-center rounded-lg bg-facebookdarkblue"
+          className="border flex justify-center rounded-lg bg-facebookdarkblue hover:bg-facebookblue p-3"
           href={`${process.env.REACT_APP_API_BASE_URL}/auth/facebook`}
         >
           <FontAwesomeIcon
