@@ -25,7 +25,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="flex min-h-screen justify-center items-center">
+    <div className="flex justify-center items-center">
       <form
         onSubmit={handleSubmit(confirm)}
         className="w-1/3"

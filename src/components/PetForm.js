@@ -312,7 +312,7 @@ export default function PetForm() {
                 hover:bg-secondary text-white  p-3 m-5 md:text-white md:hover:bg-red-200"
                 onClick={handleDeletePetProfile}
               >
-                Supprimer cet animal
+                Retirer cet animal
               </button>
             </div>
           ) : null}
@@ -386,8 +386,7 @@ export default function PetForm() {
                     onClick={() => handleClickFilteredFavorite(fav)}
                     className="toto"
                   >
-                    <div className="absolute right-0 m-2 md:mr-5 notPetFavorite" />
-
+                    <div className="absolute right-1 top-1 notPetFavorite" />
                     <div className="flex flex-col md:flex-row lg:flex-row items-center">
                       <img
                         className="p-1 w-full h-60 rounded-lg md:rounded-xl lg:rounded-lg object-contain md:h-40 md:w-40 lg:h-40 lg:w-40 "

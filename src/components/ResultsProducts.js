@@ -75,7 +75,10 @@ export default function ResultsProducts() {
       </div>
     </div>
   ) : (
-    <div className="flex flex-col justify-center items-center w-full h-screen">
+    <div
+      id="full-content"
+      className="flex flex-col text-center justify-center w-full"
+    >
       <p className="text-4xl">
         Désolé, votre recherche n'a rendu aucun résultat
       </p>

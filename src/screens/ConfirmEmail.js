@@ -6,7 +6,7 @@ export default function ConfirmEmail() {
   const { validateEmail } = useContext(CurrentUserContext);
   const { handleSubmit } = useForm();
   return (
-    <div className="min-h-screen flex justify-center items-center ">
+    <div className=" flex justify-center items-center ">
       <form onSubmit={handleSubmit(validateEmail)}>
         <div className="mb-3 dark:text-white">
           <h3>Veuillez confirmer votre email en cliquant sur le bouton</h3>

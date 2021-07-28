@@ -3,8 +3,9 @@ import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import google from '../assets/google-log.png';
 
 export default function SignIn() {
   const { login, setShowModal } = useContext(CurrentUserContext);
@@ -19,26 +20,27 @@ export default function SignIn() {
       </div>
       <div className="flex justify-center mt-4">
         <a
-          className="border flex justify-center rounded-lg bg-gradient-to-r hover:from-googleblue hover:via-googlered hover:to-googleyellow"
+          className="border flex justify-center rounded-lg"
           href={`${process.env.REACT_APP_API_BASE_URL}/auth/google`}
         >
-          <FontAwesomeIcon
-            className="flex items-center cursor-pointer mx-2 mt-1"
-            icon={faGoogle}
+          <img
+            className="w-5 h-5 flex items-center cursor-pointer mx-2 mt-0.5 "
+            src={google}
+            alt="G"
           />
           <p className="mr-2">Continuer avec Google</p>
         </a>
       </div>
       <div className="flex justify-center mt-4">
         <a
-          className="border flex justify-center rounded-lg bg-gradient-to-r hover:from-facebookdarkblue hover:via-facebookblue hover:to-white"
+          className="border flex justify-center rounded-lg bg-facebookdarkblue"
           href={`${process.env.REACT_APP_API_BASE_URL}/auth/facebook`}
         >
           <FontAwesomeIcon
-            className="flex items-center cursor-pointer mx-2 mt-1"
+            className="flex items-center cursor-pointer mx-2 mt-1 text-white"
             icon={faFacebook}
           />
-          <p className="mr-2">Continuer avec Facebook</p>
+          <p className="mr-2 text-white">Continuer avec Facebook</p>
         </a>
       </div>
       <form
