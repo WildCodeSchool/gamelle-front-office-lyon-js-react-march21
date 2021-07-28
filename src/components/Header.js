@@ -53,7 +53,7 @@ export default function Header() {
               burger ? ' flex' : ' hidden'
             }`}
           >
-            <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end">
+            <ul className="w-full flex flex-col lg:flex-row list-none lg:ml-auto lg:justify-end pb-3">
               <li className="nav-item">
                 <NavLink
                   className="px-3 py-2 flex items-center text-sm lg:text-md uppercase font-bold leading-snug text-white hover:opacity-75"

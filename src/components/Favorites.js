@@ -77,7 +77,7 @@ export default function Favorites() {
         <h1 className="text-center text-3xl font-extrabold ">Mes favoris</h1>
       </div>
       <br />
-      <div className="w-11/12">
+      <div className="w-9/12">
         <ul>
           {favoritesList.map((fav) => {
             return (
@@ -147,9 +147,9 @@ export default function Favorites() {
       ) : null}
     </div>
   ) : (
-    <div>
+    <div className="text-center p-10 font-bold">
       {profile
-        ? 'Désolé, votre liste de favoris est vide'
+        ? "Votre n'avez pas de favoris pour le moment"
         : 'Vous devez être connecté pour accéder à votre liste de favoris'}
     </div>
   );
